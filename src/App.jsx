@@ -93,7 +93,7 @@ const SearchResult = ({ res }) => {
             reviewCount={volumeInfo.reviewCount}
           />
           <ReleaseDate publishedDate={volumeInfo.publishedDate} />
-          <div>{volumeInfo.pageCount} pages</div>
+          <PageCount pageCount={volumeInfo.pageCount} />
           <div>
             {volumeInfo.industryIdentifiers.map((isbn, index) => {
               return <ISBN key={`isbn-${index}`} isbn={isbn} />;
@@ -155,8 +155,8 @@ const ReleaseDate = ({ publishedDate }) => {
   return <div>Released: {publishedDate}</div>;
 };
 
-const PageCount = () => {
-  return null;
+const PageCount = ({ pageCount }) => {
+  return <div>{pageCount} pages</div>;
 };
 
 export default App;
