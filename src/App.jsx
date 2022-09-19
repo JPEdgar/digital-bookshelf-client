@@ -21,7 +21,8 @@ const App = () => {
     setSearchText(e.target.value);
   };
 
-  const handleClick = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     handleSearch(searchText);
   };
 
@@ -49,7 +50,7 @@ const App = () => {
 
   return (
     <Container>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Form.Group>
           <Form.Label>Search:</Form.Label>
           <Form.Control
@@ -59,7 +60,7 @@ const App = () => {
             value={searchText}
           />
         </Form.Group>
-        <Button className="mt-1" onClick={() => handleClick()}>
+        <Button type="submit" className="mt-1">
           Search
         </Button>
       </Form>
@@ -80,30 +81,45 @@ const SearchResult = ({ res }) => {
       <Row>
         <Col xs={4}>
           <Image
-            src={volumeInfo.imageLinks.thumbnail}
+            src={volumeInfo.imageLinks?.thumbnail}
             alt={`${volumeInfo.title} cover`}
           />
         </Col>
         <Col xs={8}>
           <div>{volumeInfo.title}</div>
+          <Authors authors={volumeInfo.authors} />
+          <Rating
+            averageRating={volumeInfo.averageRating}
+            reviewCount={volumeInfo.reviewCount}
+          />
+          <ReleaseDate publishedDate={volumeInfo.publishedDate} />
+          <div>{volumeInfo.pageCount} pages</div>
           <div>
-            by:
-            <span className="m-1">
-              {volumeInfo.authors.map((author, index) => {
-                return (
-                  <Author
-                    key={`author-${index}`}
-                    author={author}
-                    index={index}
-                    length={volumeInfo.authors.length}
-                  />
-                );
-              })}
-            </span>
+            {volumeInfo.industryIdentifiers.map((isbn, index) => {
+              return <ISBN key={`isbn-${index}`} isbn={isbn} />;
+            })}
           </div>
         </Col>
       </Row>
     </Card>
+  );
+};
+
+const Authors = ({ authors }) => {
+  return (
+    <div>
+      by:
+      <span className="m-1">
+        {authors?.map((author, index) => (
+          <Author
+            key={`author-${index}`}
+            author={author}
+            index={index}
+            length={authors.length}
+          />
+        ))}
+      </span>
+    </div>
   );
 };
 
@@ -115,6 +131,32 @@ const Author = ({ author, index, length }) => {
   else if (index > 0 && index + 1 !== length) returnValue = `, ${author}`;
 
   return <span>{returnValue}</span>;
+};
+
+const ISBN = ({ isbn }) => {
+  return (
+    <div>
+      {isbn.type}: {isbn.identifier}
+    </div>
+  );
+};
+
+const Rating = ({ averageRating, reviewCount }) => {
+  return averageRating ? (
+    <div>
+      {averageRating} <span>{reviewCount}</span>
+    </div>
+  ) : (
+    <div>No reviews</div>
+  );
+};
+
+const ReleaseDate = ({ publishedDate }) => {
+  return <div>Released: {publishedDate}</div>;
+};
+
+const PageCount = () => {
+  return null;
 };
 
 export default App;
