@@ -20,7 +20,7 @@ const SearchBar = () => {
     //   "https://www.googleapis.com/books/v1/volumes?q=intitle:drizzt exile+inauthor:Salvatore";
 
     const search = `${API}/volumes?q=${query}`
-    console.log(search)
+    // console.log(search)
     axios
       .get(search)
       .then((res) => setSearchResults(res.data));

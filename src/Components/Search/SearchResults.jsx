@@ -7,7 +7,7 @@ import { useBookshelfContext } from "../../Context/Bookshelf/BookshelfContext";
 const SearchResults = () => {
   const { searchResults } = useBookshelfContext();
 
-  console.log(searchResults);
+  // console.log(searchResults);
   const { items } = searchResults;
   return (
     <>
@@ -20,7 +20,12 @@ const SearchResults = () => {
 };
 
 const SearchResult = ({ item }) => {
+  const { isInBookshelf } = useBookshelfContext();
   const { volumeInfo } = item;
+  const isbnObject = createISBNObject(volumeInfo.industryIdentifiers);
+  const inBookshelfFlag = isInBookshelf(isbnObject.ISBN_13);
+  console.log(inBookshelfFlag);
+
   return (
     <Card>
       <Row>
@@ -48,6 +53,18 @@ const SearchResult = ({ item }) => {
       </Row>
     </Card>
   );
+};
+
+const createISBNObject = (industryIDList) => {
+  let isbnObject = {};
+  industryIDList.map(
+    (industryId) =>
+      (isbnObject = {
+        ...isbnObject,
+        [industryId.type]: parseInt(industryId.identifier),
+      })
+  );
+  return isbnObject;
 };
 
 const ISBN = ({ isbn }) => {
