@@ -1,5 +1,6 @@
 import React from "react";
 
+import axios from "axios";
 import {
   Navbar,
   Container,
@@ -13,9 +14,24 @@ import {
 import { useBookshelfContext } from "../../Context/Bookshelf/BookshelfContext";
 
 const Navigation = () => {
-  const { searchResults, setSearchResults } = useBookshelfContext();
+  const { searchResults, setSearchResults, searchData, setSearchData, API } =
+    useBookshelfContext();
 
-  
+  const handleChange = (e) => {
+    setSearchData((curr) => ({ ...curr, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleSearch(searchData.searchQuery);
+  };
+
+  const handleSearch = async (query) => {
+    console.log("query = ", query);
+    if (!query) return;
+    const search = `${API}/volumes?q=${query}`;
+    axios.get(search).then((res) => setSearchResults(res.data));
+  };
   return (
     <>
       <Navbar
@@ -32,9 +48,9 @@ const Navigation = () => {
               src="https://picsum.photos/200"
               width="30"
               height="30"
-              className="d-inline-block align-top"
+              className="d-inline-block align-top me-1"
             />
-            <span className="m-1">Digital Bookshelf</span>
+            Digital Bookshelf
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
@@ -43,14 +59,19 @@ const Navigation = () => {
               <Nav.Link href="#features">Features</Nav.Link>
               <Nav.Link href="#pricing">Pricing</Nav.Link>
             </Nav>
-            <Form className="d-flex">
+            <Form className="d-flex" onSubmit={handleSubmit}>
               <Form.Control
+                name="searchQuery"
+                placeholder="Search for books"
+                onChange={handleChange}
+                value={searchData.searchQuery}
                 type="search"
-                placeholder="Search"
                 className="me-2"
                 aria-label="Search"
               />
-              <Button variant="outline-success">Search</Button>
+              <Button variant="outline-success" type="submit">
+                Search
+              </Button>
             </Form>
           </Navbar.Collapse>
         </Container>
