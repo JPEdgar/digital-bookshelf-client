@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import axios from "axios";
 import {
@@ -17,13 +17,10 @@ const Navigation = () => {
   const { searchResults, setSearchResults, searchData, setSearchData, API } =
     useBookshelfContext();
 
+  const { searchQuery } = searchData;
+
   const handleChange = (e) => {
     setSearchData((curr) => ({ ...curr, [e.target.name]: e.target.value }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    handleSearch(searchData.searchQuery);
   };
 
   const handleSearch = async (query) => {
@@ -32,6 +29,14 @@ const Navigation = () => {
     const search = `${API}/volumes?q=${query}`;
     axios.get(search).then((res) => setSearchResults(res.data));
   };
+
+  useEffect(() => {
+    const delayDebounce = setTimeout(() => {
+      handleSearch(searchQuery);
+    }, 1000);
+    return () => clearTimeout(delayDebounce);
+  }, [searchQuery]);
+
   return (
     <>
       <Navbar
@@ -59,19 +64,15 @@ const Navigation = () => {
               <Nav.Link href="#features">Features</Nav.Link>
               <Nav.Link href="#pricing">Pricing</Nav.Link>
             </Nav>
-            <Form className="d-flex" onSubmit={handleSubmit}>
+            <Form className="d-flex w-100">
               <Form.Control
                 name="searchQuery"
                 placeholder="Search for books"
                 onChange={handleChange}
                 value={searchData.searchQuery}
                 type="search"
-                className="me-2"
                 aria-label="Search"
               />
-              <Button variant="outline-success" type="submit">
-                Search
-              </Button>
             </Form>
           </Navbar.Collapse>
         </Container>
