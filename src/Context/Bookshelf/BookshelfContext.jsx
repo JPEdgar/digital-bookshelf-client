@@ -67,6 +67,10 @@ const BookshelfProvider = ({ children }) => {
     // console.log("bookshelf = ", bookshelf);
   }, [bookshelf]);
 
+  useEffect(() => {
+    console.log("searchResults = ", searchResults);
+  }, [searchResults]);
+
   return (
     <BookshelfContext.Provider
       value={{
