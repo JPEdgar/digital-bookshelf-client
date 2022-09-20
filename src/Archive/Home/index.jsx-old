@@ -1,0 +1,21 @@
+import React from "react";
+
+import { Tabs, Tab } from "react-bootstrap";
+
+import Bookshelf from "../Bookshelf";
+import Search from "../Search";
+
+const Home = () => {
+  return (
+    <Tabs defaultActiveKey="myBookshelf" className="mb-3">
+      <Tab eventKey="myBookshelf" title="My Bookshelf">
+        <Bookshelf />
+      </Tab>
+      <Tab eventKey="search" title="Search">
+        <Search />
+      </Tab>
+    </Tabs>
+  );
+};
+
+export default Home;
