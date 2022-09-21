@@ -12,12 +12,21 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar as faStarOutline } from "@fortawesome/free-regular-svg-icons";
 
 import { useBookshelfContext } from "../../Context/Bookshelf/BookshelfContext";
 
 const Navigation = () => {
-  const { searchResults, setSearchResults, searchData, setSearchData, API } =
-    useBookshelfContext();
+  const {
+    searchResults,
+    setSearchResults,
+    searchData,
+    setSearchData,
+    API,
+    toggleToBookshelf,
+  } = useBookshelfContext();
 
   const { searchQuery } = searchData;
 
@@ -32,6 +41,15 @@ const Navigation = () => {
     axios.get(search).then((res) => setSearchResults(res.data));
   };
 
+  const handleBookstoreClick = (isbnObj) => {
+    // console.log("here");
+    toggleToBookshelf(isbnObj);
+  };
+
+  const handleSearchDetails = (test) => {
+    console.log(test);
+  };
+
   useEffect(() => {
     const delayDebounce = setTimeout(() => {
       handleSearch(searchQuery);
@@ -40,8 +58,9 @@ const Navigation = () => {
   }, [searchQuery]);
 
   useEffect(() => {
-    console.log("searchResults = ", searchResults);
+    // console.log("searchResults = ", searchResults);
   }, [searchResults]);
+
   return (
     <>
       <Navbar
@@ -64,8 +83,12 @@ const Navigation = () => {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
-            {/* <Nav className="me-auto"> <Nav.Link href="#home">Home</Nav.Link> <Nav.Link href="#features">Features</Nav.Link> <Nav.Link href="#pricing">Pricing</Nav.Link> </Nav> */}
-            <Dropdown className="w-100">
+            <Nav className="me-auto">
+              <Nav.Link href="#home">Home</Nav.Link>
+              <Nav.Link href="#features">Book Details</Nav.Link>
+              <Nav.Link href="#pricing">Pricing</Nav.Link>
+            </Nav>
+            <Dropdown className="w-50">
               <Dropdown.Toggle style={{ width: "100%" }}>
                 <input
                   name="searchQuery"
@@ -91,6 +114,7 @@ const Navigation = () => {
                             height: "90px",
                           }}
                           className="d-flex justify-content-center"
+                          onClick={() => handleSearchDetails(result.volumeInfo)}
                         >
                           <Image
                             src={result.volumeInfo.imageLinks?.thumbnail}
@@ -98,11 +122,12 @@ const Navigation = () => {
                           />
                         </Col>
                         <Col
-                          xs={12}
-                          sm={10}
+                          xs={11}
+                          sm={9}
                           style={{
                             height: "90px",
                           }}
+                          onClick={() => handleSearchDetails(result.volumeInfo)}
                         >
                           <div
                             style={{
@@ -135,6 +160,16 @@ const Navigation = () => {
                               )}
                             </span>
                           </div>
+                        </Col>
+                        <Col xs={1}>
+                          <FontAwesomeIcon
+                            icon={faStarOutline}
+                            onClick={() =>
+                              handleBookstoreClick(
+                                result.volumeInfo.industryIdentifiers
+                              )
+                            }
+                          />
                         </Col>
                       </Row>
                     </Dropdown.Item>
