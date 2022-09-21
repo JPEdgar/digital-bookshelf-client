@@ -3,20 +3,20 @@ const createBookObject = (isbnObj = {}) => {
   let isbn10;
   let isbn13;
 
-  if (isbnObj.isbn10)
+  if (isbnObj.ISBN_10)
     isbn10 =
-      typeof isbn10 === "string" ? parseInt(isbnObj.isbn10) : isbnObj.isbn10;
-  if (isbnObj.isbn13)
+      typeof isbn10 === "string" ? parseInt(isbnObj.ISBN_10) : isbnObj.ISBN_10;
+  if (isbnObj.ISBN_13)
     isbn13 =
-      typeof isbn13 === "string" ? parseInt(isbnObj.isbn13) : isbnObj.isbn13;
+      typeof isbn13 === "string" ? parseInt(isbnObj.ISBN_13) : isbnObj.ISBN_13;
 
   if (isbn13) newISBN = isbn13;
   else if (isbn10) newISBN = isbn10;
 
   if (!newISBN) {
-    // window.alert( `Invalid -- ISBN10: ${isbnObj.isbn10} -- ISBN13: ${isbnObj.isbn13}` );
+    // window.alert( `Invalid -- ISBN10: ${isbnObj.isbn_10} -- ISBN13: ${isbnObj.isbn_13}` );
     console.log(
-      `Invalid -- ISBN10: ${isbnObj.isbn10} -- ISBN13: ${isbnObj.isbn13}`
+      `Invalid -- ISBN10: ${isbnObj.ISBN_10} -- ISBN13: ${isbnObj.ISBN_13}`
     );
     return "error";
   }

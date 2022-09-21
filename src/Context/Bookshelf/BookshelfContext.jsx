@@ -13,10 +13,12 @@ const INITIALIZE_SEARCH = {
 };
 
 const INITIALIZE_BOOKSHELF = [
-  createBookObject({ isbn13: 9798886530247 }),
-  createBookObject({ isbn13: 9781680469035 }),
+  createBookObject({ ISBN_13: 9798886530247 }),
+  createBookObject({ ISBN_13: 9781680469035 }),
   // createBookItem("Bloodlines of Atmos", 9781680468779),
 ];
+
+
 
 const BookshelfProvider = ({ children }) => {
   const [searchData, setSearchData] = useState(INITIALIZE_SEARCH);
@@ -25,9 +27,30 @@ const BookshelfProvider = ({ children }) => {
   const API = "https://www.googleapis.com/books/v1";
   const [bookshelf, setBookshelf] = useState(INITIALIZE_BOOKSHELF);
 
+
+  /* /////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////
+
+  small naming problem?
+  bookshelf implies it's "owned."  
+  Bookshelf object data has (or will have) an "isOwnedFlag" variable.
+
+  Bookshelf should be a list of numbers the user has toggled a setting with 
+    (such as isOwned, onWishlist, etc.)
+
+  Should "bookshelf" be renamed?
+
+  ////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////  
+  */ /////////////////////////////////////////////////////
+
+
   const toggleToBookshelf = (isbnObj) => {
     const isbn = createISBNObject(isbnObj);
     const inBookshelfId = isInBookshelf(isbn);
+    console.log(isbn);
+    console.log(inBookshelfId);
     if (inBookshelfId)
       setBookshelf((curr) => curr.filter((x) => x.id !== inBookshelfId));
     else setBookshelf((curr) => [...curr, createBookObject(isbn)]);
@@ -48,7 +71,7 @@ const BookshelfProvider = ({ children }) => {
   }, [searchData]);
 
   useEffect(() => {
-    // console.log("bookshelf = ", bookshelf);
+    console.log("bookshelf = ", bookshelf);
   }, [bookshelf]);
 
   useEffect(() => {
