@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 
 import axios from "axios";
+import { Link } from "react-router-dom";
 import {
   Navbar,
   Container,
@@ -65,7 +66,7 @@ const Navigation = () => {
         expand="md"
       >
         <Container>
-          <Navbar.Brand href="#home">
+          <Navbar.Brand as={Link} to="/">
             <Image
               alt=""
               src="https://picsum.photos/200"
@@ -78,9 +79,13 @@ const Navigation = () => {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#features">Book Details</Nav.Link>
-              <Nav.Link href="#pricing">Pricing</Nav.Link>
+              <Nav.Link as={Link} to="/">
+                Home
+              </Nav.Link>
+              <Nav.Link as={Link} to="details">
+                Book Details
+              </Nav.Link>
+              {/* <Nav.Link as={Link} to="">Pricing</Nav.Link> */}
             </Nav>
             <Dropdown className="w-50">
               <Dropdown.Toggle style={{ width: "100%" }}>
@@ -99,9 +104,14 @@ const Navigation = () => {
               <Dropdown.Menu className="w-100">
                 {searchResults.items?.length > 0 &&
                   searchResults.items.map((result, index) => (
-                    <Dropdown.Item key={`searchResultDropdownItem-${index}`}>
+                    <Dropdown.Item
+                      key={`searchResultDropdownItem-${index}`}
+                      as="div"
+                    >
                       <Row>
                         <Col
+                          as={Link}
+                          to="details"
                           xs={0}
                           sm={3}
                           style={{
@@ -116,6 +126,8 @@ const Navigation = () => {
                           />
                         </Col>
                         <Col
+                          as={Link}
+                          to="details"
                           xs={10}
                           sm={7}
                           style={{
