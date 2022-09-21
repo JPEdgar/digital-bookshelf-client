@@ -30,15 +30,25 @@ const BookshelfProvider = ({ children }) => {
 
   const toggleToBookshelf = (isbnObj) => {
     const isbn = createISBNObject(isbnObj);
-    console.log(isbn);
+    // console.log(isbn);
 
+    isInBookshelf(isbn);
+    // if (isInBookshelf(isbn.ISBN_10)) console.log("10 - true")
+    // else if (isInBookshelf(isbn.ISBN_13)) console.log("13 - true")
+    // else console.log("false: ", isbn)
     // const newBookObject = createBookItem(bookTitle, isbn13);
     // setBookshelf((curr) => [...curr, newBookObject]);
   };
 
-  const isInBookshelf = (isbn13) => {
-    // convert to isbnObject ~ isbn10 and isbn13
-    // return bookshelf.find((book) => book.id === isbn13) ? true : false;
+  const isInBookshelf = (isbn) => {
+    let returnFlag;
+    if (
+      bookshelf.find((book) => book.id === isbn.ISBN_10) ||
+      bookshelf.find((book) => book.id === isbn.ISBN_13)
+    )
+      returnFlag = true;
+    else returnFlag = false;
+    return returnFlag;
   };
 
   useEffect(() => {

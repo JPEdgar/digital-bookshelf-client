@@ -40,7 +40,7 @@ const Navigation = () => {
     axios.get(search).then((res) => setSearchResults(res.data));
   };
 
-  const handleBookstoreClick = (isbnObj) => {
+  const handleBookshelfClick = (isbnObj) => {
     toggleToBookshelf(isbnObj);
   };
 
@@ -175,7 +175,7 @@ const Navigation = () => {
                           <FontAwesomeIcon
                             icon={faStarOutline}
                             onClick={() =>
-                              handleBookstoreClick(
+                              handleBookshelfClick(
                                 result.volumeInfo.industryIdentifiers
                               )
                             }

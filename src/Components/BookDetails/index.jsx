@@ -8,7 +8,6 @@ import { useBookshelfContext } from "../../Context/Bookshelf/BookshelfContext";
 const BookDetails = () => {
   const { bookDetail } = useBookshelfContext();
 
-  console.log(bookDetail);
   return (
     <>
       <Row>
