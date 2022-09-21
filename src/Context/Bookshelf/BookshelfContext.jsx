@@ -26,6 +26,7 @@ const INITIALIZE_BOOKSHELF = [
 const BookshelfProvider = ({ children }) => {
   const [searchData, setSearchData] = useState(INITIALIZE_SEARCH);
   const [searchResults, setSearchResults] = useState([]);
+  const [bookDetail, setBookDetail] = useState()
   const API = "https://www.googleapis.com/books/v1";
   const [bookshelf, setBookshelf] = useState(INITIALIZE_BOOKSHELF);
 
@@ -64,7 +65,7 @@ const BookshelfProvider = ({ children }) => {
         API,
         bookshelf,
         isInBookshelf,
-        toggleToBookshelf,
+        toggleToBookshelf, bookDetail, setBookDetail
       }}
     >
       {children}

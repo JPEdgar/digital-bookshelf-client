@@ -13,7 +13,6 @@ const App = () => {
     <>
       <Navigation />
       <Container style={{ backgroundColor: "yellow" }}>
-        <div style={{ height: "1000px" }}>dwww</div>
         <Routes>
           <Route path="/" element={null} />
           <Route path="/details" element={<BookDetails />} />

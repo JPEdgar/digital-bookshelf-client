@@ -6,8 +6,6 @@ import {
   Navbar,
   Container,
   Nav,
-  Form,
-  Button,
   Image,
   Dropdown,
   Row,
@@ -27,6 +25,7 @@ const Navigation = () => {
     setSearchData,
     API,
     toggleToBookshelf,
+    setBookDetail,
   } = useBookshelfContext();
 
   const { searchQuery } = searchData;
@@ -45,8 +44,8 @@ const Navigation = () => {
     toggleToBookshelf(isbnObj);
   };
 
-  const handleSearchDetails = (test) => {
-    console.log(test);
+  const handleSearchDetails = (details) => {
+    setBookDetail(details);
   };
 
   useEffect(() => {

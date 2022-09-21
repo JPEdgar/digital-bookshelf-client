@@ -38,10 +38,7 @@ const SearchResult = ({ item }) => {
         <Col xs={8}>
           <div>{volumeInfo.title}</div>
           <Authors authors={volumeInfo.authors} />
-          <Rating
-            averageRating={volumeInfo.averageRating}
-            ratingsCount={volumeInfo.ratingsCount}
-          />
+          <Rating averageRating={volumeInfo.averageRating} ratingsCount={volumeInfo.ratingsCount} />
           <ReleaseDate publishedDate={volumeInfo.publishedDate} />
           <PageCount pageCount={volumeInfo.pageCount} />
           <div>
