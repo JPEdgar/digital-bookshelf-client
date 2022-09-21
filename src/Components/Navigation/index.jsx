@@ -111,6 +111,15 @@ const Navigation = () => {
                           >
                             {result.volumeInfo.title}
                           </div>
+                          {result.volumeInfo.subtitle && (
+                            <div
+                              style={{
+                                overflow: "hidden",
+                              }}
+                            >
+                              {result.volumeInfo.subtitle}
+                            </div>
+                          )}
                           <div>
                             by:
                             <span className="m-1">
