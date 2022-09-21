@@ -35,14 +35,12 @@ const Navigation = () => {
   };
 
   const handleSearch = async (query) => {
-    console.log("query = ", query);
     if (!query) return;
     const search = `${API}/volumes?q=${query}`;
     axios.get(search).then((res) => setSearchResults(res.data));
   };
 
   const handleBookstoreClick = (isbnObj) => {
-    // console.log("here");
     toggleToBookshelf(isbnObj);
   };
 
@@ -56,10 +54,6 @@ const Navigation = () => {
     }, 1000);
     return () => clearTimeout(delayDebounce);
   }, [searchQuery]);
-
-  useEffect(() => {
-    // console.log("searchResults = ", searchResults);
-  }, [searchResults]);
 
   return (
     <>
@@ -108,12 +102,12 @@ const Navigation = () => {
                     <Dropdown.Item key={`searchResultDropdownItem-${index}`}>
                       <Row>
                         <Col
-                          xs={12}
-                          sm={2}
+                          xs={0}
+                          sm={3}
                           style={{
                             height: "90px",
                           }}
-                          className="d-flex justify-content-center"
+                          className="justify-content-center d-none d-sm-flex"
                           onClick={() => handleSearchDetails(result.volumeInfo)}
                         >
                           <Image
@@ -122,8 +116,8 @@ const Navigation = () => {
                           />
                         </Col>
                         <Col
-                          xs={11}
-                          sm={9}
+                          xs={10}
+                          sm={7}
                           style={{
                             height: "90px",
                           }}
@@ -161,7 +155,7 @@ const Navigation = () => {
                             </span>
                           </div>
                         </Col>
-                        <Col xs={1}>
+                        <Col xs={2}>
                           <FontAwesomeIcon
                             icon={faStarOutline}
                             onClick={() =>
