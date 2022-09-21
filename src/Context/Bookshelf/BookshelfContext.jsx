@@ -68,7 +68,7 @@ const BookshelfProvider = ({ children }) => {
   }, [bookshelf]);
 
   useEffect(() => {
-    console.log("searchResults = ", searchResults);
+    // console.log("searchResults = ", searchResults);
   }, [searchResults]);
 
   return (

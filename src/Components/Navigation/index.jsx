@@ -9,6 +9,8 @@ import {
   Button,
   Image,
   Dropdown,
+  Row,
+  Col,
 } from "react-bootstrap";
 
 import { useBookshelfContext } from "../../Context/Bookshelf/BookshelfContext";
@@ -37,6 +39,9 @@ const Navigation = () => {
     return () => clearTimeout(delayDebounce);
   }, [searchQuery]);
 
+  useEffect(() => {
+    console.log("searchResults = ", searchResults);
+  }, [searchResults]);
   return (
     <>
       <Navbar
@@ -59,26 +64,89 @@ const Navigation = () => {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#features">Features</Nav.Link>
-              <Nav.Link href="#pricing">Pricing</Nav.Link>
-            </Nav>
-            <Form className="d-flex w-100">
-              <Form.Control
-                name="searchQuery"
-                placeholder="Search for books"
-                onChange={handleChange}
-                value={searchData.searchQuery}
-                type="search"
-                aria-label="Search"
-              />
-            </Form>
+            {/* <Nav className="me-auto"> <Nav.Link href="#home">Home</Nav.Link> <Nav.Link href="#features">Features</Nav.Link> <Nav.Link href="#pricing">Pricing</Nav.Link> </Nav> */}
+            <Dropdown className="w-100">
+              <Dropdown.Toggle style={{ width: "100%" }}>
+                <input
+                  name="searchQuery"
+                  placeholder="Search for books"
+                  onChange={handleChange}
+                  value={searchQuery}
+                  type="search"
+                  aria-label="Search"
+                  className="w-100"
+                  style={{ maxWidth: "95%" }}
+                />
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu className="w-100">
+                {searchResults.items?.length > 0 &&
+                  searchResults.items.map((result, index) => (
+                    <Dropdown.Item key={`searchResultDropdownItem-${index}`}>
+                      <Row>
+                        <Col
+                          xs={12}
+                          sm={2}
+                          style={{
+                            height: "90px",
+                          }}
+                          className="d-flex justify-content-center"
+                        >
+                          <Image
+                            src={result.volumeInfo.imageLinks?.thumbnail}
+                            alt="cover"
+                          />
+                        </Col>
+                        <Col
+                          xs={12}
+                          sm={10}
+                          style={{
+                            height: "90px",
+                          }}
+                        >
+                          <div
+                            style={{
+                              overflow: "hidden",
+                            }}
+                          >
+                            {result.volumeInfo.title}
+                          </div>
+                          <div>
+                            by:
+                            <span className="m-1">
+                              {result.volumeInfo.authors?.map(
+                                (author, index) => (
+                                  <Author
+                                    key={`author-${index}`}
+                                    author={author}
+                                    index={index}
+                                    length={result.volumeInfo.authors.length}
+                                  />
+                                )
+                              )}
+                            </span>
+                          </div>
+                        </Col>
+                      </Row>
+                    </Dropdown.Item>
+                  ))}
+              </Dropdown.Menu>
+            </Dropdown>
           </Navbar.Collapse>
         </Container>
       </Navbar>
     </>
   );
+};
+
+const Author = ({ author, index, length }) => {
+  let returnValue = "";
+
+  if (index === 0) returnValue = author;
+  else if (index + 1 === length) returnValue = `, and ${author}`;
+  else if (index > 0 && index + 1 !== length) returnValue = `, ${author}`;
+
+  return <span>{returnValue}</span>;
 };
 
 export default Navigation;
