@@ -13,11 +13,8 @@ const INITIALIZE_SEARCH = {
 };
 
 const INITIALIZE_BOOKSHELF = [
-  createBookObject(
-    "Bloodlines of Atmos - the Story of Jace - Book 3 Redemption",
-    { isbn13: 9798886530247 }
-  ),
-  createBookObject("Bloodlines of Atmos", { isbn13: 9781680469035 }),
+  createBookObject({ isbn13: 9798886530247 }),
+  createBookObject({ isbn13: 9781680469035 }),
   // createBookItem("Bloodlines of Atmos", 9781680468779),
 ];
 
@@ -30,25 +27,20 @@ const BookshelfProvider = ({ children }) => {
 
   const toggleToBookshelf = (isbnObj) => {
     const isbn = createISBNObject(isbnObj);
-    // console.log(isbn);
-
-    isInBookshelf(isbn);
-    // if (isInBookshelf(isbn.ISBN_10)) console.log("10 - true")
-    // else if (isInBookshelf(isbn.ISBN_13)) console.log("13 - true")
-    // else console.log("false: ", isbn)
-    // const newBookObject = createBookItem(bookTitle, isbn13);
-    // setBookshelf((curr) => [...curr, newBookObject]);
+    const inBookshelfId = isInBookshelf(isbn);
+    if (inBookshelfId)
+      setBookshelf((curr) => curr.filter((x) => x.id !== inBookshelfId));
+    else setBookshelf((curr) => [...curr, createBookObject(isbn)]);
   };
 
   const isInBookshelf = (isbn) => {
-    let returnFlag;
-    if (
-      bookshelf.find((book) => book.id === isbn.ISBN_10) ||
-      bookshelf.find((book) => book.id === isbn.ISBN_13)
-    )
-      returnFlag = true;
-    else returnFlag = false;
-    return returnFlag;
+    let returnId;
+    if (bookshelf.find((book) => book.id === isbn.ISBN_10))
+      returnId = isbn.ISBN_10;
+    else if (bookshelf.find((book) => book.id === isbn.ISBN_13))
+      returnId = isbn.ISBN_13;
+    else returnId = 0;
+    return returnId;
   };
 
   useEffect(() => {

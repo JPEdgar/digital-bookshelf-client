@@ -5,6 +5,7 @@ import { Container } from "react-bootstrap";
 
 import Navigation from "./Components/Navigation";
 import BookDetails from "./Components/BookDetails";
+import Bookshelf from "./Components/Bookshelf";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -14,7 +15,7 @@ const App = () => {
       <Navigation />
       <Container>
         <Routes>
-          <Route path="/" element={null} />
+          <Route path="/" element={<Bookshelf />} />
           <Route path="/details" element={<BookDetails />} />
         </Routes>
       </Container>

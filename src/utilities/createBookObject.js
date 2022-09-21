@@ -1,24 +1,32 @@
-const createBookObject = (bookTitle, isbnObj = {}) => {
+const createBookObject = (isbnObj = {}) => {
   let newISBN;
+  let isbn10;
+  let isbn13;
 
-  if (isbnObj.isbn13)
-    newISBN =
-      typeof isbn13 === "string" ? parseInt(isbnObj.isbn13) : isbnObj.isbn13;
-  else if (isbnObj.isbn10)
-    newISBN =
+  if (isbnObj.isbn10)
+    isbn10 =
       typeof isbn10 === "string" ? parseInt(isbnObj.isbn10) : isbnObj.isbn10;
-  else {
-    window.alert(
-      `Invalid ISBN for ${bookTitle} - ISBN10: ${isbnObj.isbn10} -- ISBN13: ${isbnObj.isbn13}`
+  if (isbnObj.isbn13)
+    isbn13 =
+      typeof isbn13 === "string" ? parseInt(isbnObj.isbn13) : isbnObj.isbn13;
+
+  if (isbn13) newISBN = isbn13;
+  else if (isbn10) newISBN = isbn10;
+
+  if (!newISBN) {
+    // window.alert( `Invalid -- ISBN10: ${isbnObj.isbn10} -- ISBN13: ${isbnObj.isbn13}` );
+    console.log(
+      `Invalid -- ISBN10: ${isbnObj.isbn10} -- ISBN13: ${isbnObj.isbn13}`
     );
     return "error";
   }
 
   const newBookObject = {
     id: newISBN,
-    title: bookTitle,
-    isbn13: newISBN,
-    // subtitle: "", isbn10: 0, inBookshelfFlag: true, onWishlistFlag: false, isSharedFlag: false, availablePrint: { hardBoundFlag: false, softBoundFlag: false }, availableDigitalFlag: false, availableAudioFlag: false,
+    isbn10: isbn10,
+    isbn13: isbn13,
+    inBookshelfFlag: true,
+    // title: bookTitle, subtitle: "", , onWishlistFlag: false, isSharedFlag: false, availablePrint: { hardBoundFlag: false, softBoundFlag: false }, availableDigitalFlag: false, availableAudioFlag: false,
   };
   return newBookObject;
 };
