@@ -1,7 +1,8 @@
 import React from "react";
 
-import { Row, Col, Image } from "react-bootstrap";
+import { createISBNObject } from "../../utilities";
 
+import { Row, Col, Image } from "react-bootstrap";
 import { useBookshelfContext } from "../../Context/Bookshelf/BookshelfContext";
 
 const BookDetails = () => {
@@ -13,13 +14,13 @@ const BookDetails = () => {
       <Row>
         {bookDetail && (
           <>
-            <Col>
+            <Col xs={3} className="d-flex justify-content-center">
               <Image
                 src={bookDetail.imageLinks?.thumbnail}
                 alt={`${bookDetail.title} cover`}
               />
             </Col>
-            <Col>
+            <Col xs={9}>
               <div>{bookDetail.title}</div>
               <div>{bookDetail.subtitle}</div>
               <Authors authors={bookDetail.authors} />
@@ -29,10 +30,13 @@ const BookDetails = () => {
               />
               <ReleaseDate publishedDate={bookDetail.publishedDate} />
               <PageCount pageCount={bookDetail.pageCount} />
+              <ISBN isbnObj={bookDetail.industryIdentifiers} />
             </Col>
           </>
         )}
       </Row>
+      <Row>{bookDetail?.description}</Row>
+      <Row>Other works...</Row>
     </>
   );
 };
@@ -84,12 +88,15 @@ const ReleaseDate = ({ publishedDate }) => {
 };
 
 const PageCount = ({ pageCount }) => {
+  return <div>{pageCount} pages</div>;
+};
+
+const ISBN = ({ isbnObj }) => {
+  const newISBNObj = createISBNObject(isbnObj);
   return (
     <>
-      {/* {tempRes?.items.length > 0 &&
-          tempRes.items.map((res, index) => (
-            <SearchResult key={`res-${index}`} res={res} />
-          ))} */}
+      {newISBNObj.ISBN_10 && <div>ISBN-10: {newISBNObj.ISBN_10}</div>}
+      {newISBNObj.ISBN_13 && <div>ISBN-13: {newISBNObj.ISBN_13}</div>}
     </>
   );
 };

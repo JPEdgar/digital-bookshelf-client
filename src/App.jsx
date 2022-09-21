@@ -12,7 +12,7 @@ const App = () => {
   return (
     <>
       <Navigation />
-      <Container style={{ backgroundColor: "yellow" }}>
+      <Container>
         <Routes>
           <Route path="/" element={null} />
           <Route path="/details" element={<BookDetails />} />
