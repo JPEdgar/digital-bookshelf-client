@@ -8,8 +8,6 @@ const useBookshelfContext = () => {
   return useContext(BookshelfContext);
 };
 
-
-
 const INITIALIZE_SEARCH = {
   searchQuery: '"Bloodlines of Atmos"',
 };
@@ -26,7 +24,7 @@ const INITIALIZE_BOOKSHELF = [
 const BookshelfProvider = ({ children }) => {
   const [searchData, setSearchData] = useState(INITIALIZE_SEARCH);
   const [searchResults, setSearchResults] = useState([]);
-  const [bookDetail, setBookDetail] = useState()
+  const [bookDetail, setBookDetail] = useState();
   const API = "https://www.googleapis.com/books/v1";
   const [bookshelf, setBookshelf] = useState(INITIALIZE_BOOKSHELF);
 
@@ -65,7 +63,9 @@ const BookshelfProvider = ({ children }) => {
         API,
         bookshelf,
         isInBookshelf,
-        toggleToBookshelf, bookDetail, setBookDetail
+        toggleToBookshelf,
+        bookDetail,
+        setBookDetail,
       }}
     >
       {children}

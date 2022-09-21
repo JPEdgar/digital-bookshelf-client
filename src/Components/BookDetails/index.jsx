@@ -23,9 +23,12 @@ const BookDetails = () => {
               <div>{bookDetail.title}</div>
               <div>{bookDetail.subtitle}</div>
               <Authors authors={bookDetail.authors} />
-              <Rating averageRating={bookDetail.averageRating} ratingsCount={bookDetail.ratingsCount} />
-          <ReleaseDate publishedDate={bookDetail.publishedDate} />
-          <PageCount pageCount={bookDetail.pageCount} />
+              <Rating
+                averageRating={bookDetail.averageRating}
+                ratingsCount={bookDetail.ratingsCount}
+              />
+              <ReleaseDate publishedDate={bookDetail.publishedDate} />
+              <PageCount pageCount={bookDetail.pageCount} />
             </Col>
           </>
         )}

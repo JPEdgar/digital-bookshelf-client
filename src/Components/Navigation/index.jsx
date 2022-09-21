@@ -122,6 +122,7 @@ const Navigation = () => {
                           <Image
                             src={result.volumeInfo.imageLinks?.thumbnail}
                             alt="cover"
+                            style={{ width: "auto", maxWidth: "100px" }}
                           />
                         </Col>
                         <Col
@@ -150,7 +151,11 @@ const Navigation = () => {
                               {result.volumeInfo.subtitle}
                             </div>
                           )}
-                          <div>
+                          <div
+                            style={{
+                              overflow: "hidden",
+                            }}
+                          >
                             by:
                             <span className="m-1">
                               {result.volumeInfo.authors?.map(
