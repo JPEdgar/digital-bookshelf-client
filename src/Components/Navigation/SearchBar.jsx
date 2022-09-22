@@ -2,10 +2,9 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 import { Dropdown, Image, Row, Col } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { faStar as faStarOutline } from "@fortawesome/free-regular-svg-icons";
 
+import FavoritesIcon from "../elements/FavoritesIcon";
+import { createAuthorString } from "../../utilities";
 import { useBookshelfContext } from "../../Context/Bookshelf/BookshelfContext";
 
 const SearchBar = () => {
@@ -81,20 +80,21 @@ const SearchBar = () => {
                   )}
                   <div style={{ overflow: "hidden" }}>
                     by:
-                    <span className="m-1">
-                      {result.volumeInfo.authors?.map((author, index) => (
-                        <Author
-                          key={`author-${index}`}
-                          author={author}
-                          index={index}
-                          length={result.volumeInfo.authors.length}
-                        />
-                      ))}
+                    <span className="ms-1">
+                      {createAuthorString(result.volumeInfo.authors)}
                     </span>
                   </div>
                 </Col>
                 <Col xs={2}>
-                  <FontAwesomeIcon icon={ isOnBookshelf(null, result.volumeInfo.industryIdentifiers) ? faStar : faStarOutline } onClick={() => toggleToBookshelf( result.volumeInfo.industryIdentifiers ) } />
+                  <FavoritesIcon
+                    toggle={isOnBookshelf(
+                      null,
+                      result.volumeInfo.industryIdentifiers
+                    )}
+                    onClick={() => toggleToBookshelf(
+                      result.volumeInfo.industryIdentifiers
+                    )}
+                  />
                 </Col>
               </Row>
             </Dropdown.Item>
@@ -102,16 +102,6 @@ const SearchBar = () => {
       </Dropdown.Menu>
     </Dropdown>
   );
-};
-
-const Author = ({ author, index, length }) => {
-  let returnValue = "";
-
-  if (index === 0) returnValue = author;
-  else if (index + 1 === length) returnValue = `, and ${author}`;
-  else if (index > 0 && index + 1 !== length) returnValue = `, ${author}`;
-
-  return <span>{returnValue}</span>;
 };
 
 export default SearchBar;

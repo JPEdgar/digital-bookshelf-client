@@ -7,15 +7,15 @@ import Navigation from "./Components/Navigation";
 import BookDetails from "./Components/BookDetails";
 import Bookshelf from "./Components/Bookshelf";
 
-import { useBookshelfContext } from "./Context/Bookshelf/BookshelfContext";
+import { useBookshelfContext } from "./Context/Bookshelf/BookshelfContext"; // temp
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const App = () => {
-  const { bookshelf } = useBookshelfContext();
+  const { bookshelf } = useBookshelfContext(); // temp
   return (
     <>
       <Navigation />
-      <button onClick={() => console.log(bookshelf)}>Click</button>
+      <button onClick={() => console.log(bookshelf)}>Log bookshelf</button> {/*temp*/}
       <Container>
         <Routes>
           <Route path="/" element={<Bookshelf />} />

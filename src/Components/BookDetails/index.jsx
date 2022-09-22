@@ -1,14 +1,10 @@
 import React from "react";
 
-import { createISBNObject } from "../../utilities";
-
 import { Row, Col, Image } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { faStar as faStarOutline } from "@fortawesome/free-regular-svg-icons";
 
 import OtherWorks from "./OtherWorks";
-
+import FavoritesIcon from "../elements/FavoritesIcon";
+import { createISBNObject, createAuthorString } from "../../utilities";
 import { useBookshelfContext } from "../../Context/Bookshelf/BookshelfContext";
 
 const BookDetails = () => {
@@ -33,16 +29,7 @@ const BookDetails = () => {
                   <div>{bookDetail.subtitle}</div>
                 </div>
                 <div>
-                  <FontAwesomeIcon
-                    icon={
-                      isOnBookshelf(null, bookDetail.industryIdentifiers)
-                        ? faStar
-                        : faStarOutline
-                    }
-                    onClick={() =>
-                      toggleToBookshelf(bookDetail.industryIdentifiers)
-                    }
-                  />
+                  <FavoritesIcon toggle={isOnBookshelf(null, bookDetail.industryIdentifiers) } onClick={() => toggleToBookshelf(bookDetail.industryIdentifiers)}/>
                 </div>
               </div>
               <Authors authors={bookDetail.authors} />
@@ -67,28 +54,9 @@ const Authors = ({ authors }) => {
   return (
     <div>
       by:
-      <span className="m-1">
-        {authors?.map((author, index) => (
-          <Author
-            key={`author-${index}`}
-            author={author}
-            index={index}
-            length={authors.length}
-          />
-        ))}
-      </span>
+      <span className="ms-1">{createAuthorString(authors)}</span>
     </div>
   );
-};
-
-const Author = ({ author, index, length }) => {
-  let returnValue = "";
-
-  if (index === 0) returnValue = author;
-  else if (index + 1 === length) returnValue = `, and ${author}`;
-  else if (index > 0 && index + 1 !== length) returnValue = `, ${author}`;
-
-  return <span>{returnValue}</span>;
 };
 
 const Rating = ({ averageRating, ratingsCount }) => {
