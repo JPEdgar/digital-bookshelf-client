@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 
-import { Row, Col, Image } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
+
+import BookCard from "./BookCard";
 import { getBookDetails } from "../../utilities";
 import { useBookshelfContext } from "../../Context/Bookshelf/BookshelfContext";
 
@@ -36,18 +38,48 @@ const Bookshelf = () => {
         Log Bookshelf List
       </button>
       <Row>
-        {bookshelfList &&
-          bookshelfList.map((book, index) => (
-            
-              <Col key={`bookshelfListItem-${index}`} className="justify-content-center">
-                <Image src={book.volumeInfo.imageLinks?.thumbnail} alt="book cover" height="250px" thumbnail/>
-                <div style={{ overflow: "hidden" }}>{book.volumeInfo.title}</div>
-                {book.volumeInfo.subtitle && <div style={{ overflow: "hidden" }}>{book.volumeInfo.subtitle}</div>}
-
-              </Col>
-            
-          ))}
+        <BookList bookshelfList={bookshelfList} />
       </Row>
+    </>
+  );
+};
+
+const BookList = ({ bookshelfList = [] }) => {
+  return (
+    <>
+      {bookshelfList.map((book, index) => {
+        const image = book.volumeInfo.imageLinks?.thumbnail;
+        const title = book.volumeInfo.title;
+        const subtitle = book.volumeInfo?.subtitle;
+        const authors = book.volumeInfo.authors;
+
+        return (
+       <>
+            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
+            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
+            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
+            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
+            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
+            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
+            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
+            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
+            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
+            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
+            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
+            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
+            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
+            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
+            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
+            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
+            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
+            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
+            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
+            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
+            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
+            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
+     </>
+        );
+      })}
     </>
   );
 };

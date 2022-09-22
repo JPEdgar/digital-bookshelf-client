@@ -15,8 +15,11 @@ const INITIALIZE_SEARCH = {
 };
 
 const INITIALIZE_BOOKSHELF = [
-  createBookObject({ ISBN_13: 9798886530247 }), // BoA Bk3
+  // createBookObject({ ISBN_13: 9798886530247 }), // BoA Bk3
   createBookObject({ ISBN_13: 9781680469035 }), // BoA Bk2
+  // createBookObject({ ISBN_13: 9780786939534 }), // Drizzt - homeland
+  // createBookObject({ ISBN_13: 9780786965175 }), // Drizzt - night of the hunter
+  // createBookObject({ ISBN_13: 9780786954094 }), // Drizzt - Siege of Darkness
   // createBookItem("Bloodlines of Atmos", 9781680468779),
 ];
 
