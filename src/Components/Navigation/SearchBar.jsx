@@ -14,17 +14,14 @@ const SearchBar = () => {
     searchData,
     setSearchData,
     toggleToBookshelf,
-    setBookDetail,isOnBookshelf
+    setBookDetail,
+    isOnBookshelf,
   } = useBookshelfContext();
 
   const { searchQuery } = searchData;
 
   const handleChange = (e) => {
     setSearchData((curr) => ({ ...curr, [e.target.name]: e.target.value }));
-  };
-
-  const handleBookshelfClick = (isbnObj) => {
-    toggleToBookshelf(isbnObj);
   };
 
   const handleSearchDetails = (details) => {
@@ -97,10 +94,7 @@ const SearchBar = () => {
                   </div>
                 </Col>
                 <Col xs={2}>
-                  <FontAwesomeIcon
-                    icon={isOnBookshelf(null, result.volumeInfo.industryIdentifiers) ? faStar : faStarOutline}
-                    onClick={() => handleBookshelfClick( result.volumeInfo.industryIdentifiers ) }
-                  />
+                  <FontAwesomeIcon icon={ isOnBookshelf(null, result.volumeInfo.industryIdentifiers) ? faStar : faStarOutline } onClick={() => toggleToBookshelf( result.volumeInfo.industryIdentifiers ) } />
                 </Col>
               </Row>
             </Dropdown.Item>

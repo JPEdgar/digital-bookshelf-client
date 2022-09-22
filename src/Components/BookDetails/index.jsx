@@ -3,10 +3,17 @@ import React from "react";
 import { createISBNObject } from "../../utilities";
 
 import { Row, Col, Image } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar as faStarOutline } from "@fortawesome/free-regular-svg-icons";
+
+import OtherWorks from "./OtherWorks";
+
 import { useBookshelfContext } from "../../Context/Bookshelf/BookshelfContext";
 
 const BookDetails = () => {
-  const { bookDetail } = useBookshelfContext();
+  const { bookDetail, isOnBookshelf, toggleToBookshelf } =
+    useBookshelfContext();
 
   return (
     <>
@@ -20,8 +27,24 @@ const BookDetails = () => {
               />
             </Col>
             <Col xs={9}>
-              <div>{bookDetail.title}</div>
-              <div>{bookDetail.subtitle}</div>
+              <div className="d-flex justify-content-between">
+                <div>
+                  <div>{bookDetail.title}</div>
+                  <div>{bookDetail.subtitle}</div>
+                </div>
+                <div>
+                  <FontAwesomeIcon
+                    icon={
+                      isOnBookshelf(null, bookDetail.industryIdentifiers)
+                        ? faStar
+                        : faStarOutline
+                    }
+                    onClick={() =>
+                      toggleToBookshelf(bookDetail.industryIdentifiers)
+                    }
+                  />
+                </div>
+              </div>
               <Authors authors={bookDetail.authors} />
               <Rating
                 averageRating={bookDetail.averageRating}
@@ -35,7 +58,7 @@ const BookDetails = () => {
         )}
       </Row>
       <Row>{bookDetail?.description}</Row>
-      <Row>Other works...</Row>
+      <OtherWorks />
     </>
   );
 };
