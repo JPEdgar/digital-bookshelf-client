@@ -8,7 +8,7 @@ const Bookshelf = () => {
   const { bookshelf, API } = useBookshelfContext();
 
   useEffect(() => {
-    const bookshelfList = bookshelf.map((book) => getBookDetails(API, book.id));
+    const bookDetailsList = bookshelf.map((book) => getBookDetails(API, book.id));
   }, [bookshelf]);
 
   return <></>;

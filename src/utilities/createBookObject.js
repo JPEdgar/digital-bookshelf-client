@@ -1,3 +1,4 @@
+// use after isbnObj was created by createISBNObject
 const createBookObject = (isbnObj = {}) => {
   let newISBN;
   let isbn10;
@@ -26,7 +27,7 @@ const createBookObject = (isbnObj = {}) => {
     isbn10: isbn10,
     isbn13: isbn13,
     inBookshelfFlag: true,
-    // title: bookTitle, subtitle: "", , onWishlistFlag: false, isSharedFlag: false, availablePrint: { hardBoundFlag: false, softBoundFlag: false }, availableDigitalFlag: false, availableAudioFlag: false,
+    // title: bookTitle, subtitle: "", onWishlistFlag: false, isSharedFlag: false, availablePrint: { hardBoundFlag: false, softBoundFlag: false }, availableDigitalFlag: false, availableAudioFlag: false,
   };
   return newBookObject;
 };
