@@ -24,14 +24,20 @@ const BookDetails = () => {
             </Col>
             <Col xs={9}>
               <div className="d-flex justify-content-between">
+                <BookTitle
+                  title={bookDetail.title}
+                  subtitle={bookDetail.subtitle}
+                />
                 <div>
-                  <div>{bookDetail.title}</div>
-                  <div>{bookDetail.subtitle}</div>
-                </div>
-                <div>
-                  <FavoritesIcon toggle={isOnBookshelf(null, bookDetail.industryIdentifiers) } onClick={() => toggleToBookshelf(bookDetail.industryIdentifiers)}/>
+                  <FavoritesIcon
+                    toggle={isOnBookshelf(null, bookDetail.industryIdentifiers)}
+                    onClick={() =>
+                      toggleToBookshelf(bookDetail.industryIdentifiers)
+                    }
+                  />
                 </div>
               </div>
+
               <Authors authors={bookDetail.authors} />
               <Rating
                 averageRating={bookDetail.averageRating}
@@ -47,6 +53,15 @@ const BookDetails = () => {
       <Row>{bookDetail?.description}</Row>
       <OtherWorks />
     </>
+  );
+};
+
+const BookTitle = ({ title, subtitle }) => {
+  return (
+    <div>
+      <div>{title}</div>
+      <div>{subtitle}</div>
+    </div>
   );
 };
 
