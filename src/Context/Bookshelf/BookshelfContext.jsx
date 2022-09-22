@@ -29,19 +29,21 @@ const BookshelfProvider = ({ children }) => {
 
   const toggleToBookshelf = (isbnObj) => {
     const isbn = createISBNObject(isbnObj);
-    const inBookshelfIdFlag = isInBookshelf(isbn);
+    const inBookshelfIdFlag = isInBookshelfLibrary(isbn);
     let bookObj = inBookshelfIdFlag
       ? getBookshelfObject(inBookshelfIdFlag)
       : createBookObject(isbn);
 
     if (inBookshelfIdFlag) {
-      bookObj.inBookshelfFlag = !bookObj.inBookshelfFlag
-      setBookshelf(curr => ([...curr.filter(x => x.id !== bookObj.id), bookObj]))
-    }
-    else setBookshelf(curr => ([...curr, bookObj]))
+      bookObj.inBookshelfFlag = !bookObj.inBookshelfFlag;
+      setBookshelf((curr) => [
+        ...curr.filter((x) => x.id !== bookObj.id),
+        bookObj,
+      ]);
+    } else setBookshelf((curr) => [...curr, bookObj]);
   };
 
-  const isInBookshelf = (isbn) => {
+  const isInBookshelfLibrary = (isbn) => {
     let returnId;
     if (bookshelf.find((book) => book.id === isbn.ISBN_10))
       returnId = isbn.ISBN_10;
@@ -51,27 +53,33 @@ const BookshelfProvider = ({ children }) => {
     return returnId;
   };
 
+  const isOnBookshelf = (id = null, isbnObj = null) => {
+    let searchISBN;
+    let bookObj;
+    if (id) bookObj = getBookshelfObject(id, searchISBN);
+    else if (isbnObj[0].type) {
+      searchISBN = createISBNObject(isbnObj);
+      bookObj = getBookshelfObject(id, searchISBN);
+    } else if (isbnObj.isbn10 || isbnObj.isbn13)
+      bookObj = getBookshelfObject(id, searchISBN);
+    return bookObj?.inBookshelfFlag;
+  };
+
   const getBookshelfObject = (id = null, isbnObj = null) => {
     let returnObject;
     if (id) returnObject = bookshelf.find((x) => x.id === id);
     else if (isbnObj) {
-      let isbnObjSearch;
       if (isbnObj.ISBN_13)
-        isbnObjSearch = bookshelf.find((x) => x.isbn13 === isbnObj.ISBN_13);
-      if (!isbnObjSearch && isbnObj.ISBN_10)
-        isbnObjSearch = bookshelf.find((x) => x.isbn10 === isbnObj.ISBN_10);
-      if (!isbnObjSearch)
-        console.log(
-          `isbnObjectSearch error -- id =, ${id} -- isbnObj = ${isbnObj}`
-        );
-    } else
-      console.log(`id/isbnObj error -- id =, ${id} -- isbnObj = ${isbnObj}`);
+        returnObject = bookshelf.find((x) => x.isbn13 === isbnObj.ISBN_13);
+      else if (isbnObj.ISBN_10)
+        returnObject = bookshelf.find((x) => x.isbn10 === isbnObj.ISBN_10);
+    }
     return returnObject;
   };
 
   // useEffect(() => console.log("searchData = ", searchData), [searchData]);
   // useEffect(() => console.log("searchResults = ", searchResults), [searchResults] );
-  useEffect(() => console.log("bookshelf = ", bookshelf), [bookshelf]);
+  // useEffect(() => console.log("bookshelf = ", bookshelf), [bookshelf]);
   // useEffect(() => console.log("bookDetail = ", bookDetail), [bookDetail]);
 
   return (
@@ -86,6 +94,7 @@ const BookshelfProvider = ({ children }) => {
         API,
         bookshelf,
         toggleToBookshelf,
+        isOnBookshelf,
       }}
     >
       {children}
