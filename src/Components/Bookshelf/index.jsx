@@ -11,26 +11,22 @@ const Bookshelf = () => {
   const { bookshelf, API } = useBookshelfContext();
 
   useEffect(() => {
-    const tempBookshelf = [];
     const getBookshelfDetails = async () => {
+      const tempBookshelf = [];
       for (let i = 0; i < bookshelf.length; i++) {
+        let query;
         if (bookshelf[i].inBookshelfFlag) {
-          let tempBookshelfItem;
-          if (bookshelf[i].id)
-            tempBookshelfItem = await getBookDetails(API, bookshelf[i].id);
-          else if (bookshelf[i].isbn13)
-            tempBookshelfItem = await getBookDetails(API, bookshelf[i].isbn13);
-          else if (bookshelf[i].isbn10)
-            tempBookshelfItem = await getBookDetails(API, bookshelf[i].isbn10);
-          tempBookshelf.push(tempBookshelfItem);
+          if (bookshelf[i].id) query = bookshelf[i].id;
+          else if (bookshelf[i].isbn13) query = bookshelf[i].isbn13;
+          else if (bookshelf[i].isbn10) query = bookshelf[i].isbn13;
+
+          tempBookshelf.push(await getBookDetails(API, query));
         }
       }
+      setBookshelfList(tempBookshelf);
     };
     getBookshelfDetails();
-    setBookshelfList(tempBookshelf);
   }, [bookshelf]);
-
-  useEffect(() => console.log(bookshelfList), [bookshelfList]);
 
   return (
     <>
@@ -54,30 +50,13 @@ const BookList = ({ bookshelfList = [] }) => {
         const authors = book.volumeInfo.authors;
 
         return (
-       <>
-            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
-            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
-            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
-            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
-            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
-            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
-            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
-            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
-            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
-            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
-            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
-            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
-            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
-            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
-            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
-            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
-            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
-            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
-            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
-            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
-            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
-            <BookCard  key={`bookshelfListItem-${index}`} image={image} title={title} subtitle={subtitle} authors={authors} />
-     </>
+          <BookCard
+            key={`bookshelfListItem-${index}`}
+            image={image}
+            title={title}
+            subtitle={subtitle}
+            authors={authors}
+          />
         );
       })}
     </>
