@@ -44,20 +44,7 @@ const BookList = ({ bookshelfList = [] }) => {
   return (
     <>
       {bookshelfList.map((book, index) => {
-        const image = book.volumeInfo.imageLinks?.thumbnail;
-        const title = book.volumeInfo.title;
-        const subtitle = book.volumeInfo?.subtitle;
-        const authors = book.volumeInfo.authors;
-
-        return (
-          <BookCard
-            key={`bookshelfListItem-${index}`}
-            image={image}
-            title={title}
-            subtitle={subtitle}
-            authors={authors}
-          />
-        );
+        return <BookCard book={book} key={`bookshelfListItem-${index}`} />;
       })}
     </>
   );

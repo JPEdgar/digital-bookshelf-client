@@ -15,7 +15,7 @@ const App = () => {
   return (
     <>
       <Navigation />
-      <button onClick={() => console.log(bookshelf)}>Log bookshelf</button> {/*temp*/}
+      <button onClick={() => console.log(bookshelf)}>Log bookshelf</button>
       <Container>
         <Routes>
           <Route path="/" element={<Bookshelf />} />
