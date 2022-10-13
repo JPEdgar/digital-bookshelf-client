@@ -16,9 +16,10 @@ const Bookshelf = () => {
       for (let i = 0; i < bookshelf.length; i++) {
         let query;
         if (bookshelf[i].inBookshelfFlag) {
-          if (bookshelf[i].id) query = bookshelf[i].id;
-          else if (bookshelf[i].isbn13) query = bookshelf[i].isbn13;
-          else if (bookshelf[i].isbn10) query = bookshelf[i].isbn13;
+          // if (bookshelf[i].id) query = bookshelf[i].id;
+          // else 
+          if (bookshelf[i].isbn13) query = bookshelf[i].isbn13;
+          else if (bookshelf[i].isbn10) query = bookshelf[i].isbn10;
 
           tempBookshelf.push(await getBookDetails(API, query));
         }

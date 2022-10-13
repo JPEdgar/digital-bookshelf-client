@@ -54,7 +54,6 @@ const Navigation = () => {
               <Nav.Link as={Link} to="details">
                 Book Details
               </Nav.Link>
-              {/* <Nav.Link as={Link} to="">Pricing</Nav.Link> */}
             </Nav>
             <SearchBar />
           </Navbar.Collapse>

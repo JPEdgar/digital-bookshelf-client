@@ -9,6 +9,8 @@ import { useBookshelfContext } from "../../Context/Bookshelf/BookshelfContext";
 const BookCard = ({ book }) => {
   const { setBookDetail } = useBookshelfContext();
 
+  if (!book) return;
+
   const image = book.volumeInfo.imageLinks?.thumbnail;
   const title = book.volumeInfo.title;
   const subtitle = book.volumeInfo?.subtitle;
