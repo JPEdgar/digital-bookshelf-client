@@ -5,7 +5,7 @@ import { Row, Col, Image } from "react-bootstrap";
 import OtherWorks from "./OtherWorks";
 import FavoritesIcon from "../elements/FavoritesIcon";
 import { createISBNObject, createAuthorString } from "../../utilities";
-import { useBookshelfContext } from "../../Context/Bookshelf/BookshelfContext";
+import useBookshelfContext from "../../hooks/useBookshelfContext";
 
 const BookDetails = () => {
   const { bookDetail, isOnBookshelf, toggleToBookshelf } =

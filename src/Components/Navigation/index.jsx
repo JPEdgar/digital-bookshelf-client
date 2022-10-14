@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { Navbar, Container, Nav, Image } from "react-bootstrap";
 
 import SearchBar from "./SearchBar";
-import { useBookshelfContext } from "../../Context/Bookshelf/BookshelfContext";
+import useBookshelfContext from "../../hooks/useBookshelfContext";
 
 const Navigation = () => {
   const { setSearchResults, searchData, API } = useBookshelfContext();

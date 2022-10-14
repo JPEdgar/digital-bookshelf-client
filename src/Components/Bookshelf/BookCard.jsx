@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Card, Col } from "react-bootstrap";
 
 import { createAuthorString } from "../../utilities";
-import { useBookshelfContext } from "../../Context/Bookshelf/BookshelfContext";
+import useBookshelfContext from "../../hooks/useBookshelfContext";
 
 const BookCard = ({ book }) => {
   const { setBookDetail } = useBookshelfContext();

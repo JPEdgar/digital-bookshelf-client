@@ -1,5 +1,7 @@
 import React, { useState, useContext, createContext, useEffect } from "react";
 
+import axios from "axios";
+
 import {
   createISBNObject,
   createBookObject,
@@ -11,8 +13,8 @@ const BookshelfContext = createContext();
 const useBookshelfContext = () => useContext(BookshelfContext);
 
 const INITIALIZE_SEARCH = {
-  searchQuery: "the legend of drizzt",
-  // searchQuery: '"Bloodlines of Atmos"',
+  // searchQuery: "the legend of drizzt",
+  searchQuery: '"Bloodlines of Atmos"',
 };
 
 // const INITIALIZE_BOOKSHELF = [
@@ -87,20 +89,22 @@ const BookshelfProvider = ({ children }) => {
     return returnObject;
   };
 
+  const [temp1, setTemp1] = useState(null);
   // useEffect(() => console.log("searchData = ", searchData), [searchData]);
   // useEffect(() => console.log("searchResults = ", searchResults), [searchResults] );
   // useEffect(() => console.log("bookshelf = ", bookshelf), [bookshelf]);
   // useEffect(() => console.log("bookDetail = ", bookDetail), [bookDetail]);
+  useEffect(() => console.log("temp1 = ", temp1?.data), [temp1]);
 
   useEffect(() => {
     const initializeBookshelf = async () => {
       // createBookObject(API, { ISBN_13: 9781680468779 }) // BoA Bk1
       //  const bookObject = await createBookObject(API, { ISBN_13: 9781680468779 })
-      const bookObject = await createBookObject(API, {
-        ISBN_13: 9780786954094,
-      });
-      setBookshelf([bookObject]);
+      // const bookObject = await createBookObject(API, { ISBN_13: 9781680468779, });
+      // setBookshelf([bookObject]);
 
+      const temp = await axios.get("http://localhost:4000/api/bookshelf");
+      setTemp1(temp);
       // createBookObject({ ISBN_13: 9781680468779 }), // BoA Bk1
       // createBookObject({ ISBN_13: 9781680469035 }), // BoA Bk2
       // // createBookObject({ ISBN_13: 9798886530247 }), // BoA Bk3

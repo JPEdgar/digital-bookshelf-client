@@ -7,7 +7,8 @@ import Navigation from "./Components/Navigation";
 import BookDetails from "./Components/BookDetails";
 import Bookshelf from "./Components/Bookshelf";
 
-import { useBookshelfContext } from "./Context/Bookshelf/BookshelfContext"; // temp
+import useBookshelfContext from "./hooks/useBookshelfContext"; // temp
+
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const App = () => {

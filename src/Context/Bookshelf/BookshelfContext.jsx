@@ -1,35 +1,8 @@
-import React, { useState, useContext, createContext, useEffect } from "react";
+import React, { useState, createContext, useEffect } from "react";
 
-import axios from "axios"
-
-import {
-  createISBNObject,
-  createBookObject,
-  getBookDetails,
-} from "../../utilities";
+import axios from "axios";
 
 const BookshelfContext = createContext();
-
-const useBookshelfContext = () => useContext(BookshelfContext);
-
-const INITIALIZE_SEARCH = {
-  // searchQuery: "the legend of drizzt",
-  searchQuery: '"Bloodlines of Atmos"',
-};
-
-// const INITIALIZE_BOOKSHELF = [
-//   createBookObject({ ISBN_13: 9781680468779 }), // BoA Bk1
-//   createBookObject({ ISBN_13: 9781680469035 }), // BoA Bk2
-//   // createBookObject({ ISBN_13: 9798886530247 }), // BoA Bk3
-// createBookObject({ ISBN_13: 9780786939534 }), // Drizzt - homeland
-//   createBookObject({ ISBN_13: 9780786965175 }), // Drizzt - night of the hunter
-//   createBookObject({ ISBN_13: 9780786954094 }), // Drizzt - Siege of Darkness
-// ];
-
-// const INITIALIZE_BOOKSHELF = [
-//   createBookObject("https://www.googleapis.com/books/v1", { ISBN_13: 9781680468779 }), // BoA Bk1
-
-// ];
 
 const BookshelfProvider = ({ children }) => {
   const API = "https://www.googleapis.com/books/v1"; // api base link
@@ -38,79 +11,20 @@ const BookshelfProvider = ({ children }) => {
   const [bookDetail, setBookDetail] = useState(null); // details about a single book
   const [bookshelf, setBookshelf] = useState([]); // main store for user's books (will replace bookDetail?)
 
-  const toggleToBookshelf = (isbnObj) => {
-    const isbn = createISBNObject(isbnObj);
-    const inBookshelfIdFlag = isInBookshelfLibrary(isbn);
-    let bookObj = inBookshelfIdFlag
-      ? getBookshelfObject(inBookshelfIdFlag)
-      : createBookObject(API, isbn);
+  const toggleToBookshelf = (isbnObj) => null;
 
-    if (inBookshelfIdFlag) {
-      bookObj.inBookshelfFlag = !bookObj.inBookshelfFlag;
-      setBookshelf((curr) => [
-        ...curr.filter((x) => x.id !== bookObj.id),
-        bookObj,
-      ]);
-    } else setBookshelf((curr) => [...curr, bookObj]);
-  };
 
-  const isInBookshelfLibrary = (isbn) => {
-    let returnId;
-    if (bookshelf.find((book) => book.id === isbn.ISBN_10))
-      returnId = isbn.ISBN_10;
-    else if (bookshelf.find((book) => book.id === isbn.ISBN_13))
-      returnId = isbn.ISBN_13;
-    else returnId = 0;
-    return returnId;
-  };
+  const isOnBookshelf = (id = null, isbnObj = null) => {  };
 
-  const isOnBookshelf = (id = null, isbnObj = null) => {
-    let searchISBN;
-    let bookObj;
-    if (id) bookObj = getBookshelfObject(id, searchISBN);
-    else if (isbnObj[0].type) {
-      searchISBN = createISBNObject(isbnObj);
-      bookObj = getBookshelfObject(id, searchISBN);
-    } else if (isbnObj.isbn10 || isbnObj.isbn13)
-      bookObj = getBookshelfObject(id, searchISBN);
-    return bookObj?.inBookshelfFlag;
-  };
-
-  const getBookshelfObject = (id = null, isbnObj = null) => {
-    let returnObject;
-    if (id) returnObject = bookshelf.find((x) => x.id === id);
-    else if (isbnObj) {
-      if (isbnObj.ISBN_13) {
-        returnObject = bookshelf.find((x) => x.isbn13 === isbnObj.ISBN_13);
-      } else if (isbnObj.ISBN_10) {
-        returnObject = bookshelf.find((x) => x.isbn10 === isbnObj.ISBN_10);
-      }
-    }
-    return returnObject;
-  };
-  
-  const [temp1, setTemp1] = useState(null)
   // useEffect(() => console.log("searchData = ", searchData), [searchData]);
   // useEffect(() => console.log("searchResults = ", searchResults), [searchResults] );
   // useEffect(() => console.log("bookshelf = ", bookshelf), [bookshelf]);
   // useEffect(() => console.log("bookDetail = ", bookDetail), [bookDetail]);
-  useEffect(() => console.log("temp1 = ", temp1), [temp1]);
 
   useEffect(() => {
     const initializeBookshelf = async () => {
-      // createBookObject(API, { ISBN_13: 9781680468779 }) // BoA Bk1
-      //  const bookObject = await createBookObject(API, { ISBN_13: 9781680468779 })
-      // const bookObject = await createBookObject(API, { ISBN_13: 9781680468779, });
-      // setBookshelf([bookObject]);
-
-      const temp = await axios.get("http://localhost:4000/api/bookshelf")
-   setTemp1(temp);
-      // createBookObject({ ISBN_13: 9781680468779 }), // BoA Bk1
-      // createBookObject({ ISBN_13: 9781680469035 }), // BoA Bk2
-      // // createBookObject({ ISBN_13: 9798886530247 }), // BoA Bk3
-      // createBookObject({ ISBN_13: 9780786939534 }), // Drizzt - homeland
-      // createBookObject({ ISBN_13: 9780786965175 }), // Drizzt - night of the hunter
-      // createBookObject({ ISBN_13: 9780786954094 }), // Drizzt - Siege of Darkness
+      const bookshelfData = await axios.get("http://localhost:4000/api/bookshelf");
+      setBookshelf(bookshelfData.data);
     };
 
     initializeBookshelf();
@@ -136,4 +50,8 @@ const BookshelfProvider = ({ children }) => {
   );
 };
 
-export { useBookshelfContext, BookshelfProvider };
+const INITIALIZE_SEARCH = {
+  searchQuery: '"Bloodlines of Atmos"',
+};
+
+export { BookshelfContext, BookshelfProvider };

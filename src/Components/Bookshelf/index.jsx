@@ -4,7 +4,7 @@ import { Row, Col } from "react-bootstrap";
 
 import BookCard from "./BookCard";
 import { getBookDetails } from "../../utilities";
-import { useBookshelfContext } from "../../Context/Bookshelf/BookshelfContext";
+import useBookshelfContext from "../../hooks/useBookshelfContext";
 
 const Bookshelf = () => {
   const [bookshelfList, setBookshelfList] = useState([]);
@@ -17,7 +17,7 @@ const Bookshelf = () => {
         let query;
         if (bookshelf[i].inBookshelfFlag) {
           // if (bookshelf[i].id) query = bookshelf[i].id;
-          // else 
+          // else
           if (bookshelf[i].isbn13) query = bookshelf[i].isbn13;
           else if (bookshelf[i].isbn10) query = bookshelf[i].isbn10;
 
