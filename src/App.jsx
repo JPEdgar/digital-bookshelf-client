@@ -12,17 +12,28 @@ import tempData from "./temp.json"
 import useBookshelfContext from "./hooks/useBookshelfContext"; // temp
 
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import ACTIONS from "./constants/actionTypes";
 const App = () => {
-  const { bookshelf } = useBookshelfContext(); // temp
+  const { bookshelf, dispatch } = useBookshelfContext(); // temp
 
+  const id = "634b516377bf42f4300543bd"
 
+  const handleClick = async () => {
+    dispatch({type:ACTIONS.SET_BOOK, payload: tempData})
+  }
+
+  const handleReset = () => {
+    dispatch({type:"reset"})
+  }
 
   return (
     <>
       <Navigation />
       <button onClick={() => console.log(bookshelf)}>Log bookshelf</button>
       <Container>
+        <button onClick={() => handleClick()}>Click</button>
+        <button onClick={() => handleReset()}>Reset</button>
+
         <Routes>
           <Route path="/" element={<Bookshelf />} />
           <Route path="/details" element={<BookDetails />} />

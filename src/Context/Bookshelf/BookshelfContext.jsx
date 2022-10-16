@@ -14,7 +14,7 @@ import {
 const BookshelfContext = createContext();
 
 const BookshelfProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(bookshelfReducer, []);
+  const [state, dispatch] = useReducer(bookshelfReducer, {bookshelf: []});
   const API = "https://www.googleapis.com/books/v1"; // api base link
   const [searchData, setSearchData] = useState(INITIALIZE_SEARCH); // search query/parameters
   const [searchResults, setSearchResults] = useState([]); // results from search
