@@ -1,13 +1,13 @@
 import { BrowserRouter } from "react-router-dom";
 
-import { BookshelfProvider } from "./Bookshelf/BookshelfContext";
+import { BookshelfProvider } from "./bookshelf/BookshelfContext";
 
 const GlobalWrapper = ({ children }) => {
   return (
     <>
-    <BrowserRouter>
-      <BookshelfProvider>{children}</BookshelfProvider>
-    </BrowserRouter>
+      <BrowserRouter>
+        <BookshelfProvider>{children}</BookshelfProvider>
+      </BrowserRouter>
     </>
   );
 };

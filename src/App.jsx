@@ -3,9 +3,11 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Container } from "react-bootstrap";
 
-import Navigation from "./Components/Navigation";
-import BookDetails from "./Components/BookDetails";
-import Bookshelf from "./Components/Bookshelf";
+import Navigation from "./components/Navigation";
+import BookDetails from "./components/BookDetails";
+import Bookshelf from "./components/Bookshelf";
+import { getBooks, getBook, updateBook, setBook, deleteBook } from "./actions/bookshelf"
+import tempData from "./temp.json"
 
 import useBookshelfContext from "./hooks/useBookshelfContext"; // temp
 
@@ -13,6 +15,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const App = () => {
   const { bookshelf } = useBookshelfContext(); // temp
+
+
+
   return (
     <>
       <Navigation />

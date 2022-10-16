@@ -2,9 +2,19 @@ import React, { useState, createContext, useEffect, useReducer } from "react";
 
 import axios from "axios";
 
+import { bookshelfReducer } from "../../reducers/index";
+import {
+  getBooks,
+  getBook,
+  updateBook,
+  setBook,
+  deleteBook,
+} from "../../actions/bookshelf";
+
 const BookshelfContext = createContext();
 
 const BookshelfProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(bookshelfReducer, []);
   const API = "https://www.googleapis.com/books/v1"; // api base link
   const [searchData, setSearchData] = useState(INITIALIZE_SEARCH); // search query/parameters
   const [searchResults, setSearchResults] = useState([]); // results from search
@@ -12,9 +22,7 @@ const BookshelfProvider = ({ children }) => {
   const [bookshelf, setBookshelf] = useState([]); // main store for user's books (will replace bookDetail?)
 
   const toggleToBookshelf = (isbnObj) => null;
-
-
-  const isOnBookshelf = (id = null, isbnObj = null) => {  };
+  const isOnBookshelf = (id = null, isbnObj = null) => {};
 
   // useEffect(() => console.log("searchData = ", searchData), [searchData]);
   // useEffect(() => console.log("searchResults = ", searchResults), [searchResults] );
@@ -23,8 +31,8 @@ const BookshelfProvider = ({ children }) => {
 
   useEffect(() => {
     const initializeBookshelf = async () => {
-      const bookshelfData = await axios.get("http://localhost:4000/api/bookshelf");
-      setBookshelf(bookshelfData.data);
+      const bookshelfData = await getBooks();
+      setBookshelf(bookshelfData);
     };
 
     initializeBookshelf();
@@ -43,6 +51,8 @@ const BookshelfProvider = ({ children }) => {
         bookshelf,
         toggleToBookshelf,
         isOnBookshelf,
+        state,
+        dispatch,
       }}
     >
       {children}

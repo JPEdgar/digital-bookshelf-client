@@ -1,40 +1,46 @@
 import * as api from "../api";
-import ACTIONS from "../constants/actionTypes";
 
-const dispatch = () => "temp";
 
 const getBooks = async () => {
   try {
     const { data } = await api.getBooks();
-    dispatch({ type: ACTIONS.GET_BOOKS, payload: data });
+    return data;
   } catch (error) {
     console.log(error);
   }
 };
 
-const getBook = async () => {
+const getBook = async (id) => {
   try {
+    const { data } = await api.getBook(id);
+    return data;
   } catch (error) {
     console.log(error);
   }
 };
 
-const updateBook = async () => {
+const updateBook = async (update) => {
   try {
+    const { data } = await api.updateBook(update);
+    return data;
   } catch (error) {
     console.log(error);
   }
 };
 
-const setBook = async () => {
+const setBook = async (newBook) => {
   try {
+    const { data } = await api.setBook(newBook);
+    return data;
   } catch (error) {
     console.log(error);
   }
 };
 
-const deleteBook = async () => {
+const deleteBook = async (id) => {
   try {
+    const { data } = await api.deleteBook(id);
+    return data;
   } catch (error) {
     console.log(error);
   }

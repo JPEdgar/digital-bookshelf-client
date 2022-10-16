@@ -13,7 +13,7 @@ const Bookshelf = () => {
   useEffect(() => {
     const getBookshelfDetails = async () => {
       const tempBookshelf = [];
-      for (let i = 0; i < bookshelf.length; i++) {
+      for (let i = 0; i < bookshelf?.length; i++) {
         let query;
         if (bookshelf[i].inBookshelfFlag) {
           // if (bookshelf[i].id) query = bookshelf[i].id;
