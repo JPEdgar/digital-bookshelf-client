@@ -3,27 +3,29 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Card, Col } from "react-bootstrap";
 
+import ACTIONS from "../../constants/actionTypes";
 import { createAuthorString } from "../../utilities";
-import useBookshelfContext from "../../hooks/useBookshelfContext";
+import { useBookshelfContext } from "../../hooks";
 
 const BookCard = ({ book }) => {
-  const { setBookDetail } = useBookshelfContext();
+  console.log(book);
+  const { dispatch } = useBookshelfContext();
 
   if (!book) return;
 
-  const image = book.volumeInfo.imageLinks?.thumbnail;
-  const title = book.volumeInfo.title;
-  const subtitle = book.volumeInfo?.subtitle;
-  const authors = book.volumeInfo.authors;
+  const image = book.imageLinks?.thumbnail;
+  const title = book.title;
+  const subtitle = book.subtitle;
+  const authors = book.authors;
 
-  const handleClick = () => {
-    setBookDetail(book.volumeInfo);
+  const handleClick = (book) => {
+    dispatch({ type: ACTIONS.SET_BOOK_DETAIL, payload: book });
   };
 
   return (
     <Col xs={12} sm={6} md={4} lg={3} className="p-1">
       <Card
-        onClick={() => handleClick()}
+        onClick={() => handleClick(book)}
         style={{ cursor: "pointer" }}
         as={Link}
         to="details"

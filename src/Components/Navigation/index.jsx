@@ -5,17 +5,21 @@ import { Link } from "react-router-dom";
 import { Navbar, Container, Nav, Image } from "react-bootstrap";
 
 import SearchBar from "./SearchBar";
-import useBookshelfContext from "../../hooks/useBookshelfContext";
+
+import ACTIONS from "../../constants/actionTypes";
+import { searchForBooksOnline } from "../../utilities";
+import { useBookshelfContext } from "../../hooks";
 
 const Navigation = () => {
-  const { setSearchResults, searchData, API } = useBookshelfContext();
-
+  const { state, dispatch, API } = useBookshelfContext();
+  const { searchData } = state;
   const { searchQuery } = searchData;
 
   const handleSearch = async (query) => {
     if (!query) return;
-    const search = `${API}/volumes?q=${query}`;
-    axios.get(search).then((res) => setSearchResults(res.data));
+    const searchquery = `${API}/volumes?q=${query}`;
+    const searchResults = await searchForBooksOnline(searchquery);
+    dispatch({ type: ACTIONS.SET_SEARCH_RESULTS, payload: searchResults });
   };
 
   useEffect(() => {

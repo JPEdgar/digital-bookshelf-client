@@ -1,50 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-import { Row, Col } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 
 import BookCard from "./BookCard";
-import { getBookDetails } from "../../utilities";
-import useBookshelfContext from "../../hooks/useBookshelfContext";
+
+import { useBookshelfContext } from "../../hooks";
 
 const Bookshelf = () => {
-  const [bookshelfList, setBookshelfList] = useState([]);
-  const { bookshelf, API } = useBookshelfContext();
-
-  useEffect(() => {
-    const getBookshelfDetails = async () => {
-      const tempBookshelf = [];
-      for (let i = 0; i < bookshelf?.length; i++) {
-        let query;
-        if (bookshelf[i].inBookshelfFlag) {
-          // if (bookshelf[i].id) query = bookshelf[i].id;
-          // else
-          if (bookshelf[i].isbn13) query = bookshelf[i].isbn13;
-          else if (bookshelf[i].isbn10) query = bookshelf[i].isbn10;
-
-          tempBookshelf.push(await getBookDetails(API, query));
-        }
-      }
-      setBookshelfList(tempBookshelf);
-    };
-    getBookshelfDetails();
-  }, [bookshelf]);
+  const { state } = useBookshelfContext();
+  const { bookshelf } = state;
 
   return (
     <>
-      <button onClick={() => console.log(bookshelfList)}>
-        Log Bookshelf List
-      </button>
-      <Row>
-        <BookList bookshelfList={bookshelfList} />
-      </Row>
+      <Row>{bookshelf && <BookList bookshelf={bookshelf} />}</Row>
     </>
   );
 };
 
-const BookList = ({ bookshelfList = [] }) => {
+const BookList = ({ bookshelf = [] }) => {
   return (
     <>
-      {bookshelfList.map((book, index) => {
+      {bookshelf.map((book, index) => {
         return <BookCard book={book} key={`bookshelfListItem-${index}`} />;
       })}
     </>

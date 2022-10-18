@@ -4,25 +4,22 @@ import { Link } from "react-router-dom";
 import { Dropdown, Image, Row, Col } from "react-bootstrap";
 
 import FavoritesIcon from "../elements/FavoritesIcon";
+
+import ACTIONS from "../../constants/actionTypes";
 import { createAuthorString } from "../../utilities";
-import useBookshelfContext from "../../hooks/useBookshelfContext";
+import { useBookshelfContext } from "../../hooks";
 
 const SearchBar = () => {
-  const {
-    searchData,
-    setSearchData,
-    searchResults,
-    toggleToBookshelf,
-    setBookDetail,
-    isOnBookshelf,
-  } = useBookshelfContext();
+  const { state, dispatch } = useBookshelfContext();
 
+  const { searchData, searchResults } = state;
   const { searchQuery } = searchData;
 
   const handleChange = (e) =>
-    setSearchData((curr) => ({ ...curr, [e.target.name]: e.target.value }));
+    dispatch({ type: ACTIONS.UPDATE_SEARCH_PARAMS, payload: e.target });
 
-  const handleSearchDetails = (details) => setBookDetail(details);
+  const handleSearchDetails = (details) =>
+    dispatch({ type: ACTIONS.SET_BOOK_DETAILS, payload: details });
 
   return (
     <Dropdown className="w-50">
@@ -40,7 +37,7 @@ const SearchBar = () => {
       </Dropdown.Toggle>
 
       <Dropdown.Menu className="w-100">
-        {searchResults.items?.length > 0 &&
+        {searchResults?.items?.length > 0 &&
           searchResults.items.map((result, index) => (
             <Dropdown.Item key={`searchResultDropdownItem-${index}`} as="div">
               <Row>
@@ -83,15 +80,7 @@ const SearchBar = () => {
                   </div>
                 </Col>
                 <Col xs={2}>
-                  <FavoritesIcon
-                    toggle={isOnBookshelf(
-                      null,
-                      result.volumeInfo.industryIdentifiers
-                    )}
-                    onClick={() =>
-                      toggleToBookshelf(result.volumeInfo.industryIdentifiers)
-                    }
-                  />
+                  {/* <FavoritesIcon toggle={isOnBookshelf( null, result.volumeInfo.industryIdentifiers )} onClick={() => toggleToBookshelf(result.volumeInfo.industryIdentifiers) } /> */}
                 </Col>
               </Row>
             </Dropdown.Item>
