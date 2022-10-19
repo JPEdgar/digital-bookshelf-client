@@ -19,7 +19,7 @@ const BookCard = ({ book }) => {
   const authors = book.authors;
 
   const handleClick = (book) => {
-    dispatch({ type: ACTIONS.SET_BOOK_DETAIL, payload: book });
+     dispatch({ type: ACTIONS.SET_BOOK_DETAILS, payload: book });
   };
 
   return (

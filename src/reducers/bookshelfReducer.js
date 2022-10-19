@@ -9,16 +9,17 @@ const bookshelfReducer = (state, action) => {
     case ACTIONS.SET_SEARCH_RESULTS:
       return { ...state, searchResults: action.payload };
     case ACTIONS.SET_BOOK_DETAILS:
+      console.log(action.payload)
       return { ...state, bookDetail: action.payload };
     case ACTIONS.SET_BOOKSHELF:
       return { ...state, bookshelf: action.payload };
     case ACTIONS.UPDATE_BOOKSHELF_ITEM:
-      console.log("Updating a bookshelf item.")
-      const oldBookshelf = state.bookshelf.filter( (x) => x.bookshelfID !== action.payload.bookshelfID );
+      const oldBookshelf = state.bookshelf.filter(
+        (x) => x.bookshelfID !== action.payload.bookshelfID
+      );
       const newBookshelf = [...oldBookshelf, action.payload];
       return { ...state, bookshelf: newBookshelf };
     case ACTIONS.CREATE_BOOKSHELF_ITEM:
-      console.log("Creating a bookshelf item.")
       return { ...state, bookshelf: [...state.bookshelf, action.payload] };
     default:
       return state;

@@ -16,7 +16,7 @@ import ACTIONS from "../../constants/actionTypes";
 
 const FavoritesIcon = ({ bookshelfID, bookData }) => {
   const { API, state, dispatch } = useBookshelfContext();
-  console.log(bookData.isFavoriteFlag);
+
   const handleClick = async () => {
     let bookshelfItem = getFromShelf(
       state.bookshelf,

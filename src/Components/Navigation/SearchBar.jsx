@@ -19,11 +19,12 @@ const SearchBar = () => {
   const handleChange = (e) =>
     dispatch({ type: ACTIONS.UPDATE_SEARCH_PARAMS, payload: e.target });
 
-  const handleSearchDetails = (details, bookshelfID) =>
+  const handleSearchDetails = (details, bookshelfID) => {
     dispatch({
       type: ACTIONS.SET_BOOK_DETAILS,
       payload: { ...details, bookshelfID },
     });
+  }
 
   return (
     <Dropdown className="w-50">
