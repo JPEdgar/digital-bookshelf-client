@@ -10,6 +10,7 @@ import Bookshelf from "./components/Bookshelf";
 import { useBookshelfContext } from "./hooks"; // temp
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./styles/css/index.css"
 
 const App = () => {
   const { state } = useBookshelfContext(); // temp

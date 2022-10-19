@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { faStar as faStarOutline } from "@fortawesome/free-regular-svg-icons";
 
+import MouseoverInfo from "./MouseoverInfo";
 import { updateBook, setBook } from "../../actions/bookshelf";
 import SEARCH_TYPE from "../../constants/searchTypes";
 import {
@@ -41,11 +42,13 @@ const FavoritesIcon = ({ bookshelfID, bookData }) => {
   };
 
   return (
-    <FontAwesomeIcon
-      style={{ cursor: "pointer" }}
-      icon={bookData.isFavoriteFlag ? faStar : faStarOutline}
-      onClick={() => handleClick()}
-    />
+    <MouseoverInfo text="Favorites">
+      <FontAwesomeIcon
+        style={{ cursor: "pointer" }}
+        icon={bookData.isFavoriteFlag ? faStar : faStarOutline}
+        onClick={() => handleClick()}
+      />
+    </MouseoverInfo>
   );
 };
 

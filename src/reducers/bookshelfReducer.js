@@ -18,6 +18,7 @@ const bookshelfReducer = (state, action) => {
       );
       const newBookshelf = [...oldBookshelf, action.payload];
       return { ...state, bookshelf: newBookshelf };
+
     case ACTIONS.CREATE_BOOKSHELF_ITEM:
       return { ...state, bookshelf: [...state.bookshelf, action.payload] };
     default:
