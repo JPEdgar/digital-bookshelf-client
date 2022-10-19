@@ -16,21 +16,27 @@ import ACTIONS from "../../constants/actionTypes";
 
 const FavoritesIcon = ({ bookshelfID, bookData }) => {
   const { API, state, dispatch } = useBookshelfContext();
-  console.log(bookData.isFavoriteFlag)
+  console.log(bookData.isFavoriteFlag);
   const handleClick = async () => {
-    let bookshelfItem = getFromShelf( state.bookshelf, SEARCH_TYPE.BOOKSHELF_ID, bookshelfID );
+    let bookshelfItem = getFromShelf(
+      state.bookshelf,
+      SEARCH_TYPE.BOOKSHELF_ID,
+      bookshelfID
+    );
     if (bookshelfItem) {
-      const {isFavoriteFlag} = bookshelfItem
+      const { isFavoriteFlag } = bookshelfItem;
       bookshelfItem.isFavoriteFlag = !isFavoriteFlag;
-      const newBookshelfItem = await updateBook(bookshelfItem);
-      // console.log(newBookshelfItem.isFavoriteFlag)
-      dispatch({ type: ACTIONS.UPDATE_BOOKSHELF_ITEM, payload: newBookshelfItem, });
+      dispatch({ type: ACTIONS.UPDATE_BOOKSHELF_ITEM, payload: bookshelfItem });
+      await updateBook(bookshelfItem);
     } else {
       const isbnObj = createISBNObject(bookData.industryIdentifiers);
       bookshelfItem = await createBookObject(API, isbnObj);
       bookshelfItem.isFavoriteFlag = true;
       const newBookshelfItem = await setBook(bookshelfItem);
-      dispatch({ type: ACTIONS.CREATE_BOOKSHELF_ITEM, payload: newBookshelfItem, });
+      dispatch({
+        type: ACTIONS.CREATE_BOOKSHELF_ITEM,
+        payload: newBookshelfItem,
+      });
     }
   };
 
