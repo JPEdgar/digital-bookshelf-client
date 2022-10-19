@@ -2,7 +2,7 @@ import { getBookDetails } from "../utilities";
 
 // use after isbnObj was created by createISBNObject
 const createBookObject = async (API, isbnObj = {}) => {
-  console.log("using createBookObject utility")
+  console.log("using createBookObject utility");
   let bookDetails;
   let isbn10;
   let isbn13;
@@ -26,9 +26,9 @@ const createBookObject = async (API, isbnObj = {}) => {
 };
 
 const createNewBookObject = (bookDetails, isbn10, isbn13) => {
-  console.log("using createNewBookObject utility")
+  console.log("using createNewBookObject utility");
   const newBookObject = {
-    id: bookDetails.id,
+    bookshelfID: bookDetails.id,
     isbn10: isbn10,
     isbn13: isbn13,
     title: bookDetails.volumeInfo.title,
@@ -43,6 +43,7 @@ const createNewBookObject = (bookDetails, isbn10, isbn13) => {
     ratingsCount: bookDetails.volumeInfo.ratingsCount,
     averageRating: bookDetails.volumeInfo.averageRating,
     inBookshelfFlag: true,
+    isFavoriteFlag: false,
     // onWishlistFlag: false,
     // isSharedFlag: false,
     // availablePrint: { hardBoundFlag: false, softBoundFlag: false },

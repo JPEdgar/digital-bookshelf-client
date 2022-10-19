@@ -46,4 +46,8 @@ const deleteBook = async (id) => {
   }
 };
 
-export { getBooks, getBook, updateBook, setBook, deleteBook };
+const toggleFavorite = async (book) => {
+
+}
+
+export { getBooks, getBook, updateBook, setBook, deleteBook, toggleFavorite };

@@ -6,18 +6,17 @@ import OtherWorks from "./OtherWorks";
 import FavoritesIcon from "../elements/FavoritesIcon";
 
 import SEARCH_TYPE from "../../constants/searchTypes";
-import {
-  createISBNObject,
-  createAuthorString,
-  getFromShelf,
-} from "../../utilities";
+import { createISBNObject, createAuthorString, getFromShelf } from "../../utilities";
 import { useBookshelfContext } from "../../hooks";
 
 const BookDetails = () => {
   const { state } = useBookshelfContext();
   const { bookDetail, bookshelf } = state;
 
-  console.log(bookDetail);
+  let bookObj = getFromShelf(bookshelf, SEARCH_TYPE.BOOKSHELF_ID, bookDetail?.bookshelfID)
+  if (!bookObj) {
+    bookObj = bookDetail
+  }
 
   return (
     <>
@@ -38,9 +37,8 @@ const BookDetails = () => {
                 />
                 <div>
                   <FavoritesIcon
-                  isFavoriteFlag={bookDetail.isFavoriteFlag}
-                  // toggle={isOnBookshelf(null, bookDetail.industryIdentifiers)}
-                  // onClick={() => toggleToBookshelf(bookDetail.industryIdentifiers) }
+                    bookshelfID={bookObj.bookshelfID}
+                    bookData={bookObj}
                   />
                 </div>
               </div>

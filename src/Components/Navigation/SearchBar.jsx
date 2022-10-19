@@ -19,8 +19,11 @@ const SearchBar = () => {
   const handleChange = (e) =>
     dispatch({ type: ACTIONS.UPDATE_SEARCH_PARAMS, payload: e.target });
 
-  const handleSearchDetails = (details) =>
-    dispatch({ type: ACTIONS.SET_BOOK_DETAILS, payload: details });
+  const handleSearchDetails = (details, bookshelfID) =>
+    dispatch({
+      type: ACTIONS.SET_BOOK_DETAILS,
+      payload: { ...details, bookshelfID },
+    });
 
   return (
     <Dropdown className="w-50">
@@ -49,6 +52,7 @@ const SearchBar = () => {
             const bookData = bookshelfSearchResult
               ? bookshelfSearchResult
               : result.volumeInfo;
+
             return (
               <Dropdown.Item key={`searchResultDropdownItem-${index}`} as="div">
                 <Row>
@@ -59,7 +63,7 @@ const SearchBar = () => {
                     sm={3}
                     style={{ height: "90px", backgroundColor: "blue" }}
                     className="justify-content-center d-none d-sm-flex"
-                    onClick={() => handleSearchDetails(bookData)}
+                    onClick={() => handleSearchDetails(bookData, result.id)}
                   >
                     <Image
                       src={bookData.imageLinks?.thumbnail}
@@ -73,7 +77,7 @@ const SearchBar = () => {
                     xs={10}
                     sm={7}
                     style={{ height: "90px", backgroundColor: "orange" }}
-                    onClick={() => handleSearchDetails(bookData)}
+                    onClick={() => handleSearchDetails(bookData, result.id)}
                   >
                     <div style={{ overflow: "hidden" }}>{bookData.title}</div>
                     {bookData.subtitle && (
@@ -91,9 +95,8 @@ const SearchBar = () => {
                   <Col xs={2}>
                     <div style={{ backgroundColor: "green" }}>
                       <FavoritesIcon
-                        isFavoriteFlag={bookData.isFavoriteFlag}
-                        // toggle={isOnBookshelf( null, bookData.industryIdentifiers )}
-                        // onClick={() => toggleToBookshelf(bookData.industryIdentifiers) }
+                        bookshelfID={result.id}
+                        bookData={bookData}
                       />
                     </div>
                   </Col>
