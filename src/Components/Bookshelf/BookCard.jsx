@@ -6,9 +6,9 @@ import { Card, Col } from "react-bootstrap";
 import ACTIONS from "../../constants/actionTypes";
 import { createAuthorString } from "../../utilities";
 import { useBookshelfContext } from "../../hooks";
+import FavoritesIcon from "../elements/FavoritesIcon";
 
 const BookCard = ({ book }) => {
-  // console.log(book);
   const { dispatch } = useBookshelfContext();
 
   if (!book) return;
@@ -19,22 +19,30 @@ const BookCard = ({ book }) => {
   const authors = book.authors;
 
   const handleClick = (book) => {
-     dispatch({ type: ACTIONS.SET_BOOK_DETAILS, payload: book });
+    dispatch({ type: ACTIONS.SET_BOOK_DETAILS, payload: book });
   };
 
   return (
     <Col xs={12} sm={6} md={4} lg={3} className="p-1">
-      <Card
-        onClick={() => handleClick(book)}
-        style={{ cursor: "pointer" }}
-        as={Link}
-        to="details"
-      >
-        <Card.Img variant="top" src={image} alt={`${title} cover`} />
+      <Card style={{ cursor: "pointer" }}>
+        <Link to="details">
+          <Card.Img
+            variant="top"
+            src={image}
+            alt={`${title} cover`}
+            onClick={() => handleClick(book)}
+          />
+        </Link>
+
         <Card.Body>
-          <Card.Title>{title}</Card.Title>
-          {subtitle && <Card.Title>{subtitle}</Card.Title>}
-          <Card.Text>By: {createAuthorString(authors)}</Card.Text>
+          <div>
+            <FavoritesIcon bookshelfID={book.bookshelfID} bookData={book} />
+          </div>
+          <Link to="details" onClick={() => handleClick(book)}>
+            <Card.Title>{title}</Card.Title>
+            {subtitle && <Card.Title>{subtitle}</Card.Title>}
+            <Card.Text>By: {createAuthorString(authors)}</Card.Text>
+          </Link>
         </Card.Body>
       </Card>
     </Col>

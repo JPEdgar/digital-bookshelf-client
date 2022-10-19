@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { Link } from "react-router-dom";
 import { Dropdown, Image, Row, Col } from "react-bootstrap";
@@ -12,9 +12,11 @@ import { useBookshelfContext } from "../../hooks";
 
 const SearchBar = () => {
   const { state, dispatch } = useBookshelfContext();
-
   const { searchData, searchResults } = state;
   const { searchQuery } = searchData;
+
+  const [openDropdown, setOpenDropdown] = useState(false);
+  const [mouseEnter, setMouseEnter] = useState(false);
 
   const handleChange = (e) =>
     dispatch({ type: ACTIONS.UPDATE_SEARCH_PARAMS, payload: e.target });
@@ -24,10 +26,31 @@ const SearchBar = () => {
       type: ACTIONS.SET_BOOK_DETAILS,
       payload: { ...details, bookshelfID },
     });
-  }
+  };
+
+  const handleClick = (bookData, id) => {
+    setOpenDropdown(false);
+    handleSearchDetails(bookData, id);
+  };
+
+  useEffect(() => {
+    if (!openDropdown) return;
+
+    const delayDebounce = setTimeout(() => {
+      if (mouseEnter) return () => clearTimeout(delayDebounce);
+      setOpenDropdown(false);
+    }, 1000);
+
+    return () => clearTimeout(delayDebounce);
+  }, [mouseEnter]);
 
   return (
-    <Dropdown className="w-50">
+    <Dropdown
+      className="w-50"
+      show={openDropdown}
+      onMouseEnter={() => setMouseEnter(true)}
+      onMouseLeave={() => setMouseEnter(false)}
+    >
       <Dropdown.Toggle style={{ width: "100%" }}>
         <input
           name="searchQuery"
@@ -39,6 +62,7 @@ const SearchBar = () => {
           className="w-100"
           style={{ maxWidth: "95%" }}
           autoComplete="off"
+          onClick={() => setOpenDropdown(true)}
         />
       </Dropdown.Toggle>
 
@@ -62,9 +86,9 @@ const SearchBar = () => {
                     to="details"
                     xs={0}
                     sm={3}
-                    style={{ height: "90px", backgroundColor: "blue" }}
+                    style={{ height: "90px" }}
                     className="justify-content-center d-none d-sm-flex"
-                    onClick={() => handleSearchDetails(bookData, result.id)}
+                    onClick={() => handleClick(bookData, result.id)}
                   >
                     <Image
                       src={bookData.imageLinks?.thumbnail}
@@ -77,8 +101,8 @@ const SearchBar = () => {
                     to="details"
                     xs={10}
                     sm={7}
-                    style={{ height: "90px", backgroundColor: "orange" }}
-                    onClick={() => handleSearchDetails(bookData, result.id)}
+                    style={{ height: "90px" }}
+                    onClick={() => handleClick(bookData, result.id)}
                   >
                     <div style={{ overflow: "hidden" }}>{bookData.title}</div>
                     {bookData.subtitle && (
@@ -94,8 +118,9 @@ const SearchBar = () => {
                     </div>
                   </Col>
                   <Col xs={2}>
-                    <div style={{ backgroundColor: "green" }}>
+                    <div>
                       <FavoritesIcon
+                        onClick={(e) => e.stopPropagation}
                         bookshelfID={result.id}
                         bookData={bookData}
                       />

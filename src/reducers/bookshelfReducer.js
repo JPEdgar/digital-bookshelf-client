@@ -9,7 +9,6 @@ const bookshelfReducer = (state, action) => {
     case ACTIONS.SET_SEARCH_RESULTS:
       return { ...state, searchResults: action.payload };
     case ACTIONS.SET_BOOK_DETAILS:
-      console.log(action.payload)
       return { ...state, bookDetail: action.payload };
     case ACTIONS.SET_BOOKSHELF:
       return { ...state, bookshelf: action.payload };

@@ -42,7 +42,7 @@ const FavoritesIcon = ({ bookshelfID, bookData }) => {
 
   return (
     <FontAwesomeIcon
-      style={{ cursor: "pointer", backgroundColor: "red" }}
+      style={{ cursor: "pointer" }}
       icon={bookData.isFavoriteFlag ? faStar : faStarOutline}
       onClick={() => handleClick()}
     />
