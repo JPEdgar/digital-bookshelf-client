@@ -7,13 +7,9 @@ import { faStar as faStarOutline } from "@fortawesome/free-regular-svg-icons";
 import MouseoverInfo from "./MouseoverInfo";
 import { updateBook, setBook } from "../../actions/bookshelf";
 import SEARCH_TYPE from "../../constants/searchTypes";
-import {
-  getFromShelf,
-  createISBNObject,
-  createBookObject,
-} from "../../utilities";
-import { useBookshelfContext } from "../../hooks";
 import ACTIONS from "../../constants/actionTypes";
+import { getFromShelf, createISBNObject, createBookObject, } from "../../utilities";
+import { useBookshelfContext } from "../../hooks";
 
 const FavoritesIcon = ({ bookshelfID, bookData }) => {
   const { API, state, dispatch } = useBookshelfContext();

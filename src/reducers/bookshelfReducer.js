@@ -1,6 +1,9 @@
 import ACTIONS from "../constants/actionTypes";
 
 const bookshelfReducer = (state, action) => {
+  let oldBookshelf = [];
+  let newBookshelf = [];
+
   switch (action.type) {
     case ACTIONS.UPDATE_SEARCH_PARAMS:
       const { searchData } = state;
@@ -13,14 +16,16 @@ const bookshelfReducer = (state, action) => {
     case ACTIONS.SET_BOOKSHELF:
       return { ...state, bookshelf: action.payload };
     case ACTIONS.UPDATE_BOOKSHELF_ITEM:
-      const oldBookshelf = state.bookshelf.filter(
+      oldBookshelf = state.bookshelf.filter(
         (x) => x.bookshelfID !== action.payload.bookshelfID
       );
-      const newBookshelf = [...oldBookshelf, action.payload];
+      newBookshelf = [...oldBookshelf, action.payload];
       return { ...state, bookshelf: newBookshelf };
-
     case ACTIONS.CREATE_BOOKSHELF_ITEM:
       return { ...state, bookshelf: [...state.bookshelf, action.payload] };
+    case ACTIONS.DELETE_BOOKSHELF_ITEM:
+      newBookshelf = state.bookshelf.filter((x) => x._id !== action.payload);
+      return { ...state, bookshelf: newBookshelf };
     default:
       return state;
   }

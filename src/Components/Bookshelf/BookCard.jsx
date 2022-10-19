@@ -7,6 +7,7 @@ import ACTIONS from "../../constants/actionTypes";
 import { createAuthorString } from "../../utilities";
 import { useBookshelfContext } from "../../hooks";
 import FavoritesIcon from "../elements/FavoritesIcon";
+import TrashIcon from "../elements/TrashIcon";
 
 const BookCard = ({ book }) => {
   const { dispatch } = useBookshelfContext();
@@ -35,8 +36,9 @@ const BookCard = ({ book }) => {
         </Link>
 
         <Card.Body>
-          <div>
+          <div className="d-flex justify-content-between">
             <FavoritesIcon bookshelfID={book.bookshelfID} bookData={book} />
+            {book.inBookshelfFlag && <TrashIcon bookshelfID={book.bookshelfID} />}
           </div>
           <Link to="details" onClick={() => handleClick(book)}>
             <Card.Title>{title}</Card.Title>

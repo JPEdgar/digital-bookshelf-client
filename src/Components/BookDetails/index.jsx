@@ -6,16 +6,25 @@ import OtherWorks from "./OtherWorks";
 import FavoritesIcon from "../elements/FavoritesIcon";
 
 import SEARCH_TYPE from "../../constants/searchTypes";
-import { createISBNObject, createAuthorString, getFromShelf } from "../../utilities";
+import {
+  createISBNObject,
+  createAuthorString,
+  getFromShelf,
+} from "../../utilities";
 import { useBookshelfContext } from "../../hooks";
+import TrashIcon from "../elements/TrashIcon";
 
 const BookDetails = () => {
   const { state } = useBookshelfContext();
   const { bookDetail, bookshelf } = state;
 
-  let bookObj = getFromShelf(bookshelf, SEARCH_TYPE.BOOKSHELF_ID, bookDetail?.bookshelfID)
+  let bookObj = getFromShelf(
+    bookshelf,
+    SEARCH_TYPE.BOOKSHELF_ID,
+    bookDetail?.bookshelfID
+  );
   if (!bookObj) {
-    bookObj = bookDetail
+    bookObj = bookDetail;
   }
 
   return (
@@ -40,6 +49,7 @@ const BookDetails = () => {
                     bookshelfID={bookObj.bookshelfID}
                     bookData={bookObj}
                   />
+                  {bookObj.inBookshelfFlag && <TrashIcon bookshelfID={bookObj.bookshelfID} />}
                 </div>
               </div>
 
