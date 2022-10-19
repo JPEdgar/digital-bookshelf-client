@@ -4,14 +4,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { faStar as faStarOutline } from "@fortawesome/free-regular-svg-icons";
 
-const FavoritesIcon = ({ toggle, onClick = () => {} }) => {
+const FavoritesIcon = ({ toggle, onClick = () => {}, isFavoriteFlag = false }) => {
   const returnClick = useCallback(() => onClick(), [onClick]);
   
+  const handleClick = () => {
+    console.log("here")
+  }
+
   return (
     <FontAwesomeIcon
-      style={{ cursor: "pointer" }}
-      icon={toggle ? faStar : faStarOutline}
-      onClick={returnClick}
+      style={{ cursor: "pointer", backgroundColor: "red" }}
+      icon={isFavoriteFlag ? faStar : faStarOutline}
+      onClick={() => handleClick()}
     />
   );
 };

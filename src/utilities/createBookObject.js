@@ -2,6 +2,7 @@ import { getBookDetails } from "../utilities";
 
 // use after isbnObj was created by createISBNObject
 const createBookObject = async (API, isbnObj = {}) => {
+  console.log("using createBookObject utility")
   let bookDetails;
   let isbn10;
   let isbn13;
@@ -25,6 +26,7 @@ const createBookObject = async (API, isbnObj = {}) => {
 };
 
 const createNewBookObject = (bookDetails, isbn10, isbn13) => {
+  console.log("using createNewBookObject utility")
   const newBookObject = {
     id: bookDetails.id,
     isbn10: isbn10,

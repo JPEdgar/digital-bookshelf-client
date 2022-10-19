@@ -10,6 +10,10 @@ const BookshelfProvider = ({ children }) => {
   const [state, dispatch] = useReducer(bookshelfReducer, INITIALIZE_STATE);
   const API = "https://www.googleapis.com/books/v1"; // api base link
 
+  const isInBookshelf = () => {
+    //
+  };
+
   useEffect(() => {
     const initializeState = async () => {
       const data = await getBooks();
@@ -21,7 +25,7 @@ const BookshelfProvider = ({ children }) => {
   // useEffect(() => console.log("state = ", state), [state]);
 
   return (
-    <BookshelfContext.Provider value={{ API, state, dispatch }}>
+    <BookshelfContext.Provider value={{ API, state, dispatch, isInBookshelf }}>
       {children}
     </BookshelfContext.Provider>
   );

@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const searchForBooksOnline = async (query) => {
+//   console.log("using searchForBooksOnline utility");
   /* &maxResults= <int> 
      (40 max), how many results on the search query 
   */
@@ -20,12 +21,12 @@ const searchForBooksOnline = async (query) => {
       lccn: <string>
       oclc: <string>
 */
-/* orderBy=
+  /* orderBy=
       relevant (default)
       newest
       
 */
-  const { data } = await axios.get(query);
+  const { data } = await axios.get(`${query}&maxResults=5`);
   // console.log(data)
   return data.items;
 };

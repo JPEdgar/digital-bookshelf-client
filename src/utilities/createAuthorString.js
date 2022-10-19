@@ -1,4 +1,5 @@
 const createAuthorString = (authorsList = []) => {
+  // console.log("using createAuthorString utility")
     let authorString = "";
 
     for (let i = 0; i < authorsList.length; i++) {

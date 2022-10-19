@@ -1,5 +1,6 @@
 // input API industry identifier list
 const createISBNObject = (industryIDList) => {
+  // console.log("using createISBNObject utility")
   let isbnObject = {};
   industryIDList.map(
     (industryId) =>

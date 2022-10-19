@@ -6,7 +6,8 @@ import { Dropdown, Image, Row, Col } from "react-bootstrap";
 import FavoritesIcon from "../elements/FavoritesIcon";
 
 import ACTIONS from "../../constants/actionTypes";
-import { createAuthorString } from "../../utilities";
+import SEARCH_TYPE from "../../constants/searchTypes";
+import { createAuthorString, getFromShelf } from "../../utilities";
 import { useBookshelfContext } from "../../hooks";
 
 const SearchBar = () => {
@@ -33,58 +34,73 @@ const SearchBar = () => {
           aria-label="Search"
           className="w-100"
           style={{ maxWidth: "95%" }}
+          autoComplete="off"
         />
       </Dropdown.Toggle>
 
       <Dropdown.Menu className="w-100">
-        {searchResults?.items?.length > 0 &&
-          searchResults.items.map((result, index) => (
-            <Dropdown.Item key={`searchResultDropdownItem-${index}`} as="div">
-              <Row>
-                <Col
-                  as={Link}
-                  to="details"
-                  xs={0}
-                  sm={3}
-                  style={{ height: "90px" }}
-                  className="justify-content-center d-none d-sm-flex"
-                  onClick={() => handleSearchDetails(result.volumeInfo)}
-                >
-                  <Image
-                    src={result.volumeInfo.imageLinks?.thumbnail}
-                    alt="cover"
-                    style={{ width: "auto", maxWidth: "100px" }}
-                  />
-                </Col>
-                <Col
-                  as={Link}
-                  to="details"
-                  xs={10}
-                  sm={7}
-                  style={{ height: "90px" }}
-                  onClick={() => handleSearchDetails(result.volumeInfo)}
-                >
-                  <div style={{ overflow: "hidden" }}>
-                    {result.volumeInfo.title}
-                  </div>
-                  {result.volumeInfo.subtitle && (
+        {searchResults?.length > 0 &&
+          searchResults.map((result, index) => {
+            const bookshelfSearchResult = getFromShelf(
+              state.bookshelf,
+              SEARCH_TYPE.BOOKSHELF_ID,
+              result.id
+            );
+            const bookData = bookshelfSearchResult
+              ? bookshelfSearchResult
+              : result.volumeInfo;
+            return (
+              <Dropdown.Item key={`searchResultDropdownItem-${index}`} as="div">
+                <Row>
+                  <Col
+                    as={Link}
+                    to="details"
+                    xs={0}
+                    sm={3}
+                    style={{ height: "90px", backgroundColor: "blue" }}
+                    className="justify-content-center d-none d-sm-flex"
+                    onClick={() => handleSearchDetails(bookData)}
+                  >
+                    <Image
+                      src={bookData.imageLinks?.thumbnail}
+                      alt="cover"
+                      style={{ width: "auto", maxWidth: "100px" }}
+                    />
+                  </Col>
+                  <Col
+                    as={Link}
+                    to="details"
+                    xs={10}
+                    sm={7}
+                    style={{ height: "90px", backgroundColor: "orange" }}
+                    onClick={() => handleSearchDetails(bookData)}
+                  >
+                    <div style={{ overflow: "hidden" }}>{bookData.title}</div>
+                    {bookData.subtitle && (
+                      <div style={{ overflow: "hidden" }}>
+                        {bookData.subtitle}
+                      </div>
+                    )}
                     <div style={{ overflow: "hidden" }}>
-                      {result.volumeInfo.subtitle}
+                      by:
+                      <span className="ms-1">
+                        {createAuthorString(bookData.authors)}
+                      </span>
                     </div>
-                  )}
-                  <div style={{ overflow: "hidden" }}>
-                    by:
-                    <span className="ms-1">
-                      {createAuthorString(result.volumeInfo.authors)}
-                    </span>
-                  </div>
-                </Col>
-                <Col xs={2}>
-                  {/* <FavoritesIcon toggle={isOnBookshelf( null, result.volumeInfo.industryIdentifiers )} onClick={() => toggleToBookshelf(result.volumeInfo.industryIdentifiers) } /> */}
-                </Col>
-              </Row>
-            </Dropdown.Item>
-          ))}
+                  </Col>
+                  <Col xs={2}>
+                    <div style={{ backgroundColor: "green" }}>
+                      <FavoritesIcon
+                        isFavoriteFlag={bookData.isFavoriteFlag}
+                        // toggle={isOnBookshelf( null, bookData.industryIdentifiers )}
+                        // onClick={() => toggleToBookshelf(bookData.industryIdentifiers) }
+                      />
+                    </div>
+                  </Col>
+                </Row>
+              </Dropdown.Item>
+            );
+          })}
       </Dropdown.Menu>
     </Dropdown>
   );

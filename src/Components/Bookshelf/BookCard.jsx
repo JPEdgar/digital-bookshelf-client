@@ -8,7 +8,7 @@ import { createAuthorString } from "../../utilities";
 import { useBookshelfContext } from "../../hooks";
 
 const BookCard = ({ book }) => {
-  console.log(book);
+  // console.log(book);
   const { dispatch } = useBookshelfContext();
 
   if (!book) return;

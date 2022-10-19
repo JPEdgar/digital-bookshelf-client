@@ -5,12 +5,19 @@ import { Row, Col, Image } from "react-bootstrap";
 import OtherWorks from "./OtherWorks";
 import FavoritesIcon from "../elements/FavoritesIcon";
 
-import { createISBNObject, createAuthorString } from "../../utilities";
+import SEARCH_TYPE from "../../constants/searchTypes";
+import {
+  createISBNObject,
+  createAuthorString,
+  getFromShelf,
+} from "../../utilities";
 import { useBookshelfContext } from "../../hooks";
 
 const BookDetails = () => {
-  const { bookDetail, isOnBookshelf, toggleToBookshelf } =
-    useBookshelfContext();
+  const { state } = useBookshelfContext();
+  const { bookDetail, bookshelf } = state;
+
+  console.log(bookDetail);
 
   return (
     <>
@@ -31,10 +38,9 @@ const BookDetails = () => {
                 />
                 <div>
                   <FavoritesIcon
-                    toggle={isOnBookshelf(null, bookDetail.industryIdentifiers)}
-                    onClick={() =>
-                      toggleToBookshelf(bookDetail.industryIdentifiers)
-                    }
+                  isFavoriteFlag={bookDetail.isFavoriteFlag}
+                  // toggle={isOnBookshelf(null, bookDetail.industryIdentifiers)}
+                  // onClick={() => toggleToBookshelf(bookDetail.industryIdentifiers) }
                   />
                 </div>
               </div>
@@ -46,7 +52,12 @@ const BookDetails = () => {
               />
               <ReleaseDate publishedDate={bookDetail.publishedDate} />
               <PageCount pageCount={bookDetail.pageCount} />
-              <ISBN isbnObj={bookDetail.industryIdentifiers} />
+              <ISBN
+                isbnObj={bookDetail?.industryIdentifiers}
+                inBookshelfFlag={bookDetail?.inBookshelfFlag}
+                isbn10={bookDetail?.isbn10}
+                isbn13={bookDetail?.isbn13}
+              />
             </Col>
           </>
         )}
@@ -97,14 +108,23 @@ const PageCount = ({ pageCount }) => {
   return <div>{pageCount} pages</div>;
 };
 
-const ISBN = ({ isbnObj }) => {
-  const newISBNObj = createISBNObject(isbnObj);
-  return (
-    <>
-      {newISBNObj.ISBN_10 && <div>ISBN-10: {newISBNObj.ISBN_10}</div>}
-      {newISBNObj.ISBN_13 && <div>ISBN-13: {newISBNObj.ISBN_13}</div>}
-    </>
-  );
+const ISBN = ({ isbnObj, inBookshelfFlag, isbn10, isbn13 }) => {
+  if (inBookshelfFlag) {
+    return (
+      <>
+        {isbn10 && <div>ISBN-10: {isbn10}</div>}
+        {isbn13 && <div>ISBN-13: {isbn13}</div>}
+      </>
+    );
+  } else {
+    const newISBNObj = createISBNObject(isbnObj);
+    return (
+      <>
+        {newISBNObj.ISBN_10 && <div>ISBN-10: {newISBNObj.ISBN_10}</div>}
+        {newISBNObj.ISBN_13 && <div>ISBN-13: {newISBNObj.ISBN_13}</div>}
+      </>
+    );
+  }
 };
 
 export default BookDetails;
