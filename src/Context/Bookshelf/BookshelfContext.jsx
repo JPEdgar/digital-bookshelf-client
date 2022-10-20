@@ -29,7 +29,8 @@ const BookshelfProvider = ({ children }) => {
 
 const INITIALIZE_STATE = {
   bookshelf: [],
-  searchData: { searchQuery: '"Bloodlines of Atmos"' },
+  searchData: { searchQuery: "drizzt" },
+  // searchData: { searchQuery: '"Bloodlines of Atmos"' },
   searchResults: null,
   bookDetail: null,
 };

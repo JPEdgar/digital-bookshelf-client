@@ -6,7 +6,9 @@ const getFromShelf = (bookshelf = [], searchType, searchParam) => {
   let searchResult;
 
   if (searchType === SEARCH_TYPE.BOOKSHELF_ID) {
-    searchResult = bookshelf.find((book) => book.bookshelfID === searchParam);
+    searchResult = bookshelf.find((book) => {
+      return book.bookshelfID === searchParam;
+    });
   }
 
   return searchResult;

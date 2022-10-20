@@ -16,9 +16,7 @@ const bookshelfReducer = (state, action) => {
     case ACTIONS.SET_BOOKSHELF:
       return { ...state, bookshelf: action.payload };
     case ACTIONS.UPDATE_BOOKSHELF_ITEM:
-      oldBookshelf = state.bookshelf.filter(
-        (x) => x.bookshelfID !== action.payload.bookshelfID
-      );
+      oldBookshelf = state.bookshelf.filter( (x) => x.bookshelfID !== action.payload.bookshelfID );
       newBookshelf = [...oldBookshelf, action.payload];
       return { ...state, bookshelf: newBookshelf };
     case ACTIONS.CREATE_BOOKSHELF_ITEM:
