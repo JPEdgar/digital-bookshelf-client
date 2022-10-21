@@ -1,4 +1,5 @@
 const ACTIONS = {
+  CLEAR_BOOKSHELF: "clear-bookshelf",
   SET_BOOKSHELF: "set-bookshelf",
   UPDATE_SEARCH_PARAMS: "update-search-parameters",
   SET_BOOK_DETAILS: "set-book-detail",

@@ -5,6 +5,8 @@ const bookshelfReducer = (state, action) => {
   let newBookshelf = [];
 
   switch (action.type) {
+    case ACTIONS.CLEAR_BOOKSHELF:
+      return ({...state, bookshelf: []})
     case ACTIONS.UPDATE_SEARCH_PARAMS:
       const { searchData } = state;
       searchData[action.payload.name] = action.payload.value;

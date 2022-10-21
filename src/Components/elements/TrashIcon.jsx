@@ -8,10 +8,12 @@ import { deleteBook } from "../../actions/bookshelf";
 import SEARCH_TYPE from "../../constants/searchTypes";
 import ACTIONS from "../../constants/actionTypes";
 import { getFromShelf } from "../../utilities";
-import { useBookshelfContext } from "../../hooks";
+import { useBookshelfContext, useAuthContext } from "../../hooks";
 
 const TrashIcon = ({ bookshelfID }) => {
   const { bookshelfState, dispatch } = useBookshelfContext();
+  const { userState } = useAuthContext();
+  const { user } = userState;
 
   const handleClick = async (bookshelfID) => {
     let bookshelfItem = getFromShelf(
@@ -24,7 +26,9 @@ const TrashIcon = ({ bookshelfID }) => {
         type: ACTIONS.DELETE_BOOKSHELF_ITEM,
         payload: bookshelfItem._id,
       });
-      await deleteBook(bookshelfItem._id);
+      await deleteBook(bookshelfItem._id, {
+        headers: { Authorization: `Bearer ${user.token}` },
+      });
     }
   };
 
