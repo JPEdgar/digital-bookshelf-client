@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
 
 import { Link } from "react-router-dom";
-import { Dropdown, Image, Row, Col } from "react-bootstrap";
+import { Dropdown, Image, Row, Col, Button } from "react-bootstrap";
 
 import FavoritesIcon from "../elements/FavoritesIcon";
 
 import ACTIONS from "../../constants/actionTypes";
 import SEARCH_TYPE from "../../constants/searchTypes";
-import { createAuthorString, getFromShelf } from "../../utilities";
+import { createAuthorString, getFromShelf, searchForBooksOnline } from "../../utilities";
 import { useBookshelfContext } from "../../hooks";
 
 const SearchBar = () => {
-  const { state, dispatch } = useBookshelfContext();
+  const { API, state, dispatch } = useBookshelfContext();
   const { searchData, searchResults } = state;
   const { searchQuery } = searchData;
 
@@ -33,6 +33,19 @@ const SearchBar = () => {
     handleSearchDetails(bookData, id);
   };
 
+
+  // const paginateSearch = async (query) => {
+  //   if (!query) return;
+  //   const searchquery = `${API}/volumes?q=${query}`;
+  //   const searchResults = await searchForBooksOnline(searchquery);
+  //   dispatch({ type: ACTIONS.SET_SEARCH_RESULTS, payload: searchResults });
+  // };
+
+  const test = () => {
+    console.log(searchResults)
+  }
+
+
   useEffect(() => {
     if (!openDropdown) return;
 
@@ -51,7 +64,10 @@ const SearchBar = () => {
       onMouseEnter={() => setMouseEnter(true)}
       onMouseLeave={() => setMouseEnter(false)}
     >
-      <Dropdown.Toggle style={{ width: "100%" }}>
+      <Dropdown.Toggle
+        style={{ width: "100%" }}
+        onClick={() => setOpenDropdown((curr) => !curr)}
+      >
         <input
           name="searchQuery"
           placeholder="Search for books"
@@ -62,7 +78,7 @@ const SearchBar = () => {
           className="w-100"
           style={{ maxWidth: "95%" }}
           autoComplete="off"
-          onClick={() => setOpenDropdown(true)}
+          // onClick={() => setOpenDropdown(true)}
         />
       </Dropdown.Toggle>
 
@@ -130,6 +146,9 @@ const SearchBar = () => {
               </Dropdown.Item>
             );
           })}
+        <Button size="sm" className="w-100" onClick={() => test()}>
+          V
+        </Button>
       </Dropdown.Menu>
     </Dropdown>
   );

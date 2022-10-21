@@ -1,15 +1,16 @@
 import React, { useEffect } from "react";
 
 import { Link } from "react-router-dom";
-import { Navbar, Container, Nav, Image } from "react-bootstrap";
+import { Navbar, Container, Nav, Image, Button } from "react-bootstrap";
 
 import SearchBar from "./SearchBar";
 
 import ACTIONS from "../../constants/actionTypes";
 import { searchForBooksOnline } from "../../utilities";
-import { useBookshelfContext } from "../../hooks";
+import { useBookshelfContext, useLogout } from "../../hooks";
 
 const Navigation = () => {
+  const { logout } = useLogout();
   const { state, dispatch, API } = useBookshelfContext();
   const { searchData } = state;
   const { searchQuery } = searchData;
@@ -19,6 +20,10 @@ const Navigation = () => {
     const searchquery = `${API}/volumes?q=${query}`;
     const searchResults = await searchForBooksOnline(searchquery);
     dispatch({ type: ACTIONS.SET_SEARCH_RESULTS, payload: searchResults });
+  };
+
+  const handleClick = () => {
+    logout();
   };
 
   useEffect(() => {
@@ -59,6 +64,17 @@ const Navigation = () => {
               </Nav.Link>
             </Nav>
             <SearchBar />
+            <div>
+              <Nav.Link as={Link} to="login">
+                Log In
+              </Nav.Link>
+              <Nav.Link as={Link} to="signup">
+                Sign Up
+              </Nav.Link>
+            </div>
+            <div>
+              <Button onClick={() => handleClick()}>Log out</Button>
+            </div>
           </Navbar.Collapse>
         </Container>
       </Navbar>
