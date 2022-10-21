@@ -7,8 +7,8 @@ import BookCard from "./BookCard";
 import { useBookshelfContext } from "../../hooks";
 
 const Bookshelf = () => {
-  const { state } = useBookshelfContext();
-  const { bookshelf } = state;
+  const { bookshelfState } = useBookshelfContext();
+  const { bookshelf } = bookshelfState;
 
   return (
     <>

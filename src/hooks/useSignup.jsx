@@ -13,8 +13,6 @@ const useSignup = () => {
     setLoadingFlag(true);
     setError(null);
 
-    console.log({ email, password });
-
     const response = await axios.post("http://localhost:4000/api/user/signup", {
       email,
       password,
@@ -26,7 +24,7 @@ const useSignup = () => {
       setError(response.error);
     } else {
       localStorage.setItem("user", JSON.stringify(data));
-      dispatch({ type: "LOGIN", payload: data });
+      dispatch({ type: "SIGNUP", payload: data });
 
       setLoadingFlag(false);
     }

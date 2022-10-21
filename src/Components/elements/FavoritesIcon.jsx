@@ -12,11 +12,11 @@ import { getFromShelf, createISBNObject, createBookObject, } from "../../utiliti
 import { useBookshelfContext } from "../../hooks";
 
 const FavoritesIcon = ({ bookshelfID, bookData }) => {
-  const { API, state, dispatch } = useBookshelfContext();
+  const { API, bookshelfState, dispatch } = useBookshelfContext();
 
   const handleClick = async () => {
     let bookshelfItem = getFromShelf(
-      state.bookshelf,
+      bookshelfState.bookshelf,
       SEARCH_TYPE.BOOKSHELF_ID,
       bookshelfID
     );

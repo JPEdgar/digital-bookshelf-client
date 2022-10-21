@@ -11,8 +11,8 @@ import { createAuthorString, getFromShelf, searchForBooksOnline } from "../../ut
 import { useBookshelfContext } from "../../hooks";
 
 const SearchBar = () => {
-  const { API, state, dispatch } = useBookshelfContext();
-  const { searchData, searchResults } = state;
+  const { API, bookshelfState, dispatch } = useBookshelfContext();
+  const { searchData, searchResults } = bookshelfState;
   const { searchQuery } = searchData;
 
   const [openDropdown, setOpenDropdown] = useState(false);
@@ -86,7 +86,7 @@ const SearchBar = () => {
         {searchResults?.length > 0 &&
           searchResults.map((result, index) => {
             const bookshelfSearchResult = getFromShelf(
-              state.bookshelf,
+              bookshelfState.bookshelf,
               SEARCH_TYPE.BOOKSHELF_ID,
               result.id
             );

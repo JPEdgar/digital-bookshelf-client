@@ -9,18 +9,20 @@ import Bookshelf from "./components/Bookshelf";
 import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";
 
-import { useBookshelfContext } from "./hooks"; // temp
+import { useBookshelfContext, useAuthContext } from "./hooks"; // temp
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/css/index.css";
 
 const App = () => {
-  const { state } = useBookshelfContext(); // temp
+  const { bookshelfState } = useBookshelfContext(); // temp
+  const { userState } = useAuthContext();
 
   return (
     <>
       <Navigation />
-      <button onClick={() => console.log(state)}>Log State</button>
+      <button onClick={() => console.log(bookshelfState)}>Log bookshelfState</button>
+      <button onClick={() => console.log(userState)}>Log userState</button>
       <Container>
         <Routes>
           <Route path="/" element={<Bookshelf />} />

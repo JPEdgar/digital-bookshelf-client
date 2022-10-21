@@ -15,8 +15,8 @@ import { useBookshelfContext } from "../../hooks";
 import TrashIcon from "../elements/TrashIcon";
 
 const BookDetails = () => {
-  const { state } = useBookshelfContext();
-  const { bookDetail, bookshelf } = state;
+  const { bookshelfState } = useBookshelfContext();
+  const { bookDetail, bookshelf } = bookshelfState;
 
   let bookObj = getFromShelf(
     bookshelf,

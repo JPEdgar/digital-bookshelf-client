@@ -11,11 +11,11 @@ import { getFromShelf } from "../../utilities";
 import { useBookshelfContext } from "../../hooks";
 
 const TrashIcon = ({ bookshelfID }) => {
-  const { state, dispatch } = useBookshelfContext();
+  const { bookshelfState, dispatch } = useBookshelfContext();
 
   const handleClick = async (bookshelfID) => {
     let bookshelfItem = getFromShelf(
-      state.bookshelf,
+      bookshelfState.bookshelf,
       SEARCH_TYPE.BOOKSHELF_ID,
       bookshelfID
     );

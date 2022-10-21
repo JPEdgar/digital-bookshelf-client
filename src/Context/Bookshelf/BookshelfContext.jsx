@@ -7,7 +7,7 @@ import ACTIONS from "../../constants/actionTypes";
 const BookshelfContext = createContext();
 
 const BookshelfProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(bookshelfReducer, INITIALIZE_STATE);
+  const [bookshelfState, dispatch] = useReducer(bookshelfReducer, INITIALIZE_STATE);
   const API = "https://www.googleapis.com/books/v1"; // api base link
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const BookshelfProvider = ({ children }) => {
   // useEffect(() => console.log("state = ", state), [state]);
 
   return (
-    <BookshelfContext.Provider value={{ API, state, dispatch }}>
+    <BookshelfContext.Provider value={{ API, bookshelfState, dispatch }}>
       {children}
     </BookshelfContext.Provider>
   );

@@ -7,13 +7,15 @@ import SearchBar from "./SearchBar";
 
 import ACTIONS from "../../constants/actionTypes";
 import { searchForBooksOnline } from "../../utilities";
-import { useBookshelfContext, useLogout } from "../../hooks";
+import { useBookshelfContext, useLogout, useAuthContext } from "../../hooks";
 
 const Navigation = () => {
   const { logout } = useLogout();
-  const { state, dispatch, API } = useBookshelfContext();
-  const { searchData } = state;
+  const { bookshelfState, dispatch, API } = useBookshelfContext();
+  const { searchData } = bookshelfState;
   const { searchQuery } = searchData;
+  const { userState } = useAuthContext();
+  const { user } = userState;
 
   const handleSearch = async (query) => {
     if (!query) return;
@@ -33,6 +35,7 @@ const Navigation = () => {
     return () => clearTimeout(delayDebounce);
   }, [searchQuery]);
 
+  useEffect(() => console.log("userState = ", userState), [userState]);
   return (
     <>
       <Navbar
@@ -64,17 +67,20 @@ const Navigation = () => {
               </Nav.Link>
             </Nav>
             <SearchBar />
-            <div>
-              <Nav.Link as={Link} to="login">
-                Log In
-              </Nav.Link>
-              <Nav.Link as={Link} to="signup">
-                Sign Up
-              </Nav.Link>
-            </div>
-            <div>
-              <Button onClick={() => handleClick()}>Log out</Button>
-            </div>
+            {user ? (
+              <div>
+                <Button onClick={() => handleClick()}>Log out</Button>
+              </div>
+            ) : (
+              <div>
+                <Nav.Link as={Link} to="login">
+                  Log In
+                </Nav.Link>
+                <Nav.Link as={Link} to="signup">
+                  Sign Up
+                </Nav.Link>
+              </div>
+            )}
           </Navbar.Collapse>
         </Container>
       </Navbar>

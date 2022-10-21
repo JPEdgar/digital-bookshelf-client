@@ -4,7 +4,10 @@ const AuthContext = createContext();
 
 const authReducer = (state, action) => {
   switch (action.type) {
+    case "SIGNUP":
+      return { user: action.payload };
     case "LOGIN":
+      console.log("action.payload = ", action.payload)
       return { user: action.payload };
     case "LOGOUT":
       return { user: null };
@@ -14,11 +17,11 @@ const authReducer = (state, action) => {
 };
 
 const AuthProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(authReducer, { user: null });
+  const [userState, dispatch] = useReducer(authReducer, { user: null });
 
-  console.log("Auth State = ", state);
+  console.log("userState = ", userState);
   return (
-    <AuthContext.Provider value={{ state, dispatch }}>
+    <AuthContext.Provider value={{ userState, dispatch }}>
       {children}
     </AuthContext.Provider>
   );

@@ -5,7 +5,7 @@ import { useSignup } from "../../hooks";
 const SignUp = () => {
   const [email, setEmail] = useState("test@test.com");
   const [password, setPassword] = useState("Abcd1234..");
-  const {signup, error, loadingFlag} = useSignup();
+  const { signup, error, loadingFlag } = useSignup();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
