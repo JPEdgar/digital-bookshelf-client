@@ -1,6 +1,6 @@
 import * as api from "../api";
 
-const getBooks = async (options = {}) => {
+const getBooks = async (options) => {
   try {
     const { data } = await api.getBooks(options);
     return data;

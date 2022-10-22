@@ -37,13 +37,8 @@ const FavoritesIcon = ({ bookshelfID, bookData }) => {
       const isbnObj = createISBNObject(bookData.industryIdentifiers);
       bookshelfItem = await createBookObject(API, isbnObj);
       bookshelfItem.isFavoriteFlag = true;
-      const newBookshelfItem = await setBook(bookshelfItem, {
-        headers: { Authorization: `Bearer ${user.token}` },
-      });
-      dispatch({
-        type: ACTIONS.CREATE_BOOKSHELF_ITEM,
-        payload: newBookshelfItem,
-      });
+      const newBookshelfItem = await setBook(bookshelfItem, { headers: { Authorization: `Bearer ${user.token}` }, });
+      dispatch({ type: ACTIONS.CREATE_BOOKSHELF_ITEM, payload: newBookshelfItem, });
     }
   };
 

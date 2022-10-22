@@ -11,12 +11,14 @@ import {
   createAuthorString,
   getFromShelf,
 } from "../../utilities";
-import { useBookshelfContext } from "../../hooks";
+import { useBookshelfContext, useAuthContext } from "../../hooks";
 import TrashIcon from "../elements/TrashIcon";
 
 const BookDetails = () => {
   const { bookshelfState } = useBookshelfContext();
   const { bookDetail, bookshelf } = bookshelfState;
+  const { userState } = useAuthContext();
+  const { user } = userState;
 
   let bookObj = getFromShelf(
     bookshelf,
@@ -45,11 +47,15 @@ const BookDetails = () => {
                   subtitle={bookDetail.subtitle}
                 />
                 <div>
-                  <FavoritesIcon
-                    bookshelfID={bookObj.bookshelfID}
-                    bookData={bookObj}
-                  />
-                  {bookObj.inBookshelfFlag && <TrashIcon bookshelfID={bookObj.bookshelfID} />}
+                  {user && (
+                    <FavoritesIcon
+                      bookshelfID={bookObj.bookshelfID}
+                      bookData={bookObj}
+                    />
+                  )}
+                  {bookObj.inBookshelfFlag && (
+                    <TrashIcon bookshelfID={bookObj.bookshelfID} />
+                  )}
                 </div>
               </div>
 

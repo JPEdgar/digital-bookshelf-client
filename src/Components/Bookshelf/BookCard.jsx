@@ -5,12 +5,14 @@ import { Card, Col } from "react-bootstrap";
 
 import ACTIONS from "../../constants/actionTypes";
 import { createAuthorString } from "../../utilities";
-import { useBookshelfContext } from "../../hooks";
+import { useBookshelfContext, useAuthContext } from "../../hooks";
 import FavoritesIcon from "../elements/FavoritesIcon";
 import TrashIcon from "../elements/TrashIcon";
 
 const BookCard = ({ book }) => {
   const { dispatch } = useBookshelfContext();
+  const { userState } = useAuthContext();
+  const { user } = userState;
 
   if (!book) return;
 
@@ -37,8 +39,12 @@ const BookCard = ({ book }) => {
 
         <Card.Body>
           <div className="d-flex justify-content-between">
-            <FavoritesIcon bookshelfID={book.bookshelfID} bookData={book} />
-            {book.inBookshelfFlag && <TrashIcon bookshelfID={book.bookshelfID} />}
+            {user && (
+              <FavoritesIcon bookshelfID={book.bookshelfID} bookData={book} />
+            )}
+            {book.inBookshelfFlag && (
+              <TrashIcon bookshelfID={book.bookshelfID} />
+            )}
           </div>
           <Link to="details" onClick={() => handleClick(book)}>
             <Card.Title>{title}</Card.Title>

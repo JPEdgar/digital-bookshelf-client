@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const getBookDetails = async (API, isbn) => {
-  console.log("api = ", API)
-  console.log("isbn = ", isbn)
+  // console.log("api = ", API)
+  // console.log("isbn = ", isbn)
   // console.log("using getBookDetails utility")
   const abortController = new AbortController();
 
@@ -17,7 +17,7 @@ const getBookDetails = async (API, isbn) => {
     const bookDetailsData = await axios.get(`${API}/volumes?q=isbn:${isbn}`, {
       signal: abortController.signal,
     });
-    console.log(bookDetailsData)
+    // console.log(bookDetailsData)
     if (bookDetailsData) bookDetails = bookDetailsData.data.items[0];
   } catch (error) {
     console.log(error);

@@ -35,7 +35,7 @@ const Navigation = () => {
     return () => clearTimeout(delayDebounce);
   }, [searchQuery]);
 
-  useEffect(() => console.log("userState = ", userState), [userState]);
+  // useEffect(() => console.log("userState = ", userState), [userState]);
   return (
     <>
       <Navbar

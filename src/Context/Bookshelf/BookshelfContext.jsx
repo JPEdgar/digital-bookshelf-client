@@ -25,10 +25,8 @@ const BookshelfProvider = ({ children }) => {
     };
 
     if (user) {
-      console.log("Initializing bookshelf");
       initializeBookshelf();
     } else {
-      console.log("Clearing bookshelf");
       dispatch({ type: ACTIONS.CLEAR_BOOKSHELF });
     }
   }, [user]);
