@@ -6,6 +6,7 @@ import { Dropdown, Image, Row, Col, Button } from "react-bootstrap";
 import FavoritesIcon from "../elements/FavoritesIcon";
 import WishListIcon from "../elements/WishListIcon";
 import ToReadListIcon from "../elements/ToReadListIcon";
+import HaveReadIcon from "../elements/HaveReadIcon";
 
 import BOOKSHELF_TYPES from "../../constants/bookshelfTypes";
 import SEARCH_TYPE from "../../constants/searchTypes";
@@ -141,6 +142,7 @@ const SearchBar = () => {
                     <div> <FavoritesIcon onClick={(e) => e.stopPropagation} bookshelfID={result.id} bookData={bookData} /> </div>
                     <div> <WishListIcon onClick={(e) => e.stopPropagation} bookshelfID={result.id} bookData={bookData} /> </div>
                     <div> <ToReadListIcon onClick={(e) => e.stopPropagation} bookshelfID={result.id} bookData={bookData} /> </div>
+                    <div> <HaveReadIcon onClick={(e) => e.stopPropagation} bookshelfID={result.id} bookData={bookData} /> </div>
                   </Col>
                 </Row>
               </Dropdown.Item>

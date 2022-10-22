@@ -1,8 +1,7 @@
 import React from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { faStar as faStarOutline } from "@fortawesome/free-regular-svg-icons";
+import { faGlasses } from "@fortawesome/free-solid-svg-icons";
 
 import MouseoverInfo from "./MouseoverInfo";
 import { updateBook, setBook } from "../../actions/bookshelf";
@@ -15,7 +14,7 @@ import {
 } from "../../utilities";
 import { useBookshelfContext, useAuthContext } from "../../hooks";
 
-const FavoritesIcon = ({ bookshelfID, bookData }) => {
+const HaveReadIcon = ({ bookshelfID, bookData }) => {
   const { API, bookshelfState, dispatch } = useBookshelfContext();
   const { userState } = useAuthContext();
   const { user } = userState;
@@ -27,8 +26,8 @@ const FavoritesIcon = ({ bookshelfID, bookData }) => {
       bookshelfID
     );
     if (bookshelfItem) {
-      const { isFavoriteFlag } = bookshelfItem;
-      bookshelfItem.isFavoriteFlag = !isFavoriteFlag;
+      const { haveReadFlag } = bookshelfItem;
+      bookshelfItem.haveReadFlag = !haveReadFlag;
       dispatch({
         type: BOOKSHELF_TYPES.UPDATE_BOOKSHELF_ITEM,
         payload: bookshelfItem,
@@ -39,7 +38,7 @@ const FavoritesIcon = ({ bookshelfID, bookData }) => {
     } else {
       const isbnObj = createISBNObject(bookData.industryIdentifiers);
       bookshelfItem = await createBookObject(API, isbnObj);
-      bookshelfItem.isFavoriteFlag = true;
+      bookshelfItem.haveReadFlag = true;
       const newBookshelfItem = await setBook(bookshelfItem, {
         headers: { Authorization: `Bearer ${user.token}` },
       });
@@ -51,17 +50,18 @@ const FavoritesIcon = ({ bookshelfID, bookData }) => {
   };
 
   return (
-    <MouseoverInfo text="Favorites">
+    <MouseoverInfo text="Have Read">
       <FontAwesomeIcon
-           style={{
-            cursor: "pointer",
-            color: `${bookData.isFavoriteFlag ? "red" : "black"}`,
-          }}
-        icon={bookData.isFavoriteFlag ? faStar : faStarOutline}
+        style={{
+          cursor: "pointer",
+          color: `${bookData.haveReadFlag ? "red" : "black"}`,
+        }}
+        icon={faGlasses}
+        // icon={bookData.haveReadFlag ? faGift : faGiftOutline}
         onClick={() => handleClick()}
       />
     </MouseoverInfo>
   );
 };
 
-export default FavoritesIcon;
+export default HaveReadIcon;

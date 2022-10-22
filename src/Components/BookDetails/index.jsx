@@ -6,15 +6,12 @@ import OtherWorks from "./OtherWorks";
 import FavoritesIcon from "../elements/FavoritesIcon";
 import WishListIcon from "../elements/WishListIcon";
 import ToReadListIcon from "../elements/ToReadListIcon";
+import HaveReadIcon from "../elements/HaveReadIcon";
+import TrashIcon from "../elements/TrashIcon";
 
 import SEARCH_TYPE from "../../constants/searchTypes";
-import {
-  createISBNObject,
-  createAuthorString,
-  getFromShelf,
-} from "../../utilities";
+import { createISBNObject, createAuthorString, getFromShelf, } from "../../utilities";
 import { useBookshelfContext, useAuthContext } from "../../hooks";
-import TrashIcon from "../elements/TrashIcon";
 
 const BookDetails = () => {
   const { bookshelfState } = useBookshelfContext();
@@ -22,14 +19,10 @@ const BookDetails = () => {
   const { userState } = useAuthContext();
   const { user } = userState;
 
-  let bookObj = getFromShelf(
-    bookshelf,
-    SEARCH_TYPE.BOOKSHELF_ID,
-    bookDetail?.bookshelfID
-  );
-  if (!bookObj) {
-    bookObj = bookDetail;
-  }
+  let bookObj = getFromShelf( bookshelf, SEARCH_TYPE.BOOKSHELF_ID, bookDetail?.bookshelfID );
+  if (!bookObj) { bookObj = bookDetail; }
+
+  const inBookshelfFlag = bookObj?.inBookshelfFlag
 
   return (
     <>
@@ -37,24 +30,17 @@ const BookDetails = () => {
         {bookDetail && (
           <>
             <Col xs={3} className="d-flex justify-content-center">
-              <Image
-                src={bookDetail.imageLinks?.thumbnail}
-                alt={`${bookDetail.title} cover`}
-              />
+              <Image src={bookDetail.imageLinks?.thumbnail} alt={`${bookDetail.title} cover`} />
             </Col>
             <Col xs={9}>
               <div className="d-flex justify-content-between">
-                <BookTitle
-                  title={bookDetail.title}
-                  subtitle={bookDetail.subtitle}
-                />
+                <BookTitle title={bookDetail.title} subtitle={bookDetail.subtitle} />
                 <div>
                   {user && ( <FavoritesIcon bookshelfID={bookObj.bookshelfID} bookData={bookObj} /> )}
                   {user && ( <WishListIcon bookshelfID={bookObj.bookshelfID} bookData={bookObj} /> )}
                   {user && ( <ToReadListIcon bookshelfID={bookObj.bookshelfID} bookData={bookObj} /> )}
-                  {bookObj.inBookshelfFlag && (
-                    <TrashIcon bookshelfID={bookObj.bookshelfID} />
-                  )}
+                  {user && ( <HaveReadIcon bookshelfID={bookObj.bookshelfID} bookData={bookObj} /> )}
+                  {inBookshelfFlag && ( <TrashIcon bookshelfID={bookObj.bookshelfID} /> )}
                 </div>
               </div>
 

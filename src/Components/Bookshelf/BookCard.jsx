@@ -10,6 +10,7 @@ import FavoritesIcon from "../elements/FavoritesIcon";
 import TrashIcon from "../elements/TrashIcon";
 import WishListIcon from "../elements/WishListIcon";
 import ToReadListIcon from "../elements/ToReadListIcon";
+import HaveReadIcon from "../elements/HaveReadIcon";
 
 const BookCard = ({ book }) => {
   const { dispatch } = useBookshelfContext();
@@ -22,6 +23,7 @@ const BookCard = ({ book }) => {
   const title = book.title;
   const subtitle = book.subtitle;
   const authors = book.authors;
+  const inBookshelfFlag = book.inBookshelfFlag
 
   const handleClick = (book) => {
     dispatch({ type: BOOKSHELF_TYPES.SET_BOOK_DETAILS, payload: book });
@@ -44,9 +46,8 @@ const BookCard = ({ book }) => {
             {user && ( <FavoritesIcon bookshelfID={book.bookshelfID} bookData={book} /> )}
             {user && ( <WishListIcon bookshelfID={book.bookshelfID} bookData={book} /> )}
             {user && ( <ToReadListIcon bookshelfID={book.bookshelfID} bookData={book} /> )}
-            {book.inBookshelfFlag && (
-              <TrashIcon bookshelfID={book.bookshelfID} />
-            )}
+            {user && ( <HaveReadIcon bookshelfID={book.bookshelfID} bookData={book} /> )}
+            {inBookshelfFlag && ( <TrashIcon bookshelfID={book.bookshelfID} /> )}
           </div>
           <Link to="details" onClick={() => handleClick(book)}>
             <Card.Title>{title}</Card.Title>
