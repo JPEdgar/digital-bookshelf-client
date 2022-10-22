@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useReducer } from "react";
 
 import { bookshelfReducer } from "../../reducers/index";
 import { getBooks } from "../../actions/bookshelf";
-import ACTIONS from "../../constants/actionTypes";
+import BOOKSHELF_TYPES from "../../constants/bookshelfTypes";
 import { useAuthContext } from "../../hooks";
 
 const BookshelfContext = createContext();
@@ -21,13 +21,13 @@ const BookshelfProvider = ({ children }) => {
       const data = await getBooks({
         headers: { Authorization: `Bearer ${user.token}` },
       });
-      dispatch({ type: ACTIONS.SET_BOOKSHELF, payload: data });
+      dispatch({ type: BOOKSHELF_TYPES.SET_BOOKSHELF, payload: data });
     };
 
     if (user) {
       initializeBookshelf();
     } else {
-      dispatch({ type: ACTIONS.CLEAR_BOOKSHELF });
+      dispatch({ type: BOOKSHELF_TYPES.CLEAR_BOOKSHELF });
     }
   }, [user]);
 

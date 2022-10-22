@@ -5,7 +5,7 @@ import { Navbar, Container, Nav, Image, Button } from "react-bootstrap";
 
 import SearchBar from "./SearchBar";
 
-import ACTIONS from "../../constants/actionTypes";
+import BOOKSHELF_TYPES from "../../constants/bookshelfTypes";
 import { searchForBooksOnline } from "../../utilities";
 import { useBookshelfContext, useLogout, useAuthContext } from "../../hooks";
 
@@ -21,7 +21,10 @@ const Navigation = () => {
     if (!query) return;
     const searchquery = `${API}/volumes?q=${query}`;
     const searchResults = await searchForBooksOnline(searchquery);
-    dispatch({ type: ACTIONS.SET_SEARCH_RESULTS, payload: searchResults });
+    dispatch({
+      type: BOOKSHELF_TYPES.SET_SEARCH_RESULTS,
+      payload: searchResults,
+    });
   };
 
   const handleClick = () => {

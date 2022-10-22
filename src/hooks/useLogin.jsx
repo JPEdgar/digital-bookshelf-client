@@ -13,8 +13,6 @@ const useLogin = () => {
     setLoadingFlag(true);
     setError(null);
 
-    console.log({ email, password });
-
     const response = await axios.post("http://localhost:4000/api/user/login", {
       email,
       password,

@@ -1,4 +1,4 @@
-const ACTIONS = {
+const BOOKSHELF_TYPES = {
   CLEAR_BOOKSHELF: "clear-bookshelf",
   SET_BOOKSHELF: "set-bookshelf",
   UPDATE_SEARCH_PARAMS: "update-search-parameters",
@@ -9,4 +9,4 @@ const ACTIONS = {
   DELETE_BOOKSHELF_ITEM: "delete-bookshelf-item"
 };
 
-export default ACTIONS;
+export default BOOKSHELF_TYPES;

@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Card, Col } from "react-bootstrap";
 
-import ACTIONS from "../../constants/actionTypes";
+import BOOKSHELF_TYPES from "../../constants/bookshelfTypes";
 import { createAuthorString } from "../../utilities";
 import { useBookshelfContext, useAuthContext } from "../../hooks";
 import FavoritesIcon from "../elements/FavoritesIcon";
@@ -22,7 +22,7 @@ const BookCard = ({ book }) => {
   const authors = book.authors;
 
   const handleClick = (book) => {
-    dispatch({ type: ACTIONS.SET_BOOK_DETAILS, payload: book });
+    dispatch({ type: BOOKSHELF_TYPES.SET_BOOK_DETAILS, payload: book });
   };
 
   return (

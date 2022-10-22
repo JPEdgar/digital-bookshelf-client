@@ -7,7 +7,7 @@ import { faStar as faStarOutline } from "@fortawesome/free-regular-svg-icons";
 import MouseoverInfo from "./MouseoverInfo";
 import { updateBook, setBook } from "../../actions/bookshelf";
 import SEARCH_TYPE from "../../constants/searchTypes";
-import ACTIONS from "../../constants/actionTypes";
+import BOOKSHELF_TYPES from "../../constants/bookshelfTypes";
 import {
   getFromShelf,
   createISBNObject,
@@ -29,7 +29,10 @@ const FavoritesIcon = ({ bookshelfID, bookData }) => {
     if (bookshelfItem) {
       const { isFavoriteFlag } = bookshelfItem;
       bookshelfItem.isFavoriteFlag = !isFavoriteFlag;
-      dispatch({ type: ACTIONS.UPDATE_BOOKSHELF_ITEM, payload: bookshelfItem });
+      dispatch({
+        type: BOOKSHELF_TYPES.UPDATE_BOOKSHELF_ITEM,
+        payload: bookshelfItem,
+      });
       await updateBook(bookshelfItem, {
         headers: { Authorization: `Bearer ${user.token}` },
       });
@@ -37,8 +40,13 @@ const FavoritesIcon = ({ bookshelfID, bookData }) => {
       const isbnObj = createISBNObject(bookData.industryIdentifiers);
       bookshelfItem = await createBookObject(API, isbnObj);
       bookshelfItem.isFavoriteFlag = true;
-      const newBookshelfItem = await setBook(bookshelfItem, { headers: { Authorization: `Bearer ${user.token}` }, });
-      dispatch({ type: ACTIONS.CREATE_BOOKSHELF_ITEM, payload: newBookshelfItem, });
+      const newBookshelfItem = await setBook(bookshelfItem, {
+        headers: { Authorization: `Bearer ${user.token}` },
+      });
+      dispatch({
+        type: BOOKSHELF_TYPES.CREATE_BOOKSHELF_ITEM,
+        payload: newBookshelfItem,
+      });
     }
   };
 

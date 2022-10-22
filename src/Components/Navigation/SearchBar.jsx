@@ -5,9 +5,13 @@ import { Dropdown, Image, Row, Col, Button } from "react-bootstrap";
 
 import FavoritesIcon from "../elements/FavoritesIcon";
 
-import ACTIONS from "../../constants/actionTypes";
+import BOOKSHELF_TYPES from "../../constants/bookshelfTypes";
 import SEARCH_TYPE from "../../constants/searchTypes";
-import { createAuthorString, getFromShelf, searchForBooksOnline } from "../../utilities";
+import {
+  createAuthorString,
+  getFromShelf,
+  searchForBooksOnline,
+} from "../../utilities";
 import { useBookshelfContext } from "../../hooks";
 
 const SearchBar = () => {
@@ -19,11 +23,11 @@ const SearchBar = () => {
   const [mouseEnter, setMouseEnter] = useState(false);
 
   const handleChange = (e) =>
-    dispatch({ type: ACTIONS.UPDATE_SEARCH_PARAMS, payload: e.target });
+    dispatch({ type: BOOKSHELF_TYPES.UPDATE_SEARCH_PARAMS, payload: e.target });
 
   const handleSearchDetails = (details, bookshelfID) => {
     dispatch({
-      type: ACTIONS.SET_BOOK_DETAILS,
+      type: BOOKSHELF_TYPES.SET_BOOK_DETAILS,
       payload: { ...details, bookshelfID },
     });
   };
@@ -33,7 +37,6 @@ const SearchBar = () => {
     handleSearchDetails(bookData, id);
   };
 
-
   // const paginateSearch = async (query) => {
   //   if (!query) return;
   //   const searchquery = `${API}/volumes?q=${query}`;
@@ -42,9 +45,8 @@ const SearchBar = () => {
   // };
 
   const test = () => {
-    console.log(searchResults)
-  }
-
+    console.log(searchResults);
+  };
 
   useEffect(() => {
     if (!openDropdown) return;
