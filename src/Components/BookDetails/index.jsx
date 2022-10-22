@@ -4,6 +4,7 @@ import { Row, Col, Image } from "react-bootstrap";
 
 import OtherWorks from "./OtherWorks";
 import FavoritesIcon from "../elements/FavoritesIcon";
+import WishListIcon from "../elements/WishListIcon";
 
 import SEARCH_TYPE from "../../constants/searchTypes";
 import {
@@ -47,12 +48,8 @@ const BookDetails = () => {
                   subtitle={bookDetail.subtitle}
                 />
                 <div>
-                  {user && (
-                    <FavoritesIcon
-                      bookshelfID={bookObj.bookshelfID}
-                      bookData={bookObj}
-                    />
-                  )}
+                  {user && ( <FavoritesIcon bookshelfID={bookObj.bookshelfID} bookData={bookObj} /> )}
+                  {user && ( <WishListIcon bookshelfID={bookObj.bookshelfID} bookData={bookObj} /> )}
                   {bookObj.inBookshelfFlag && (
                     <TrashIcon bookshelfID={bookObj.bookshelfID} />
                   )}
