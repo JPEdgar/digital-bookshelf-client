@@ -9,6 +9,7 @@ import { useBookshelfContext, useAuthContext } from "../../hooks";
 import FavoritesIcon from "../elements/FavoritesIcon";
 import TrashIcon from "../elements/TrashIcon";
 import WishListIcon from "../elements/WishListIcon";
+import ToReadListIcon from "../elements/ToReadListIcon";
 
 const BookCard = ({ book }) => {
   const { dispatch } = useBookshelfContext();
@@ -42,6 +43,7 @@ const BookCard = ({ book }) => {
           <div className="d-flex justify-content-between">
             {user && ( <FavoritesIcon bookshelfID={book.bookshelfID} bookData={book} /> )}
             {user && ( <WishListIcon bookshelfID={book.bookshelfID} bookData={book} /> )}
+            {user && ( <ToReadListIcon bookshelfID={book.bookshelfID} bookData={book} /> )}
             {book.inBookshelfFlag && (
               <TrashIcon bookshelfID={book.bookshelfID} />
             )}
