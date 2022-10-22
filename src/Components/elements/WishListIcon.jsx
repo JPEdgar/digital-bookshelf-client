@@ -25,6 +25,7 @@ const WishListIcon = ({ bookshelfID, bookData }) => {
       SEARCH_TYPE.BOOKSHELF_ID,
       bookshelfID
     );
+
     if (bookshelfItem) {
       const { isWishListFlag } = bookshelfItem;
       bookshelfItem.isWishListFlag = !isWishListFlag;

@@ -26,8 +26,8 @@ const HaveReadIcon = ({ bookshelfID, bookData }) => {
       bookshelfID
     );
     if (bookshelfItem) {
-      const { haveReadFlag } = bookshelfItem;
-      bookshelfItem.haveReadFlag = !haveReadFlag;
+      const { isHaveReadFlag } = bookshelfItem;
+      bookshelfItem.isHaveReadFlag = !isHaveReadFlag;
       dispatch({
         type: BOOKSHELF_TYPES.UPDATE_BOOKSHELF_ITEM,
         payload: bookshelfItem,
@@ -38,7 +38,7 @@ const HaveReadIcon = ({ bookshelfID, bookData }) => {
     } else {
       const isbnObj = createISBNObject(bookData.industryIdentifiers);
       bookshelfItem = await createBookObject(API, isbnObj);
-      bookshelfItem.haveReadFlag = true;
+      bookshelfItem.isHaveReadFlag = true;
       const newBookshelfItem = await setBook(bookshelfItem, {
         headers: { Authorization: `Bearer ${user.token}` },
       });
@@ -54,10 +54,10 @@ const HaveReadIcon = ({ bookshelfID, bookData }) => {
       <FontAwesomeIcon
         style={{
           cursor: "pointer",
-          color: `${bookData.haveReadFlag ? "red" : "black"}`,
+          color: `${bookData.isHaveReadFlag ? "red" : "black"}`,
         }}
         icon={faGlasses}
-        // icon={bookData.haveReadFlag ? faGift : faGiftOutline}
+        // icon={bookData.isHaveReadFlag ? faGift : faGiftOutline}
         onClick={() => handleClick()}
       />
     </MouseoverInfo>

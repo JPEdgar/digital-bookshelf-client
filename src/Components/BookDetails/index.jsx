@@ -22,8 +22,7 @@ const BookDetails = () => {
   let bookObj = getFromShelf( bookshelf, SEARCH_TYPE.BOOKSHELF_ID, bookDetail?.bookshelfID );
   if (!bookObj) { bookObj = bookDetail; }
 
-  const inBookshelfFlag = bookObj?.inBookshelfFlag
-
+  console.log("BookDetails > bookObj = ", bookObj)
   return (
     <>
       <Row>
@@ -40,7 +39,7 @@ const BookDetails = () => {
                   {user && ( <WishListIcon bookshelfID={bookObj.bookshelfID} bookData={bookObj} /> )}
                   {user && ( <ToReadListIcon bookshelfID={bookObj.bookshelfID} bookData={bookObj} /> )}
                   {user && ( <HaveReadIcon bookshelfID={bookObj.bookshelfID} bookData={bookObj} /> )}
-                  {inBookshelfFlag && ( <TrashIcon bookshelfID={bookObj.bookshelfID} /> )}
+                  {bookObj.inBookshelfFlag && ( <TrashIcon bookshelfID={bookObj.bookshelfID} /> )}
                 </div>
               </div>
 
@@ -62,7 +61,7 @@ const BookDetails = () => {
         )}
       </Row>
       <Row>{bookDetail?.description}</Row>
-      <OtherWorks />
+      {/* <OtherWorks /> */}
     </>
   );
 };

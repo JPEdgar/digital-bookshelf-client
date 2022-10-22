@@ -90,6 +90,7 @@ const SearchBar = () => {
       <Dropdown.Menu className="w-100">
         {searchResults?.length > 0 &&
           searchResults.map((result, index) => {
+         
             const bookshelfSearchResult = getFromShelf(
               bookshelfState.bookshelf,
               SEARCH_TYPE.BOOKSHELF_ID,
@@ -98,7 +99,7 @@ const SearchBar = () => {
             const bookData = bookshelfSearchResult
               ? bookshelfSearchResult
               : result.volumeInfo;
-
+              console.log("Search Bar > bookData = ", bookData)
             return (
               <Dropdown.Item key={`searchResultDropdownItem-${index}`} as="div">
                 <Row>

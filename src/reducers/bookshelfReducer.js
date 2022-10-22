@@ -27,6 +27,7 @@ const bookshelfReducer = (state, action) => {
       return { ...state, bookshelf: [...state.bookshelf, action.payload] };
     case BOOKSHELF_TYPES.DELETE_BOOKSHELF_ITEM:
       newBookshelf = state.bookshelf.filter((x) => x._id !== action.payload);
+      console.log(newBookshelf)
       return { ...state, bookshelf: newBookshelf };
     default:
       return state;
