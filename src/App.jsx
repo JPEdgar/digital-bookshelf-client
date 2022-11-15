@@ -30,14 +30,8 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Bookshelf />} />
           <Route path="/details" element={<BookDetails />} />
-          <Route
-            path="signup"
-            element={!user ? <SignUp /> : <Navigate to="/" />}
-          />
-          <Route
-            path="login"
-            element={!user ? <LogIn /> : <Navigate to="/" />}
-          />
+          <Route path="signup" element={!user ? <SignUp /> : <Navigate to="/" />} />
+          <Route path="login" element={!user ? <LogIn /> : <Navigate to="/" />} />
         </Routes>
       </Container>
     </>

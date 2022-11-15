@@ -1,6 +1,7 @@
 import { useAuthContext, useBookshelfContext } from "../hooks";
 
 import BOOKSHELF_TYPES from "../constants/bookshelfTypes";
+import AUTH_TYPES from "../constants/authTypes";
 
 const useLogout = () => {
   const { dispatch: authDispatch } = useAuthContext();
@@ -8,7 +9,7 @@ const useLogout = () => {
 
   const logout = () => {
     localStorage.removeItem("user");
-    authDispatch({ type: "LOGOUT" });
+    authDispatch({ type: AUTH_TYPES.LOGOUT });
     bookshelfDispatch({ type: BOOKSHELF_TYPES.CLEAR_BOOKSHELF });
   };
 

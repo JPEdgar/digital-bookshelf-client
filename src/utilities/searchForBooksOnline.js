@@ -26,7 +26,7 @@ const searchForBooksOnline = async (query) => {
       newest
       
 */
-  const { data } = await axios.get(`${query}&maxResults=2`);
+  const { data } = await axios.get(`${query}&maxResults=4`);
   // console.log(data)
   return data.items;
 };

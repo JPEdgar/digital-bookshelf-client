@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 
 import { useAuthContext } from "../hooks";
+import AUTH_TYPES from "../constants/authTypes";
 
 const useLogin = () => {
   const [error, setError] = useState(null);
@@ -20,11 +21,11 @@ const useLogin = () => {
     const { data } = response;
 
     if (response.statusText !== "OK") {
-      setLoadingFlag(false);
       setError(response.error);
+      setLoadingFlag(false);
     } else {
       localStorage.setItem("user", JSON.stringify(data));
-      dispatch({ type: "LOGIN", payload: data });
+      dispatch({ type: AUTH_TYPES.LOGIN, payload: data });
 
       setLoadingFlag(false);
     }

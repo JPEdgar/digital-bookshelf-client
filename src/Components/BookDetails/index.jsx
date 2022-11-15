@@ -22,7 +22,7 @@ const BookDetails = () => {
   let bookObj = getFromShelf( bookshelf, SEARCH_TYPE.BOOKSHELF_ID, bookDetail?.bookshelfID );
   if (!bookObj) { bookObj = bookDetail; }
 
-  console.log("BookDetails > bookObj = ", bookObj)
+  // console.log("BookDetails > bookObj = ", bookObj)
   return (
     <>
       <Row>

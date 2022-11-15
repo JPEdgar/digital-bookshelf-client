@@ -99,7 +99,7 @@ const SearchBar = () => {
             const bookData = bookshelfSearchResult
               ? bookshelfSearchResult
               : result.volumeInfo;
-              console.log("Search Bar > bookData = ", bookData)
+              // console.log("Search Bar > bookData = ", bookData)
             return (
               <Dropdown.Item key={`searchResultDropdownItem-${index}`} as="div">
                 <Row>
@@ -140,7 +140,9 @@ const SearchBar = () => {
                     </div>
                   </Col>
                   <Col xs={2}>
-                    <div> <FavoritesIcon onClick={(e) => e.stopPropagation} bookshelfID={result.id} bookData={bookData} /> </div>
+                    <div> <FavoritesIcon 
+                    // onClick={(e) => e.stopPropagation} 
+                    bookshelfID={result.id} bookData={bookData} /> </div>
                     <div> <WishListIcon onClick={(e) => e.stopPropagation} bookshelfID={result.id} bookData={bookData} /> </div>
                     <div> <ToReadListIcon onClick={(e) => e.stopPropagation} bookshelfID={result.id} bookData={bookData} /> </div>
                     <div> <HaveReadIcon onClick={(e) => e.stopPropagation} bookshelfID={result.id} bookData={bookData} /> </div>

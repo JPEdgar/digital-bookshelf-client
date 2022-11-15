@@ -9,6 +9,7 @@ const authReducer = (state, action) => {
     case AUTH_TYPES.LOGOUT:
       return { user: null };
     default:
+      console.log("dispatch - else")
       return state;
   }
 };
