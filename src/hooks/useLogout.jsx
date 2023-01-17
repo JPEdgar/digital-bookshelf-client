@@ -8,7 +8,7 @@ const useLogout = () => {
   const { dispatch: bookshelfDispatch } = useBookshelfContext();
 
   const logout = () => {
-    localStorage.removeItem("user");
+    localStorage.removeItem("digital-bookshelf-user");
     authDispatch({ type: AUTH_TYPES.LOGOUT });
     bookshelfDispatch({ type: BOOKSHELF_TYPES.CLEAR_BOOKSHELF });
   };

@@ -9,7 +9,7 @@ const AuthProvider = ({ children }) => {
   const [userState, dispatch] = useReducer(authReducer, { user: null });
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(localStorage.getItem("digital-bookshelf-user"));
     if (user) dispatch({ type: AUTH_TYPES.LOGIN, payload: user });
   }, []);
 

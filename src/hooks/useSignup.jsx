@@ -14,6 +14,34 @@ const useSignup = () => {
     setLoadingFlag(true);
     setError(null);
 
+    const createNewUser = (email, password) => {
+      const newUser = axios.post("http://localhost:4000/api/auth/signup", {
+        email,
+        password,
+      });
+      return newUser;
+    };
+  
+    const createUserDetails = (data) => {
+      const { email, id, token } = data;
+      const newUserDetails = axios.post(
+        "http://localhost:4000/api/user",
+        { email, id },
+        { headers: { Authorization: `bearer ${token}` } }
+      );
+      return newUserDetails;
+    };
+  
+    const createBookshelf = (data) => {
+      const { id, token } = data;
+      const newBookshelf = axios.post(
+        "http://localhost:4000/api/bookshelf",
+        { id },
+        { headers: { Authorization: `bearer ${token}` } }
+      );
+      return newBookshelf
+    };
+
     const createNewUserResponse = await createNewUser(email, password);
     if (createNewUserResponse.statusText !== "Created") {
       console.log("Problem creating new user: ", createNewUserResponse)
@@ -38,39 +66,13 @@ const useSignup = () => {
       return;
     }
 
-    //     localStorage.setItem("user", JSON.stringify(data));
-    //     authDispatch({ type: AUTH_TYPES.SIGNUP, payload: data });
+    localStorage.setItem("digital-bookshelf-user", JSON.stringify(createNewUserResponse.data));
+    authDispatch({ type: AUTH_TYPES.SIGNUP, payload: createNewUserResponse.data });
 
     setLoadingFlag(false);
   };
 
-  const createNewUser = (email, password) => {
-    const newUser = axios.post("http://localhost:4000/api/auth/signup", {
-      email,
-      password,
-    });
-    return newUser;
-  };
 
-  const createUserDetails = (data) => {
-    const { email, id, token } = data;
-    const newUserDetails = axios.post(
-      "http://localhost:4000/api/user",
-      { email, id },
-      { headers: { Authorization: `bearer ${token}` } }
-    );
-    return newUserDetails;
-  };
-
-  const createBookshelf = (data) => {
-    const { id, token } = data;
-    const newBookshelf = axios.post(
-      "http://localhost:4000/api/bookshelf",
-      { id },
-      { headers: { Authorization: `bearer ${token}` } }
-    );
-    return newBookshelf
-  };
 
   return { signup, loadingFlag, error };
 };
