@@ -1,15 +1,14 @@
-import React, { createContext, useReducer, useEffect } from "react";
+import React, { createContext, useReducer } from "react";
 
-import USER_TYPES from "../../constants/userTypes";
 import { userReducer } from "../../reducers";
 
 const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
-  const [userState, dispatch] = useReducer(userReducer, null);
+  const [userDetails, dispatch] = useReducer(userReducer, {  });
 
   return (
-    <UserContext.Provider value={{ userState, dispatch }}>
+    <UserContext.Provider value={{ userDetails, dispatch }}>
       {children}
     </UserContext.Provider>
   );

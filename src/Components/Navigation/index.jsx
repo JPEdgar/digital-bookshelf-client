@@ -8,10 +8,9 @@ import MenuDropdown from "./MenuDropdown";
 
 import BOOKSHELF_TYPES from "../../constants/bookshelfTypes";
 import { searchForBooksOnline } from "../../utilities";
-import { useBookshelfContext, useLogout, useAuthContext } from "../../hooks";
+import { useBookshelfContext, useAuthContext } from "../../hooks";
 
 const Navigation = () => {
-  const { logout } = useLogout();
   const { bookshelfState, dispatch, API } = useBookshelfContext();
   const { searchData } = bookshelfState;
   const { searchQuery } = searchData;

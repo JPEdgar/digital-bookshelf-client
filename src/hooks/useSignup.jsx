@@ -2,13 +2,15 @@ import { useState } from "react";
 
 import axios from "axios";
 
-import { useAuthContext } from "../hooks";
+import { useAuthContext, useUserContext } from "../hooks";
 import AUTH_TYPES from "../constants/authTypes";
+import USER_TYPES from "../constants/userTypes";
 
 const useSignup = () => {
   const [error, setError] = useState(null);
   const [loadingFlag, setLoadingFlag] = useState(null);
   const { dispatch: authDispatch } = useAuthContext();
+  const { dispatch: userDispatch } = useUserContext();
 
   const signup = async (email, password) => {
     setLoadingFlag(true);
@@ -21,7 +23,7 @@ const useSignup = () => {
       });
       return newUser;
     };
-  
+
     const createUserDetails = (data) => {
       const { email, id, token } = data;
       const newUserDetails = axios.post(
@@ -31,7 +33,7 @@ const useSignup = () => {
       );
       return newUserDetails;
     };
-  
+
     const createBookshelf = (data) => {
       const { id, token } = data;
       const newBookshelf = axios.post(
@@ -39,40 +41,57 @@ const useSignup = () => {
         { id },
         { headers: { Authorization: `bearer ${token}` } }
       );
-      return newBookshelf
+      return newBookshelf;
     };
 
     const createNewUserResponse = await createNewUser(email, password);
     if (createNewUserResponse.statusText !== "Created") {
-      console.log("Problem creating new user: ", createNewUserResponse)
+      console.log("Problem creating new user: ", createNewUserResponse);
       setLoadingFlag(false);
       setError(createNewUserResponse.error);
       return;
     }
 
-    const createNewUserDetailsResponse = await createUserDetails( createNewUserResponse.data );
+    const createNewUserDetailsResponse = await createUserDetails(
+      createNewUserResponse.data
+    );
     if (createNewUserDetailsResponse.statusText !== "Created") {
-      console.log("Problem creating new user details: ", createNewUserDetailsResponse)
+      console.log(
+        "Problem creating new user details: ",
+        createNewUserDetailsResponse
+      );
       setLoadingFlag(false);
       setError(createNewUserDetailsResponse.error);
       return;
     }
 
-    const createNewBookshelfResponse = await createBookshelf( createNewUserResponse.data );
+    const createNewBookshelfResponse = await createBookshelf(
+      createNewUserResponse.data
+    );
     if (createNewBookshelfResponse.statusText !== "Created") {
-      console.log("Problem creating new bookshelf: ", createNewBookshelfResponse)
+      console.log(
+        "Problem creating new bookshelf: ",
+        createNewBookshelfResponse
+      );
       setLoadingFlag(false);
       setError(createNewBookshelfResponse.error);
       return;
     }
 
-    localStorage.setItem("digital-bookshelf-user", JSON.stringify(createNewUserResponse.data));
-    authDispatch({ type: AUTH_TYPES.SIGNUP, payload: createNewUserResponse.data });
-
+    localStorage.setItem(
+      "digital-bookshelf-user",
+      JSON.stringify(createNewUserResponse.data)
+    );
+    authDispatch({
+      type: AUTH_TYPES.SIGNUP,
+      payload: createNewUserResponse.data,
+    });
+    userDispatch({
+      type: USER_TYPES.SET_USER_DETAILS,
+      payload: createNewUserDetailsResponse.data,
+    });
     setLoadingFlag(false);
   };
-
-
 
   return { signup, loadingFlag, error };
 };

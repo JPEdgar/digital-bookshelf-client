@@ -1,5 +1,6 @@
 import React, { forwardRef } from "react";
-import Dropdown from "react-bootstrap/Dropdown";
+import { Dropdown, Nav } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 import { useLogout } from "../../hooks";
 
@@ -16,7 +17,10 @@ function MenuDropdown() {
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
-        <Dropdown.Item>User Settings</Dropdown.Item>
+        <Dropdown.Item as={Link} to="/user-settings">
+          User Settings
+        </Dropdown.Item>
+
         <Dropdown.Item onClick={() => logout()}>Log Out</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
