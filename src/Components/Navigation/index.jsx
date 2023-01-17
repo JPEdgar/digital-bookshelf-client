@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Navbar, Container, Nav, Image, Button } from "react-bootstrap";
 
 import SearchBar from "./SearchBar";
+import MenuDropdown from "./MenuDropdown";
 
 import BOOKSHELF_TYPES from "../../constants/bookshelfTypes";
 import { searchForBooksOnline } from "../../utilities";
@@ -25,10 +26,6 @@ const Navigation = () => {
       type: BOOKSHELF_TYPES.SET_SEARCH_RESULTS,
       payload: searchResults,
     });
-  };
-
-  const handleClick = () => {
-    logout();
   };
 
   useEffect(() => {
@@ -69,14 +66,12 @@ const Navigation = () => {
                 Book Details
               </Nav.Link>
               <Nav.Link as={Link} to="user-search">
-                  User Search
-                </Nav.Link>
+                User Search
+              </Nav.Link>
             </Nav>
             <SearchBar />
             {user ? (
-              <div>
-                <Button onClick={() => handleClick()}>Log out</Button>
-              </div>
+              <MenuDropdown />
             ) : (
               <div>
                 <Nav.Link as={Link} to="login">
@@ -85,7 +80,6 @@ const Navigation = () => {
                 <Nav.Link as={Link} to="signup">
                   Sign Up
                 </Nav.Link>
-       
               </div>
             )}
           </Navbar.Collapse>
