@@ -68,6 +68,9 @@ const Navigation = () => {
               <Nav.Link as={Link} to="details">
                 Book Details
               </Nav.Link>
+              <Nav.Link as={Link} to="user-search">
+                  User Search
+                </Nav.Link>
             </Nav>
             <SearchBar />
             {user ? (
@@ -82,6 +85,7 @@ const Navigation = () => {
                 <Nav.Link as={Link} to="signup">
                   Sign Up
                 </Nav.Link>
+       
               </div>
             )}
           </Navbar.Collapse>

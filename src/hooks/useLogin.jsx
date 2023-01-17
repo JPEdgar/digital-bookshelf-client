@@ -14,7 +14,7 @@ const useLogin = () => {
     setLoadingFlag(true);
     setError(null);
 
-    const response = await axios.post("http://localhost:4000/api/user/login", {
+    const response = await axios.post("http://localhost:4000/api/auth/login", {
       email,
       password,
     });
@@ -30,6 +30,8 @@ const useLogin = () => {
       setLoadingFlag(false);
     }
   };
+
+
   return { login, loadingFlag, error };
 };
 

@@ -14,7 +14,7 @@ const useSignup = () => {
     setLoadingFlag(true);
     setError(null);
 
-    const response = await axios.post("http://localhost:4000/api/user/signup", {
+    const response = await axios.post("http://localhost:4000/api/auth/signup", {
       email,
       password,
     });

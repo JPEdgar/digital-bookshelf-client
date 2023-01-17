@@ -1,14 +1,14 @@
 import axios from "axios";
 
-const url = "http://localhost:4000/api/bookshelf";
+const bookshelfURL = "http://localhost:4000/api/bookshelf";
+const authURL = "http://localhost:4000/api/auth";
 
-const getBooks = (options = {}) => axios.get(url, { ...options });
-const getBook = (id, options = {}) => axios.get(`${url}/${id}`, { ...options });
-const updateBook = (updateInfo, options = {}) =>
-  axios.patch(`${url}/${updateInfo._id}`, updateInfo, { ...options });
-const setBook = (newBook, options = {}) =>
-  axios.post(url, newBook, { ...options });
-const deleteBook = (id, options = {}) =>
-  axios.delete(`${url}/${id}`, { ...options });
+const getBooks = (options = {}) => axios.get(bookshelfURL, { ...options });
+const getBook = (id, options = {}) => axios.get(`${bookshelfURL}/${id}`, { ...options });
+const updateBook = (updateInfo, options = {}) => axios.patch(`${bookshelfURL}/${updateInfo._id}`, updateInfo, { ...options });
+const setBook = (newBook, options = {}) => axios.post(bookshelfURL, newBook, { ...options });
+const deleteBook = (id, options = {}) => axios.delete(`${bookshelfURL}/${id}`, { ...options });
 
-export { getBooks, getBook, updateBook, setBook, deleteBook };
+const getUser = async (email = "") => axios.get(authURL, { params: { email } });
+
+export { getBooks, getBook, updateBook, setBook, deleteBook, getUser };
