@@ -9,7 +9,7 @@ import Bookshelf from "./components/Bookshelf";
 import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";
 import UserSearch from "./components/UserSearch";
-import UserSettings from "./components/UserSettings"
+import AccountSettings from "./components/AccountSettings"
 
 import { useBookshelfContext, useAuthContext, useUserContext } from "./hooks"; // temp
 
@@ -37,7 +37,7 @@ const App = () => {
           <Route path="/signup" element={!user ? <SignUp /> : <Navigate to="/" />} />
           <Route path="/login" element={!user ? <LogIn /> : <Navigate to="/" />} />
           <Route path="/user-search" element={<UserSearch/>} />
-          <Route path="/user-settings" element={<UserSettings/>} />
+          <Route path="/user-settings" element={<AccountSettings/>} />
         </Routes>
       </Container>
     </>

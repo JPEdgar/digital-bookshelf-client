@@ -2,35 +2,43 @@ import { useState } from "react";
 
 import axios from "axios";
 
-import { useAuthContext } from "../hooks";
+import { useAuthContext, useUserContext } from "../hooks";
 import AUTH_TYPES from "../constants/authTypes";
+import USER_TYPES from "../constants/userTypes";
 
 const useLogin = () => {
   const [error, setError] = useState(null);
   const [loadingFlag, setLoadingFlag] = useState(null);
-  const { dispatch } = useAuthContext();
+  const { dispatch: authDispatch } = useAuthContext();
+  const { dispatch: userDispatch } = useUserContext();
 
   const login = async (email, password) => {
     setLoadingFlag(true);
     setError(null);
 
-    const response = await axios.post("http://localhost:4000/api/auth/login", {
-      email,
-      password,
-    });
-    const { data } = response;
+    const authResponse = await axios.post(
+      "http://localhost:4000/api/auth/login",
+      { email, password }
+    );
+    const { data } = authResponse;
 
-    if (response.statusText !== "OK") {
-      setError(response.error);
+    if (authResponse.statusText !== "OK") {
+      setError(authResponse.error);
       setLoadingFlag(false);
     } else {
       localStorage.setItem("digital-bookshelf-user", JSON.stringify(data));
-      dispatch({ type: AUTH_TYPES.LOGIN, payload: data });
+      authDispatch({
+        type: AUTH_TYPES.LOGIN,
+        payload: { email: data.email, token: data.token },
+      });
+      userDispatch({
+        type: USER_TYPES.SET_USER_DETAILS,
+        payload: data.userData,
+      });
 
       setLoadingFlag(false);
     }
   };
-
 
   return { login, loadingFlag, error };
 };
