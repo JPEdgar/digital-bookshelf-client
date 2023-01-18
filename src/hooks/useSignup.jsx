@@ -6,6 +6,8 @@ import { useAuthContext, useUserContext } from "../hooks";
 import AUTH_TYPES from "../constants/authTypes";
 import USER_TYPES from "../constants/userTypes";
 
+import { signUp } from "../actions/auth";
+
 const useSignup = () => {
   const [error, setError] = useState(null);
   const [loadingFlag, setLoadingFlag] = useState(null);
@@ -15,14 +17,6 @@ const useSignup = () => {
   const signup = async (email, password) => {
     setLoadingFlag(true);
     setError(null);
-
-    const createNewUser = (email, password) => {
-      const newUser = axios.post("http://localhost:4000/api/auth/signup", {
-        email,
-        password,
-      });
-      return newUser;
-    };
 
     const createUserDetails = (data) => {
       const { email, id, token } = data;
@@ -44,7 +38,7 @@ const useSignup = () => {
       return newBookshelf;
     };
 
-    const createNewUserResponse = await createNewUser(email, password);
+    const createNewUserResponse = await signUp(email, password);
     if (createNewUserResponse.statusText !== "Created") {
       console.log("Problem creating new user: ", createNewUserResponse);
       setLoadingFlag(false);

@@ -1,13 +1,16 @@
-import React from 'react'
+import React from "react";
 
+import ProfileForm from "./ProfileForm";
 import { useUserContext } from "../../hooks";
 
 const ProfileSettings = () => {
-    const { userDetails } = useUserContext();
-    React.useEffect(() => console.log(userDetails), [userDetails]);
+  const { userDetails } = useUserContext();
+  React.useEffect(() => console.log(userDetails), [userDetails]);
   return (
-    <div>ProfileSettings</div>
-  )
-}
+    <>
+      <ProfileForm />
+    </>
+  );
+};
 
-export default ProfileSettings
+export default ProfileSettings;

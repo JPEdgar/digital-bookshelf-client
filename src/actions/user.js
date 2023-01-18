@@ -1,6 +1,6 @@
 import * as api from "../api";
 
-const logIn = async (email, password) => {
+const createUserDetails = async (email, password) => {
   try {
     const data = await api.setLogIn(email, password);
     return data;
@@ -9,13 +9,13 @@ const logIn = async (email, password) => {
   }
 };
 
-const signUp = async (email, password) => {
+const getUserDetails = async (email) => {
   try {
-    const data = await api.setSignUp(email, password);
+    const { data } = await api.getUserDetails(email);
     return data;
   } catch (error) {
     console.log(error);
   }
 };
 
-export { logIn, signUp };
+export { createUserDetails, getUserDetails };

@@ -13,7 +13,6 @@ const AuthProvider = ({ children }) => {
     if (user) dispatch({ type: AUTH_TYPES.LOGIN, payload: user });
   }, []);
 
-  // console.log("userState = ", userState);
   return (
     <AuthContext.Provider value={{ userState, dispatch }}>
       {children}

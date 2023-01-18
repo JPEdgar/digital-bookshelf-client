@@ -6,6 +6,8 @@ import { useAuthContext, useUserContext } from "../hooks";
 import AUTH_TYPES from "../constants/authTypes";
 import USER_TYPES from "../constants/userTypes";
 
+import { logIn } from "../actions/auth";
+
 const useLogin = () => {
   const [error, setError] = useState(null);
   const [loadingFlag, setLoadingFlag] = useState(null);
@@ -16,10 +18,8 @@ const useLogin = () => {
     setLoadingFlag(true);
     setError(null);
 
-    const authResponse = await axios.post(
-      "http://localhost:4000/api/auth/login",
-      { email, password }
-    );
+    const authResponse = await logIn(email, password);
+
     const { data } = authResponse;
 
     if (authResponse.statusText !== "OK") {

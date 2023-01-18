@@ -9,7 +9,7 @@ import Bookshelf from "./components/Bookshelf";
 import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";
 import UserSearch from "./components/UserSearch";
-import AccountSettings from "./components/AccountSettings"
+import AccountSettings from "./components/AccountSettings";
 
 import { useBookshelfContext, useAuthContext, useUserContext } from "./hooks"; // temp
 
@@ -18,7 +18,7 @@ import "./styles/css/index.css";
 
 const App = () => {
   const { bookshelfState } = useBookshelfContext(); // temp
-  const {userDetails} = useUserContext()
+  const { userDetails } = useUserContext();
   const { userState } = useAuthContext();
   const { user } = userState;
 
@@ -30,14 +30,21 @@ const App = () => {
       </button>
       <button onClick={() => console.log(userState)}>Log userState</button>
       <button onClick={() => console.log(userDetails)}>log userDetails</button>
+
       <Container>
         <Routes>
           <Route path="/" element={<Bookshelf />} />
           <Route path="/details" element={<BookDetails />} />
-          <Route path="/signup" element={!user ? <SignUp /> : <Navigate to="/" />} />
-          <Route path="/login" element={!user ? <LogIn /> : <Navigate to="/" />} />
-          <Route path="/user-search" element={<UserSearch/>} />
-          <Route path="/user-settings" element={<AccountSettings/>} />
+          <Route
+            path="/signup"
+            element={!user ? <SignUp /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/login"
+            element={!user ? <LogIn /> : <Navigate to="/" />}
+          />
+          <Route path="/user-search" element={<UserSearch />} />
+          <Route path="/user-settings" element={<AccountSettings />} />
         </Routes>
       </Container>
     </>
