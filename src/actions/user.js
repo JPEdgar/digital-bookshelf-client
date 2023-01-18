@@ -18,4 +18,11 @@ const getUserDetails = async (email) => {
   }
 };
 
-export { createUserDetails, getUserDetails };
+const setUserDetails = async (data, token) => {
+  try {
+    await api.setUserDetails(data, token);
+  } catch (error) {
+    console.log(error);
+  }
+};
+export { createUserDetails, getUserDetails, setUserDetails };

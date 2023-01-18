@@ -19,16 +19,17 @@ const setLogIn = async (email = "", password = "") =>
   axios.post(`${authURL}/login`, { email, password });
 const setSignUp = async (email = "", password = "") =>
   axios.post(`${authURL}/signup`, { email, password });
-
-const getUserDetails = async (email = "") =>
-  axios.get(userURL, { params: { email } });
-
-const setUserDetail = async (email = "", id = "", token = "") =>
+const setAuthDetail = async (email = "", id = "", token = "") =>
   axios.post(
     userURL,
     { email, id },
     { headers: { Authorization: `bearer ${token}` } }
   );
+
+const getUserDetails = async (email = "") =>
+  axios.get(userURL, { params: { email } });
+const setUserDetails = async (data = {}, token = "") =>
+  axios.post(userURL, data, { headers: { Authorization: `bearer ${token}` } });
 
 export {
   getBooks,
@@ -38,6 +39,7 @@ export {
   deleteBook,
   setLogIn,
   setSignUp,
-  setUserDetail,
+  setAuthDetail,
   getUserDetails,
+  setUserDetails,
 };
