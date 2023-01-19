@@ -18,7 +18,10 @@ const UserProvider = ({ children }) => {
       dispatch({ type: USER_TYPES.SET_USER_DETAILS, payload: data });
     };
 
-    if (user) findAndSetDetails(user.email);
+    if (user) {
+      console.log("user = ", user)
+      findAndSetDetails(user.email);
+    }
   }, []);
 
   return (

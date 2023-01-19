@@ -26,9 +26,9 @@ const useLogin = () => {
       setError(authResponse.error);
       setLoadingFlag(false);
     } else {
-      console.log("useLogin data = ", data)
-      localStorage.setItem("digital-bookshelf-user", JSON.stringify(data));
-      authDispatch({ type: AUTH_TYPES.LOGIN, payload: { email: data.email, token: data.token }, });
+      const { email, token } = data;
+      localStorage.setItem( "digital-bookshelf-user", JSON.stringify({ email, token }) );
+      authDispatch({ type: AUTH_TYPES.LOGIN, payload: { email, token }, });
       setUserDetails(data.userData, data.token);
 
       setLoadingFlag(false);

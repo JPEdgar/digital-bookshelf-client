@@ -13,23 +13,21 @@ const BookshelfProvider = ({ children }) => {
     INITIALIZE_STATE
   );
   const API = "https://www.googleapis.com/books/v1"; // api base link
-  const { userState } = useAuthContext();
-  const { user } = userState;
+  const { authState } = useAuthContext();
 
-  useEffect(() => {
-    const initializeBookshelf = async () => {
-      const data = await getBooks({
-        headers: { Authorization: `Bearer ${user.token}` },
-      });
-      dispatch({ type: BOOKSHELF_TYPES.SET_BOOKSHELF, payload: data });
-    };
+  // useEffect(() => {
+  //   // console.log("user = ", user);
+  //   const initializeBookshelf = async () => {
+  //     const data = await getBooks({ headers: { Authorization: `Bearer ${user.token}` }, });
+  //     dispatch({ type: BOOKSHELF_TYPES.SET_BOOKSHELF, payload: data });
+  //   };
 
-    if (user) {
-      initializeBookshelf();
-    } else {
-      dispatch({ type: BOOKSHELF_TYPES.CLEAR_BOOKSHELF });
-    }
-  }, [user]);
+  //   if (user) {
+  //     initializeBookshelf();
+  //   } else {
+  //     dispatch({ type: BOOKSHELF_TYPES.CLEAR_BOOKSHELF });
+  //   }
+  // }, [user]);
 
   // useEffect(() => console.log("state = ", state), [state]);
 

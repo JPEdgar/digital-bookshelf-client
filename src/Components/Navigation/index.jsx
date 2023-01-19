@@ -14,8 +14,7 @@ const Navigation = () => {
   const { bookshelfState, dispatch, API } = useBookshelfContext();
   const { searchData } = bookshelfState;
   const { searchQuery } = searchData;
-  const { userState } = useAuthContext();
-  const { user } = userState;
+  const { authState } = useAuthContext();
 
   const handleSearch = async (query) => {
     if (!query) return;
@@ -69,7 +68,7 @@ const Navigation = () => {
               </Nav.Link>
             </Nav>
             <SearchBar />
-            {user ? (
+            {authState.email ? (
               <MenuDropdown />
             ) : (
               <div>

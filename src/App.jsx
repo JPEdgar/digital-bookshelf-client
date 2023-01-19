@@ -19,8 +19,7 @@ import "./styles/css/index.css";
 const App = () => {
   const { bookshelfState } = useBookshelfContext(); // temp
   const { userDetails } = useUserContext();
-  const { userState } = useAuthContext();
-  const { user } = userState;
+  const { authState } = useAuthContext();
 
   return (
     <>
@@ -28,7 +27,7 @@ const App = () => {
       <button onClick={() => console.log(bookshelfState)}>
         Log bookshelfState
       </button>
-      <button onClick={() => console.log(userState)}>Log userState</button>
+      <button onClick={() => console.log(authState)}>Log authState</button>
       <button onClick={() => console.log(userDetails)}>log userDetails</button>
 
       <Container>
@@ -37,11 +36,11 @@ const App = () => {
           <Route path="/details" element={<BookDetails />} />
           <Route
             path="/signup"
-            element={!user ? <SignUp /> : <Navigate to="/" />}
+            element={!authState.email ? <SignUp /> : <Navigate to="/" />}
           />
           <Route
             path="/login"
-            element={!user ? <LogIn /> : <Navigate to="/" />}
+            element={!authState.email ? <LogIn /> : <Navigate to="/" />}
           />
           <Route path="/user-search" element={<UserSearch />} />
           <Route path="/user-settings" element={<AccountSettings />} />
