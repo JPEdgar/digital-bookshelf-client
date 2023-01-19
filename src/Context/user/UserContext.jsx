@@ -3,12 +3,10 @@ import React, { createContext, useReducer, useEffect } from "react";
 import { userReducer } from "../../reducers";
 import USER_TYPES from "../../constants/userTypes";
 import { getUserDetails } from "../../actions/user";
-// import { useAuthContext } from "../../hooks";
 
 const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
-  // const { userState } = useAuthContext();
   const [userDetails, dispatch] = useReducer(userReducer, INITIALIZE_STATE);
 
   useEffect(() => {
@@ -16,6 +14,7 @@ const UserProvider = ({ children }) => {
 
     const findAndSetDetails = async (email) => {
       const data = await getUserDetails(email);
+      // console.log("-------- data = ", data)
       dispatch({ type: USER_TYPES.SET_USER_DETAILS, payload: data });
     };
 

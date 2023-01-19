@@ -11,19 +11,34 @@ const useUserDetails = () => {
   const { userDetails, dispatch: userDispatch } = useUserContext();
 
   const getUserDetails = async (email, getOnlineOverride = false) => {
-    let userData = {};
-    if (getOnlineOverride || !userDetails.id)
+    return
+    let userData;
+    console.log("useUserDetail hook, userDetails = ", userDetails._id);
+    if (getOnlineOverride) {
+      console.log("useUserDetail hook, override = true");
       userData = await getUserDetailsAction(email);
-    else userData = { ...userDetails };
+      // console.log("userData = ", userData);
+    }
+    else if (!userDetails.id) {
+      console.log("useUserDetail hook, userDetails has no id");
+      userData = await getUserDetailsAction(email);
+      // console.log("userData = ", userData);
+    } else {
+      // console.log("useUserDetail hook, userData should = userDetails");
+      userData = await { ...userDetails };
+      // console.log("userData = ", userData);
+    }
+    // console.log("useUserDetail hook, userData = ", userData);
     return userData;
   };
 
-  const setUserDetails = async (data) => {
-    await setUserDetailsAction(data);
-    userDispatch({ type: USER_TYPES.SET_USER_DETAILS, payload: data.userData });
+  const setUserDetails = async (data, token) => {
+    // console.log("data = ", data)
+    await setUserDetailsAction(data, token);
+    userDispatch({ type: USER_TYPES.SET_USER_DETAILS, payload: data });
   };
 
-  return { getUserDetails, setUserDetails };
+  return { userDetails, getUserDetails, setUserDetails };
 };
 
 export default useUserDetails;

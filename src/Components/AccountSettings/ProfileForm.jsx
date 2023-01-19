@@ -3,13 +3,13 @@ import React, { useState, useEffect } from "react";
 import { Form, Button, Image } from "react-bootstrap";
 import FileBase from "react-file-base64";
 
-import { useUserContext } from "../../hooks";
+// import USER_TYPES from "../../constants/userTypes";
+// import { getUserDetails,setUserDetails } from "../../actions/user";
 
-import USER_TYPES from "../../constants/userTypes";
-import { setUserDetails } from "../../actions/user";
+import { useUserDetails } from "../../hooks";
 
 const ProfileForm = () => {
-  // const { userDetails, dispatch } = useUserContext();
+  const { userDetails } = useUserDetails();
   const [inputData, setInputData] = useState({
     avatar: "",
     email: "",
@@ -20,13 +20,13 @@ const ProfileForm = () => {
     userID: "",
   });
 
-  const handleChange = (e) =>{}
+  const handleChange = (e) => {};
   //   setInputData((curr) => ({ ...curr, [e.target.name]: e.target.value }));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  //   await setUserDetails(inputData);
-  //   dispatch({ type: USER_TYPES.SET_USER_DETAILS, payload: inputData });
+    //   await setUserDetails(inputData);
+    //   dispatch({ type: USER_TYPES.SET_USER_DETAILS, payload: inputData });
   };
 
   // useEffect(() => console.log("inputData = ", inputData), [inputData]);
@@ -35,6 +35,7 @@ const ProfileForm = () => {
   //   if (userDetails._id) setInputData(userDetails);
   // }, [userDetails]);
 
+  useEffect(() => console.log("userDetails = ", userDetails, [userDetails]))
   return (
     <>
       <Form onSubmit={handleSubmit}>
