@@ -9,8 +9,7 @@ import USER_TYPES from "../../constants/userTypes";
 import { setUserDetails } from "../../actions/user";
 
 const ProfileForm = () => {
-
-  const { userDetails, dispatch } = useUserContext();
+  // const { userDetails, dispatch } = useUserContext();
   const [inputData, setInputData] = useState({
     avatar: "",
     email: "",
@@ -21,20 +20,20 @@ const ProfileForm = () => {
     userID: "",
   });
 
-  const handleChange = (e) =>
-    setInputData((curr) => ({ ...curr, [e.target.name]: e.target.value }));
+  const handleChange = (e) =>{}
+  //   setInputData((curr) => ({ ...curr, [e.target.name]: e.target.value }));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await setUserDetails(inputData);
-    dispatch({ type: USER_TYPES.SET_USER_DETAILS, payload: inputData });
+  //   await setUserDetails(inputData);
+  //   dispatch({ type: USER_TYPES.SET_USER_DETAILS, payload: inputData });
   };
 
-  useEffect(() => console.log("inputData = ", inputData), [inputData]);
+  // useEffect(() => console.log("inputData = ", inputData), [inputData]);
 
-  useEffect(() => {
-    if (userDetails._id) setInputData(userDetails);
-  }, [userDetails]);
+  // useEffect(() => {
+  //   if (userDetails._id) setInputData(userDetails);
+  // }, [userDetails]);
 
   return (
     <>

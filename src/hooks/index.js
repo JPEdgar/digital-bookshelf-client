@@ -1,10 +1,11 @@
-import useBookshelfContext from "./useBookshelfContext";
-import useAuthContext from "./useAuthContext";
+import useBookshelfContext from "./context/useBookshelfContext";
+import useAuthContext from "./context/useAuthContext";
 import useSignup from "./useSignup";
 import useLogout from "./useLogout";
 import useLogin from "./useLogin";
-import useSocialContext from "./useSocialContext";
-import useUserContext from "./useUserContext";
+import useSocialContext from "./context/useSocialContext";
+import useUserContext from "./context/useUserContext";
+import useUserDetails from "./useUserDetails";
 
 export {
   useBookshelfContext,
@@ -14,4 +15,5 @@ export {
   useLogin,
   useSocialContext,
   useUserContext,
+  useUserDetails,
 };

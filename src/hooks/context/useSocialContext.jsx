@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { SocialContext } from "../context/social/SocialContext";
+import { SocialContext } from "../../context/social/SocialContext";
 
 const useSocialContext = () => {
   const context = useContext(SocialContext);

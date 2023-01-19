@@ -3,11 +3,12 @@ import React, { createContext, useReducer, useEffect } from "react";
 import { userReducer } from "../../reducers";
 import USER_TYPES from "../../constants/userTypes";
 import { getUserDetails } from "../../actions/user";
-import { useAuthContext } from "../../hooks";
+// import { useAuthContext } from "../../hooks";
+
 const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
-  const { userState } = useAuthContext();
+  // const { userState } = useAuthContext();
   const [userDetails, dispatch] = useReducer(userReducer, INITIALIZE_STATE);
 
   useEffect(() => {
