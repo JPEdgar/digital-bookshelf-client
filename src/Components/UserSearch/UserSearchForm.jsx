@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { Form } from "react-bootstrap";
 
-// import { getUser } from "../../actions/auth";
+import { getUserDetails } from "../../actions/user";
 
 const UserSearchForm = ({ setSearchResults }) => {
   const [searchText, setSearchText] = useState("test@test.com");
@@ -12,8 +12,8 @@ const UserSearchForm = ({ setSearchResults }) => {
   };
 
   const handleClick = async (testText) => {
-    // const { data } = await getUser(testText);
-    // setSearchResults(data);
+    const test = await getUserDetails(testText);
+    setSearchResults(test);
   };
 
   return (

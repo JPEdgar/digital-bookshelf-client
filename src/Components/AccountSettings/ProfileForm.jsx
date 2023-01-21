@@ -115,7 +115,7 @@ const ProfileForm = () => {
               <LockUnlockIcon
                 state={lockFirstNameFlag}
                 setState={setLockFirstNameFlag}
-                text="Modify online handle"
+                text="Modify first name"
               />
               <Form.Label className="ps-1 m-0">First Name:</Form.Label>
             </span>
@@ -138,7 +138,7 @@ const ProfileForm = () => {
               <LockUnlockIcon
                 state={lockLastNameFlag}
                 setState={setLockLastNameFlag}
-                text="Modify online handle"
+                text="Modify last name"
               />
               <Form.Label className="ps-1 m-0">Last Name:</Form.Label>
             </span>
@@ -161,7 +161,7 @@ const ProfileForm = () => {
               <LockUnlockIcon
                 state={lockEmailFlag}
                 setState={setLockEmailFlag}
-                text="Modify online handle"
+                text="Modify email"
               />
               <Form.Label className="ps-1 m-0">Email:</Form.Label>
             </span>
