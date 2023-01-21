@@ -29,16 +29,15 @@ const setAuthDetail = async (email = "", id = "", token = "") =>
 const getUserDetails = async (email = "") =>
   axios.get(userURL, { params: { email } });
 const setNewUserDetails = async (data = {}, token = "") => {
-  console.log("data = ", data)
-  console.log("token = ", token)
+  // console.log("api setNewUserDetails {data, token} = ", { data, token });
   axios.post(userURL, data, { headers: { Authorization: `bearer ${token}` } });
-}
+};
 const updateUserDetails = async (data = {}, token = "") => {
-  console.log("api updateUserDetails {data, token} = ", {data, token})
-  // console.log("token = ", token)
-  axios.patch(`${userURL}/${data._userID}`, data, { headers: { Authorization: `bearer ${token}` } });
-}
-
+  // console.log("api updateUserDetails {data, token} = ", {data, token})
+  axios.patch(`${userURL}/${data._userID}`, data, {
+    headers: { Authorization: `bearer ${token}` },
+  });
+};
 
 export {
   getBooks,
@@ -51,5 +50,5 @@ export {
   setAuthDetail,
   getUserDetails,
   setNewUserDetails,
-  updateUserDetails
+  updateUserDetails,
 };

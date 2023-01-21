@@ -18,7 +18,6 @@ const useUserDetails = () => {
       userData = await getUserDetailsAction(email);
     else userData = userDetails;
 
-    console.log("userData = ", userData)
     return userData;
   };
 
@@ -28,7 +27,7 @@ const useUserDetails = () => {
   };
 
   const updateUserDetails = async (data, token) => {
-    console.log("in useUserDetails > updateUserDetails, {data,token} = ", {data, token})
+    // console.log("in useUserDetails > updateUserDetails, {data,token} = ", {data, token})
     await updateUserDetailsAction(data, token);
     userDispatch({ type: USER_TYPES.SET_USER_DETAILS, payload: data });
   };
