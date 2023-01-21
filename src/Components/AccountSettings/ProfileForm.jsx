@@ -26,21 +26,21 @@ const ProfileForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await updateUserDetails(inputData, authState.token); // updates both state and server
-    lockForm()
+    lockForm();
   };
 
   const clearForm = () => {
     setInputData(userDetails);
-    lockForm()
+    lockForm();
   };
 
   const lockForm = () => {
-    setLockAvatarFlag(true)
-    setLockHandleFlag(true)
-    setLockFirstNameFlag(true)
-    setLockLastNameFlag(true)
-    setLockEmailFlag(true)
-  }
+    setLockAvatarFlag(true);
+    setLockHandleFlag(true);
+    setLockFirstNameFlag(true);
+    setLockLastNameFlag(true);
+    setLockEmailFlag(true);
+  };
 
   useEffect(() => {
     if (userDetails?._id) setInputData(userDetails);
@@ -55,7 +55,6 @@ const ProfileForm = () => {
     <>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="d-grid mt-2">
-          <Form.Label>Avatar:</Form.Label>
           <Image
             alt="avatar image"
             src={inputData.avatar}
@@ -63,23 +62,27 @@ const ProfileForm = () => {
             style={{ maxHeight: "150px" }}
           />
           <div className="d-flex align-items-center h-100 mt-1">
-            <LockUnlockIcon
-              state={lockAvatarFlag}
-              setState={setLockAvatarFlag}
-              text="Modify avatar"
-            />
-            {lockAvatarFlag && (
-              <Form.Label className="ps-1 m-0">Avatar</Form.Label>
-            )}
-            {!lockAvatarFlag && (
-              <FileBase
-                type="file"
-                multiple={false}
-                onDone={({ base64 }) =>
-                  setInputData((curr) => ({ ...curr, avatar: base64 }))
-                }
-              />
-            )}
+            <Col sm={leftSm} lg={leftLg}>
+              <span className="d-flex align-items-center h-100">
+                <LockUnlockIcon
+                  state={lockAvatarFlag}
+                  setState={setLockAvatarFlag}
+                  text="Modify avatar"
+                />
+                <Form.Label className="ps-1 m-0">Avatar:</Form.Label>
+              </span>
+            </Col>
+            <Col sm={rightSm} lg={rightLg}>
+              {!lockAvatarFlag && (
+                <FileBase
+                  type="file"
+                  multiple={false}
+                  onDone={({ base64 }) =>
+                    setInputData((curr) => ({ ...curr, avatar: base64 }))
+                  }
+                />
+              )}
+            </Col>
           </div>
         </Form.Group>
 
