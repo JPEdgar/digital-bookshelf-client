@@ -10,11 +10,11 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("digital-bookshelf-user"));
-    if (user) console.log("user = ", user);
-    dispatch({
-      type: AUTH_TYPES.LOGIN,
-      payload: { email: user.email, token: user.token },
-    });
+    if (user)
+      dispatch({
+        type: AUTH_TYPES.LOGIN,
+        payload: { email: user.email, token: user.token },
+      });
   }, []);
 
   return (

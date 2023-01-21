@@ -1,6 +1,7 @@
 import USER_TYPES from "../constants/userTypes";
 
 const userReducer = (state, action) => {
+  // console.log("in userReducer - data = ", {state, action})
   switch (action.type) {
     case USER_TYPES.SET_USER_DETAILS:
       // console.log("in userReducer - set user details - payload = ", action.payload)

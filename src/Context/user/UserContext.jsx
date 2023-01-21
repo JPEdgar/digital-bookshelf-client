@@ -3,11 +3,12 @@ import React, { createContext, useReducer, useEffect } from "react";
 import { userReducer } from "../../reducers";
 import USER_TYPES from "../../constants/userTypes";
 import { getUserDetails } from "../../actions/user";
+import defaultUserDetails from "../../constants/initializeUserDetails";
 
 const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
-  const [userDetails, dispatch] = useReducer(userReducer, INITIALIZE_STATE);
+  const [userDetails, dispatch] = useReducer(userReducer, defaultUserDetails());
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("digital-bookshelf-user"));
@@ -18,27 +19,16 @@ const UserProvider = ({ children }) => {
       dispatch({ type: USER_TYPES.SET_USER_DETAILS, payload: data });
     };
 
-    if (user) {
-      console.log("user = ", user)
-      findAndSetDetails(user.email);
-    }
+    if (user) findAndSetDetails(user.email);
   }, []);
+
+  // useEffect(() => console.log("--- context userDetails = ", userDetails), [userDetails])
 
   return (
     <UserContext.Provider value={{ userDetails, dispatch }}>
       {children}
     </UserContext.Provider>
   );
-};
-
-const INITIALIZE_STATE = {
-  avatar: "",
-  email: "",
-  firstName: "",
-  friends: [],
-  handle: "",
-  lastName: "",
-  userID: "",
 };
 
 export { UserContext, UserProvider, userReducer };

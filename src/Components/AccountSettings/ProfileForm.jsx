@@ -3,39 +3,35 @@ import React, { useState, useEffect } from "react";
 import { Form, Button, Image } from "react-bootstrap";
 import FileBase from "react-file-base64";
 
-// import USER_TYPES from "../../constants/userTypes";
+import USER_TYPES from "../../constants/userTypes";
 // import { getUserDetails,setUserDetails } from "../../actions/user";
 
-import { useUserDetails } from "../../hooks";
+import { useUserDetails, useAuthContext } from "../../hooks";
+
+import defaultUserDetails from "../../constants/initializeUserDetails";
 
 const ProfileForm = () => {
-  const { userDetails } = useUserDetails();
-  const [inputData, setInputData] = useState({
-    avatar: "",
-    email: "",
-    firstName: "",
-    friends: [],
-    handle: "",
-    lastName: "",
-    userID: "",
-  });
+  const { userDetails, updateUserDetails } = useUserDetails();
+  const { authState } = useAuthContext();
+  const [inputData, setInputData] = useState(defaultUserDetails);
 
-  const handleChange = (e) => {};
-  //   setInputData((curr) => ({ ...curr, [e.target.name]: e.target.value }));
+  const handleChange = (e) =>
+    setInputData((curr) => ({ ...curr, [e.target.name]: e.target.value }));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //   await setUserDetails(inputData);
-    //   dispatch({ type: USER_TYPES.SET_USER_DETAILS, payload: inputData });
+    await updateUserDetails(inputData, authState.token); // updates both state and server
+    // userDispatch({ type: USER_TYPES.SET_USER_DETAILS, payload: inputData });
   };
 
   // useEffect(() => console.log("inputData = ", inputData), [inputData]);
 
-  // useEffect(() => {
-  //   if (userDetails._id) setInputData(userDetails);
-  // }, [userDetails]);
+  useEffect(() => {
+    if (userDetails?._id) setInputData(userDetails);
+  }, [userDetails]);
 
-  useEffect(() => console.log("userDetails = ", userDetails, [userDetails]))
+  // useEffect(() => console.log("userDetails = ", userDetails), [userDetails]);
+
   return (
     <>
       <Form onSubmit={handleSubmit}>
