@@ -62,9 +62,9 @@ const ProfileForm = () => {
             thumbnail
             style={{ maxHeight: "150px" }}
           />
-          <div className="d-flex align-items-center h-100">
+          <div className="d-flex align-items-center h-100 mt-1">
             <LockUnlockIcon
-              state={setLockAvatarFlag}
+              state={lockAvatarFlag}
               setState={setLockAvatarFlag}
               text="Modify avatar"
             />
