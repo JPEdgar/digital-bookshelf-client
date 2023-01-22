@@ -1,6 +1,7 @@
 import React from "react";
 
 import USER_TYPES from "../constants/userTypes";
+import initializeUserDetails from "../constants/initializeUserDetails";
 import { useUserContext } from "./";
 import {
   getUserDetails as getUserDetailsAction,
@@ -26,13 +27,31 @@ const useUserDetails = () => {
     userDispatch({ type: USER_TYPES.SET_USER_DETAILS, payload: data });
   };
 
+  const setUserDetails = async (data) => {
+    userDispatch({ type: USER_TYPES.SET_USER_DETAILS, payload: data });
+  };
+
   const updateUserDetails = async (data, token) => {
     // console.log("in useUserDetails > updateUserDetails, {data,token} = ", {data, token})
     await updateUserDetailsAction(data, token);
     userDispatch({ type: USER_TYPES.SET_USER_DETAILS, payload: data });
   };
 
-  return { userDetails, getUserDetails, setNewUserDetails, updateUserDetails };
+  const clearUserDetails = () => {
+    userDispatch({
+      type: USER_TYPES.SET_USER_DETAILS,
+      payload: initializeUserDetails(),
+    });
+  };
+
+  return {
+    userDetails,
+    getUserDetails,
+    setNewUserDetails,
+    updateUserDetails,
+    clearUserDetails,
+    setUserDetails,
+  };
 };
 
 export default useUserDetails;

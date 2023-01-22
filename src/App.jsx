@@ -43,7 +43,12 @@ const App = () => {
             element={!authState.email ? <LogIn /> : <Navigate to="/" />}
           />
           <Route path="/user-search" element={<UserSearch />} />
-          <Route path="/user-settings" element={<AccountSettings />} />
+          <Route
+            path="/user-settings"
+            element={
+              authState.email ? <AccountSettings /> : <Navigate to="/" />
+            }
+          />
         </Routes>
       </Container>
     </>

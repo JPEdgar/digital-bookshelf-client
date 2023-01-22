@@ -26,11 +26,7 @@ const useSignup = () => {
       return newUserDetails;
     };
 
-    const createBookshelf = (data) => {
-      const { id, token } = data;
-      const newBookshelf = axios.post( "http://localhost:4000/api/bookshelf", { id }, { headers: { Authorization: `bearer ${token}` } } );
-      return newBookshelf;
-    };
+
 
     const createNewUserResponse = await signUp(email, password);
     if (createNewUserResponse.statusText !== "Created") {
@@ -48,7 +44,23 @@ const useSignup = () => {
       return;
     }
 
+
+
+
+
+
+
+    const createBookshelf = (data) => {
+      console.log("creating new bookshelf for ", data)
+      const { email, id, token } = data;
+      const newBookshelf = axios.post( "http://localhost:4000/api/bookshelf", { email, id }, { headers: { Authorization: `bearer ${token}` } } );
+      return newBookshelf;
+    };
+
+
+
     const createNewBookshelfResponse = await createBookshelf( createNewUserResponse.data );
+    console.log("createNewBookshelfResponse = ", createNewBookshelfResponse)
     if (createNewBookshelfResponse.statusText !== "Created") {
       console.log( "Problem creating new bookshelf: ", createNewBookshelfResponse );
       setLoadingFlag(false);
@@ -56,11 +68,20 @@ const useSignup = () => {
       return;
     }
 
-    console.log("useSignup data = ", createNewUserResponse.data)
+
+
+
+
+
+
+
+
+
+
+    // console.log("useSignup data = ", createNewUserResponse.data);
     localStorage.setItem( "digital-bookshelf-user", JSON.stringify(createNewUserResponse.data) );
     authDispatch({ type: AUTH_TYPES.SIGNUP, payload: createNewUserResponse.data, });
-    // userDispatch({ type: USER_TYPES.SET_USER_DETAILS, payload: createNewUserDetailsResponse.data, });
-    setUserDetails(createNewUserDetailsResponse.data)
+    setUserDetails(createNewUserDetailsResponse.data);
     setLoadingFlag(false);
   };
 

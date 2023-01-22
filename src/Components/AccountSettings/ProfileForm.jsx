@@ -4,13 +4,14 @@ import { Form, Button, Image, Row, Col } from "react-bootstrap";
 import FileBase from "react-file-base64";
 
 import { useUserDetails, useAuthContext } from "../../hooks";
+import initializeUserDetails from "../../constants/initializeUserDetails"
 
 import defaultUserDetails from "../../constants/initializeUserDetails";
 
 import LockUnlockIcon from "../elements/LockUnlockIcon";
 
 const ProfileForm = () => {
-  const { userDetails, updateUserDetails } = useUserDetails();
+  const { userDetails, updateUserDetails, clearUserDetails } = useUserDetails();
   const { authState } = useAuthContext();
   const [inputData, setInputData] = useState(defaultUserDetails);
 
@@ -19,6 +20,7 @@ const ProfileForm = () => {
   const [lockFirstNameFlag, setLockFirstNameFlag] = useState(true);
   const [lockLastNameFlag, setLockLastNameFlag] = useState(true);
   const [lockEmailFlag, setLockEmailFlag] = useState(true);
+  const [updateFlag, setUpdateFlag] = useState(false)
 
   const handleChange = (e) =>
     setInputData((curr) => ({ ...curr, [e.target.name]: e.target.value }));
@@ -43,7 +45,10 @@ const ProfileForm = () => {
   };
 
   useEffect(() => {
-    if (userDetails?._id) setInputData(userDetails);
+    // bug with updating - use updateFlag for updates?  Guen wanted me to go to bed.
+     if (userDetails?._id && inputData.email !== userDetails.email)
+      setInputData(userDetails);
+    else setInputData(initializeUserDetails());
   }, [userDetails]);
 
   const leftSm = 3;
