@@ -63,6 +63,11 @@ const Navigation = () => {
               <Nav.Link as={Link} to="details">
                 Book Details
               </Nav.Link>
+              {authState.email && (
+                <Nav.Link as={Link} to="friends-list">
+                  Friends List
+                </Nav.Link>
+              )}
               <Nav.Link as={Link} to="user-search">
                 User Search
               </Nav.Link>

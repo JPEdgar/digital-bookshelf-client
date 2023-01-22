@@ -10,6 +10,7 @@ import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";
 import UserSearch from "./components/UserSearch";
 import AccountSettings from "./components/AccountSettings";
+import FriendsList from "./components/FriendsList";
 
 import { useBookshelfContext, useAuthContext, useUserContext } from "./hooks"; // temp
 
@@ -35,21 +36,11 @@ const App = () => {
           <Route path="/" element={<Bookshelf />} />
           {/* <Route path="/details" element={<BookDetails />} /> */}
           <Route path="/details" element={null} />
-          <Route
-            path="/signup"
-            element={!authState.email ? <SignUp /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/login"
-            element={!authState.email ? <LogIn /> : <Navigate to="/" />}
-          />
+          <Route path="/signup" element={!authState.email ? <SignUp /> : <Navigate to="/" />} />
+          <Route path="/login" element={!authState.email ? <LogIn /> : <Navigate to="/" />} />
+       <Route path="friends-list" element={ authState.email ? <FriendsList /> : <Navigate to="/" /> } />
           <Route path="/user-search" element={<UserSearch />} />
-          <Route
-            path="/user-settings"
-            element={
-              authState.email ? <AccountSettings /> : <Navigate to="/" />
-            }
-          />
+          <Route path="/user-settings" element={ authState.email ? <AccountSettings /> : <Navigate to="/" /> } />
         </Routes>
       </Container>
     </>
