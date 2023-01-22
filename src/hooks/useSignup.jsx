@@ -63,7 +63,6 @@ const useSignup = () => {
     const createNewBookshelfResponse = await createBookshelf(
       createNewUserResponse.data
     );
-    console.log("createNewBookshelfResponse = ", createNewBookshelfResponse);
     if (createNewBookshelfResponse.statusText !== "Created") {
       console.log(
         "Problem creating new bookshelf: ",
@@ -74,7 +73,6 @@ const useSignup = () => {
       return;
     }
 
-    // console.log("useSignup data = ", createNewUserResponse.data);
     localStorage.setItem(
       "digital-bookshelf-user",
       JSON.stringify(createNewUserResponse.data)
