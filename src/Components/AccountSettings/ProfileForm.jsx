@@ -11,7 +11,7 @@ import defaultUserDetails from "../../constants/initializeUserDetails";
 import LockUnlockIcon from "../elements/LockUnlockIcon";
 
 const ProfileForm = () => {
-  const { userDetails, updateUserDetails, clearUserDetails } = useUserDetails();
+  const { userDetails, updateUserDetails } = useUserDetails();
   const { authState } = useAuthContext();
   const [inputData, setInputData] = useState(defaultUserDetails);
 
@@ -20,7 +20,12 @@ const ProfileForm = () => {
   const [lockFirstNameFlag, setLockFirstNameFlag] = useState(true);
   const [lockLastNameFlag, setLockLastNameFlag] = useState(true);
   const [lockEmailFlag, setLockEmailFlag] = useState(true);
-  const [updateFlag, setUpdateFlag] = useState(false)
+
+  // temp, will probably create a separate component for form
+  const leftSm = 3;
+  const leftLg = 2;
+  const rightSm = 12 - leftSm;
+  const rightLg = 12 - leftLg;
 
   const handleChange = (e) =>
     setInputData((curr) => ({ ...curr, [e.target.name]: e.target.value }));
@@ -45,16 +50,11 @@ const ProfileForm = () => {
   };
 
   useEffect(() => {
-    // bug with updating - use updateFlag for updates?  Guen wanted me to go to bed.
+    // bug with updating
      if (userDetails?._id && inputData.email !== userDetails.email)
       setInputData(userDetails);
     else setInputData(initializeUserDetails());
-  }, [userDetails]);
-
-  const leftSm = 3;
-  const leftLg = 2;
-  const rightSm = 12 - leftSm;
-  const rightLg = 12 - leftLg;
+  }, []);
 
   return (
     <>
