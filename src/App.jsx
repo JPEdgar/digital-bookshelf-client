@@ -33,7 +33,8 @@ const App = () => {
       <Container>
         <Routes>
           <Route path="/" element={<Bookshelf />} />
-          <Route path="/details" element={<BookDetails />} />
+          {/* <Route path="/details" element={<BookDetails />} /> */}
+          <Route path="/details" element={null} />
           <Route
             path="/signup"
             element={!authState.email ? <SignUp /> : <Navigate to="/" />}
