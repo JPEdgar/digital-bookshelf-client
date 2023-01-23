@@ -8,13 +8,18 @@ import MenuDropdown from "./MenuDropdown";
 
 import BOOKSHELF_TYPES from "../../constants/types/bookshelfTypes";
 import { searchForBooksOnline } from "../../utilities";
-import { useBookshelfContext, useAuthContext } from "../../hooks";
+import {
+  useBookshelfContext,
+  useAuthContext,
+  useUserDetails,
+} from "../../hooks";
 
 const Navigation = () => {
   const { bookshelfState, dispatch, API } = useBookshelfContext();
   const { searchData } = bookshelfState;
   const { searchQuery } = searchData;
   const { authState } = useAuthContext();
+  const { userDetails } = useUserDetails();
 
   const handleSearch = async (query) => {
     if (!query) return;
@@ -65,7 +70,10 @@ const Navigation = () => {
               </Nav.Link>
               {authState.email && (
                 <Nav.Link as={Link} to="friends-list">
-                  Friends List
+                  Friends List{" "}
+                  {userDetails.pendingFriendsList?.length > 0 && (
+                    <span>{`(${userDetails.pendingFriendsList?.length})`}</span>
+                  )}
                 </Nav.Link>
               )}
               <Nav.Link as={Link} to="user-search">
