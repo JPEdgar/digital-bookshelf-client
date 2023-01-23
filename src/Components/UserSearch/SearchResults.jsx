@@ -6,6 +6,7 @@ import { Row, Col, Card, Button } from "react-bootstrap";
 import { useUserDetails, useAuthContext } from "../../hooks";
 
 import { updateUserDetails } from "../../actions/user";
+import { createNewFriendsListItem } from "../../utilities";
 
 const SearchResults = ({ result, setSearchResults }) => {
   const { userDetails } = useUserDetails();
@@ -19,33 +20,35 @@ const SearchResults = ({ result, setSearchResults }) => {
     const friendID = result.userID;
 
     const userFriendsList = [...userDetails.friendsList];
-    const inFriendsListFlag = userFriendsList.find(
-      (x) => x.userID === friendID
-    );
-    console.log("inFriendsListFlag = ", inFriendsListFlag);
+    const friendDetails = userFriendsList.find((x) => x.userID === friendID);
+    console.log("friendDetails = ", friendDetails);
 
     // send friend request
-    if (!inFriendsListFlag) {
+    if (!friendDetails) {
       await axios.patch(
         `http://localhost:4000/api/user/friend-request/${friendID}`,
         { friendInfo: result, userID: userDetails.userID }
       );
 
-      if (result.pendingFriendsList.includes(userDetails.userID)) {
+      if (result.pendingFriendsList.includes(userDetails.userID))
         console.log("Friend already pending");
-      } else {
+      else {
         setSearchResults((curr) => {
           const updatedPendingList = [...curr.pendingFriendsList];
           updatedPendingList.push(userDetails.userID);
           return { ...curr, pendingFriendsList: updatedPendingList };
         });
       }
+
+      // update user's friend list to include a pending friend
+      userFriendsList.push(createNewFriendsListItem(friendID));
+      const updatedUserInfo = {...userDetails,friendsList: userFriendsList }
+      await updateUserDetails(
+        updatedUserInfo,
+        authState.token
+      ); // updates both state and server
     }
     return;
-    // update user's friend list to include a pending friend
-
-    userFriendsList.push()
-    await updateUserDetails([], authState.token); // updates both state and server
   };
 
   return (
