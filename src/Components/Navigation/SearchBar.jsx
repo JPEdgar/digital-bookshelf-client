@@ -8,8 +8,8 @@ import WishListIcon from "../elements/WishListIcon";
 import ToReadListIcon from "../elements/ToReadListIcon";
 import HaveReadIcon from "../elements/HaveReadIcon";
 
-import BOOKSHELF_TYPES from "../../constants/bookshelfTypes";
-import SEARCH_TYPE from "../../constants/searchTypes";
+import BOOKSHELF_TYPES from "../../constants/types/bookshelfTypes";
+import SEARCH_TYPE from "../../constants/types/searchTypes";
 import {
   createAuthorString,
   getFromShelf,
@@ -90,7 +90,6 @@ const SearchBar = () => {
       <Dropdown.Menu className="w-100">
         {searchResults?.length > 0 &&
           searchResults.map((result, index) => {
-         
             const bookshelfSearchResult = getFromShelf(
               bookshelfState.bookshelf,
               SEARCH_TYPE.BOOKSHELF_ID,
@@ -99,7 +98,7 @@ const SearchBar = () => {
             const bookData = bookshelfSearchResult
               ? bookshelfSearchResult
               : result.volumeInfo;
-              // console.log("Search Bar > bookData = ", bookData)
+            // console.log("Search Bar > bookData = ", bookData)
             return (
               <Dropdown.Item key={`searchResultDropdownItem-${index}`} as="div">
                 <Row>
@@ -140,12 +139,38 @@ const SearchBar = () => {
                     </div>
                   </Col>
                   <Col xs={2}>
-                    <div> <FavoritesIcon 
-                    // onClick={(e) => e.stopPropagation} 
-                    bookshelfID={result.id} bookData={bookData} /> </div>
-                    <div> <WishListIcon onClick={(e) => e.stopPropagation} bookshelfID={result.id} bookData={bookData} /> </div>
-                    <div> <ToReadListIcon onClick={(e) => e.stopPropagation} bookshelfID={result.id} bookData={bookData} /> </div>
-                    <div> <HaveReadIcon onClick={(e) => e.stopPropagation} bookshelfID={result.id} bookData={bookData} /> </div>
+                    <div>
+                      {" "}
+                      <FavoritesIcon
+                        // onClick={(e) => e.stopPropagation}
+                        bookshelfID={result.id}
+                        bookData={bookData}
+                      />{" "}
+                    </div>
+                    <div>
+                      {" "}
+                      <WishListIcon
+                        onClick={(e) => e.stopPropagation}
+                        bookshelfID={result.id}
+                        bookData={bookData}
+                      />{" "}
+                    </div>
+                    <div>
+                      {" "}
+                      <ToReadListIcon
+                        onClick={(e) => e.stopPropagation}
+                        bookshelfID={result.id}
+                        bookData={bookData}
+                      />{" "}
+                    </div>
+                    <div>
+                      {" "}
+                      <HaveReadIcon
+                        onClick={(e) => e.stopPropagation}
+                        bookshelfID={result.id}
+                        bookData={bookData}
+                      />{" "}
+                    </div>
                   </Col>
                 </Row>
               </Dropdown.Item>

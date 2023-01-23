@@ -1,4 +1,4 @@
-import BOOKSHELF_TYPES from "../constants/bookshelfTypes";
+import BOOKSHELF_TYPES from "../constants/types/bookshelfTypes";
 
 const bookshelfReducer = (state, action) => {
   let oldBookshelf = [];

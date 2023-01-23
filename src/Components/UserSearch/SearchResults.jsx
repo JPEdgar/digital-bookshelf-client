@@ -3,37 +3,49 @@ import React from "react";
 import axios from "axios";
 import { Row, Col, Card, Button } from "react-bootstrap";
 
-import { useUserDetails } from "../../hooks";
+import { useUserDetails, useAuthContext } from "../../hooks";
+
+import { updateUserDetails } from "../../actions/user";
 
 const SearchResults = ({ result, setSearchResults }) => {
   const { userDetails } = useUserDetails();
-  // console.log("userDetails = ", userDetails);
-  // console.log("result = ", result);
+  const { authState } = useAuthContext();
 
   const isUserFlag = userDetails._id === result._id ? true : false;
-  const friendsList = userDetails.friendsList;
-  const friendData = friendsList.find((friend) => result._id === friend.userID);
-  // console.log("friendData = ", friendData)
-
-  // have a couple of books on the right side of the card that are shared to (and from)
+  // const friendsList = userDetails.friendsList;
+  // const friendData = friendsList.find((friend) => result._id === friend.userID);
 
   const handleClick = async () => {
     const friendID = result.userID;
 
-    await axios.patch(
-      `http://localhost:4000/api/user/friend-request/${friendID}`,
-      { friendInfo: result, userID: userDetails.userID }
+    const userFriendsList = [...userDetails.friendsList];
+    const inFriendsListFlag = userFriendsList.find(
+      (x) => x.userID === friendID
     );
+    console.log("inFriendsListFlag = ", inFriendsListFlag);
 
-    if (result.pendingFriendsList.includes(userDetails.userID)) {
-      console.log("Friend already pending");
-    } else {
-      setSearchResults((curr) => {
-        const updatedPendingList = [...curr.pendingFriendsList];
-        updatedPendingList.push(userDetails.userID);
-        return { ...curr, pendingFriendsList: updatedPendingList };
-      });
+    // send friend request
+    if (!inFriendsListFlag) {
+      await axios.patch(
+        `http://localhost:4000/api/user/friend-request/${friendID}`,
+        { friendInfo: result, userID: userDetails.userID }
+      );
+
+      if (result.pendingFriendsList.includes(userDetails.userID)) {
+        console.log("Friend already pending");
+      } else {
+        setSearchResults((curr) => {
+          const updatedPendingList = [...curr.pendingFriendsList];
+          updatedPendingList.push(userDetails.userID);
+          return { ...curr, pendingFriendsList: updatedPendingList };
+        });
+      }
     }
+    return;
+    // update user's friend list to include a pending friend
+
+    userFriendsList.push()
+    await updateUserDetails([], authState.token); // updates both state and server
   };
 
   return (

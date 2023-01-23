@@ -5,8 +5,8 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 import MouseoverInfo from "./MouseoverInfo";
 import { deleteBook } from "../../actions/bookshelf";
-import SEARCH_TYPE from "../../constants/searchTypes";
-import BOOKSHELF_TYPES from "../../constants/bookshelfTypes";
+import SEARCH_TYPE from "../../constants/types/searchTypes";
+import BOOKSHELF_TYPES from "../../constants/types/bookshelfTypes";
 import { getFromShelf } from "../../utilities";
 import { useBookshelfContext, useAuthContext } from "../../hooks";
 

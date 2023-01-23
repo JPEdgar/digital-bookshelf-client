@@ -1,7 +1,7 @@
 import React from "react";
 
-import USER_TYPES from "../constants/userTypes";
-import initializeUserDetails from "../constants/initializeUserDetails";
+import USER_TYPES from "../constants/types/userTypes";
+import initializeUserDetails from "../constants/initializations/initializeUserDetails";
 import { useUserContext } from "./";
 import {
   getUserDetails as getUserDetailsAction,

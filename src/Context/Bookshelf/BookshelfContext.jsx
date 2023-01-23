@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useReducer } from "react";
 
 import { bookshelfReducer } from "../../reducers/index";
 import { getBooks } from "../../actions/bookshelf";
-import BOOKSHELF_TYPES from "../../constants/bookshelfTypes";
+import BOOKSHELF_TYPES from "../../constants/types/bookshelfTypes";
 import { useAuthContext } from "../../hooks";
 
 const BookshelfContext = createContext();

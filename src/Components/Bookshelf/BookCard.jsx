@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Card, Col } from "react-bootstrap";
 
-import BOOKSHELF_TYPES from "../../constants/bookshelfTypes";
+import BOOKSHELF_TYPES from "../../constants/types/bookshelfTypes";
 import { createAuthorString } from "../../utilities";
 import { useBookshelfContext, useAuthContext } from "../../hooks";
 import FavoritesIcon from "../elements/FavoritesIcon";
@@ -23,7 +23,7 @@ const BookCard = ({ book }) => {
   const title = book.title;
   const subtitle = book.subtitle;
   const authors = book.authors;
-  const inBookshelfFlag = book.inBookshelfFlag
+  const inBookshelfFlag = book.inBookshelfFlag;
 
   const handleClick = (book) => {
     dispatch({ type: BOOKSHELF_TYPES.SET_BOOK_DETAILS, payload: book });
@@ -43,11 +43,19 @@ const BookCard = ({ book }) => {
 
         <Card.Body>
           <div className="d-flex justify-content-between">
-            {user && ( <FavoritesIcon bookshelfID={book.bookshelfID} bookData={book} /> )}
-            {user && ( <WishListIcon bookshelfID={book.bookshelfID} bookData={book} /> )}
-            {user && ( <ToReadListIcon bookshelfID={book.bookshelfID} bookData={book} /> )}
-            {user && ( <HaveReadIcon bookshelfID={book.bookshelfID} bookData={book} /> )}
-            {inBookshelfFlag && ( <TrashIcon bookshelfID={book.bookshelfID} /> )}
+            {user && (
+              <FavoritesIcon bookshelfID={book.bookshelfID} bookData={book} />
+            )}
+            {user && (
+              <WishListIcon bookshelfID={book.bookshelfID} bookData={book} />
+            )}
+            {user && (
+              <ToReadListIcon bookshelfID={book.bookshelfID} bookData={book} />
+            )}
+            {user && (
+              <HaveReadIcon bookshelfID={book.bookshelfID} bookData={book} />
+            )}
+            {inBookshelfFlag && <TrashIcon bookshelfID={book.bookshelfID} />}
           </div>
           <Link to="details" onClick={() => handleClick(book)}>
             <Card.Title>{title}</Card.Title>

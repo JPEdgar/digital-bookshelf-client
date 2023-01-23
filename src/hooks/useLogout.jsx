@@ -1,7 +1,7 @@
 import { useAuthContext, useBookshelfContext } from "../hooks";
 
-import BOOKSHELF_TYPES from "../constants/bookshelfTypes";
-import AUTH_TYPES from "../constants/authTypes";
+import BOOKSHELF_TYPES from "../constants/types/bookshelfTypes";
+import AUTH_TYPES from "../constants/types/authTypes";
 import { useUserDetails } from "./";
 
 const useLogout = () => {

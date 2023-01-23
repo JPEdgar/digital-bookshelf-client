@@ -1,9 +1,9 @@
 import React, { createContext, useReducer, useEffect } from "react";
 
 import { userReducer } from "../../reducers";
-import USER_TYPES from "../../constants/userTypes";
+import USER_TYPES from "../../constants/types/userTypes";
 import { getUserDetails } from "../../actions/user";
-import defaultUserDetails from "../../constants/initializeUserDetails";
+import defaultUserDetails from "../../constants/initializations/initializeUserDetails";
 
 const UserContext = createContext();
 

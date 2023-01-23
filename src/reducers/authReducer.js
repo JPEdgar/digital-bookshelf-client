@@ -1,4 +1,4 @@
-import AUTH_TYPES from "../constants/authTypes";
+import AUTH_TYPES from "../constants/types/authTypes";
 
 const authReducer = (state, action) => {
   // console.log("in authReducer - data = ", {state, action})

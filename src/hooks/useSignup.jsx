@@ -4,8 +4,8 @@ import axios from "axios";
 
 import { useAuthContext, useUserContext, useUserDetails } from "./";
 
-import AUTH_TYPES from "../constants/authTypes";
-import USER_TYPES from "../constants/userTypes";
+import AUTH_TYPES from "../constants/types/authTypes";
+import USER_TYPES from "../constants/types/userTypes";
 
 import { signUp } from "../actions/auth";
 

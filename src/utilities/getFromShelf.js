@@ -1,4 +1,4 @@
-import SEARCH_TYPE from "../constants/searchTypes";
+import SEARCH_TYPE from "../constants/types/searchTypes";
 
 const getFromShelf = (bookshelf = [], searchType, searchParam) => {
   if (!bookshelf || !searchType || !searchParam) return;

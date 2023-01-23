@@ -6,7 +6,7 @@ import { Navbar, Container, Nav, Image, Button } from "react-bootstrap";
 import SearchBar from "./SearchBar";
 import MenuDropdown from "./MenuDropdown";
 
-import BOOKSHELF_TYPES from "../../constants/bookshelfTypes";
+import BOOKSHELF_TYPES from "../../constants/types/bookshelfTypes";
 import { searchForBooksOnline } from "../../utilities";
 import { useBookshelfContext, useAuthContext } from "../../hooks";
 

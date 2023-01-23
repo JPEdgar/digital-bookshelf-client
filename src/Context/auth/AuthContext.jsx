@@ -1,6 +1,6 @@
 import React, { createContext, useReducer, useEffect } from "react";
 
-import AUTH_TYPES from "../../constants/authTypes";
+import AUTH_TYPES from "../../constants/types/authTypes";
 import { authReducer } from "../../reducers";
 
 const AuthContext = createContext();

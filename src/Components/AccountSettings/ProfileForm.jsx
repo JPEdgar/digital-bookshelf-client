@@ -4,9 +4,8 @@ import { Form, Button, Image, Row, Col } from "react-bootstrap";
 import FileBase from "react-file-base64";
 
 import { useUserDetails, useAuthContext } from "../../hooks";
-import initializeUserDetails from "../../constants/initializeUserDetails";
-
-import defaultUserDetails from "../../constants/initializeUserDetails";
+import initializeUserDetails from "../../constants/initializations/initializeUserDetails";
+import defaultUserDetails from "../../constants/initializations/initializeUserDetails";
 
 import LockUnlockIcon from "../elements/LockUnlockIcon";
 

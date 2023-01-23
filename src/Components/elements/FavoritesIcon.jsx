@@ -6,8 +6,8 @@ import { faStar as faStarOutline } from "@fortawesome/free-regular-svg-icons";
 
 import MouseoverInfo from "./MouseoverInfo";
 import { updateBook, setBook } from "../../actions/bookshelf";
-import SEARCH_TYPE from "../../constants/searchTypes";
-import BOOKSHELF_TYPES from "../../constants/bookshelfTypes";
+import SEARCH_TYPE from "../../constants/types/searchTypes";
+import BOOKSHELF_TYPES from "../../constants/types/bookshelfTypes";
 import {
   getFromShelf,
   createISBNObject,
@@ -53,10 +53,10 @@ const FavoritesIcon = ({ bookshelfID, bookData }) => {
   return (
     <MouseoverInfo text="Favorites">
       <FontAwesomeIcon
-           style={{
-            cursor: "pointer",
-            color: `${bookData.isFavoriteFlag ? "red" : "black"}`,
-          }}
+        style={{
+          cursor: "pointer",
+          color: `${bookData.isFavoriteFlag ? "red" : "black"}`,
+        }}
         icon={bookData.isFavoriteFlag ? faStar : faStarOutline}
         onClick={() => handleClick()}
       />

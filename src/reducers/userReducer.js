@@ -1,4 +1,4 @@
-import USER_TYPES from "../constants/userTypes";
+import USER_TYPES from "../constants/types/userTypes";
 
 const userReducer = (state, action) => {
   // console.log("in userReducer - data = ", {state, action})
