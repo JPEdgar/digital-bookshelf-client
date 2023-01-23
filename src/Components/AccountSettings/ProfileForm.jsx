@@ -4,7 +4,7 @@ import { Form, Button, Image, Row, Col } from "react-bootstrap";
 import FileBase from "react-file-base64";
 
 import { useUserDetails, useAuthContext } from "../../hooks";
-import initializeUserDetails from "../../constants/initializeUserDetails"
+import initializeUserDetails from "../../constants/initializeUserDetails";
 
 import defaultUserDetails from "../../constants/initializeUserDetails";
 
@@ -51,7 +51,7 @@ const ProfileForm = () => {
 
   useEffect(() => {
     // bug with updating
-     if (userDetails?._id && inputData.email !== userDetails.email)
+    if (userDetails?._id && inputData.email !== userDetails.email)
       setInputData(userDetails);
     else setInputData(initializeUserDetails());
   }, []);

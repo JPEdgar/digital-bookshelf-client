@@ -38,7 +38,7 @@ const App = () => {
           <Route path="/details" element={null} />
           <Route path="/signup" element={!authState.email ? <SignUp /> : <Navigate to="/" />} />
           <Route path="/login" element={!authState.email ? <LogIn /> : <Navigate to="/" />} />
-       <Route path="friends-list" element={ authState.email ? <FriendsList /> : <Navigate to="/" /> } />
+          <Route path="friends-list" element={authState.email ? <FriendsList /> : <Navigate to="/" />} />
           <Route path="/user-search" element={<UserSearch />} />
           <Route path="/user-settings" element={ authState.email ? <AccountSettings /> : <Navigate to="/" /> } />
         </Routes>

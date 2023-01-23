@@ -18,10 +18,12 @@ const UserSearch = () => {
   //   return () => clearTimeout(delayDebounce);
   // }, [mouseEnter]);
 
+  React.useEffect(() => console.log("searchResults = ", searchResults), [searchResults])
+
   return (
     <>
       <UserSearchForm setSearchResults={setSearchResults} />
-      {searchResults && <SearchResults result={searchResults} />}
+      {searchResults && <SearchResults result={searchResults} setSearchResults={setSearchResults}/>}
     </>
   );
 };

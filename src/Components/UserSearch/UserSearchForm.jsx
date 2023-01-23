@@ -5,7 +5,7 @@ import { Form } from "react-bootstrap";
 import { getUserDetails } from "../../actions/user";
 
 const UserSearchForm = ({ setSearchResults }) => {
-  const [searchText, setSearchText] = useState("test@test.com");
+  const [searchText, setSearchText] = useState("test2@test.com");
 
   const handleChange = (e) => {
     setSearchText(e.target.value);
@@ -13,6 +13,7 @@ const UserSearchForm = ({ setSearchResults }) => {
 
   const handleClick = async (testText) => {
     const test = await getUserDetails(testText);
+    // console.log("test = ", test)
     setSearchResults(test);
   };
 

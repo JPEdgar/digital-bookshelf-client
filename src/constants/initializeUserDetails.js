@@ -6,7 +6,7 @@ const defaultUserDetails = () => {
     lastName: "",
     handle: "",
     avatar: "",
-    friends: [],
+    friendsList: [],
   };
 };
 
