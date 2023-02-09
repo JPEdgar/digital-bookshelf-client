@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Navbar, Container, Nav, Image, Button } from "react-bootstrap";
 
-import SearchBar from "./SearchBar";
 import MenuDropdown from "./MenuDropdown";
 
 import { useAuthContext } from "../../hooks";

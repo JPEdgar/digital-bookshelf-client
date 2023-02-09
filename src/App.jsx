@@ -28,6 +28,7 @@ const App = () => {
 
       <Container>
         <Routes>
+        <Route path="/" element={null} />
           <Route
             path="/signup"
             element={!authState.email ? <SignUp /> : <Navigate to="/" />}

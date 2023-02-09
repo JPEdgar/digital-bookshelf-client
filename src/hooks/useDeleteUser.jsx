@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 
 import { deleteAccount } from "../actions/auth";
+import {deleteUserDetails} from "../actions/user"
 
 import { useLogout } from "./";
 
@@ -14,6 +15,8 @@ const useDeleteUser = () => {
 
     if (data.deleted.deletedCount) logout();
     else console.log("nothing deleted");
+
+    const test = await deleteUserDetails(state.email, state.token)
   };
 
   return { deleteUser };
