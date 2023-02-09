@@ -1,10 +1,7 @@
 import { useState } from "react";
 
-// import axios from "axios";
-
-import { useAuthContext, useUserContext, useUserDetails } from "./";
+import { useAuthContext } from "./";
 import AUTH_TYPES from "../constants/types/authTypes";
-import USER_TYPES from "../constants/types/userTypes";
 
 import { logIn } from "../actions/auth";
 
@@ -12,14 +9,17 @@ const useLogin = () => {
   const [error, setError] = useState(null);
   const [loadingFlag, setLoadingFlag] = useState(null);
   const { dispatch: authDispatch } = useAuthContext();
-  const { dispatch: userDispatch } = useUserContext();
-  const { getUserDetails } = useUserDetails();
 
   const login = async (email, password) => {
     setLoadingFlag(true);
     setError(null);
 
     const authResponse = await logIn(email, password);
+    if (!authResponse) {
+      setError("No account found.");
+      setLoadingFlag(false);
+      return;
+    }
 
     const { data } = authResponse;
 
@@ -33,8 +33,6 @@ const useLogin = () => {
         JSON.stringify({ email, token })
       ); // saves token data to local storage
       authDispatch({ type: AUTH_TYPES.LOGIN, payload: { email, token } }); // saves token data to state
-      const userDetails = await getUserDetails(data.email); // gets user info
-      userDispatch({ type: USER_TYPES.SET_USER_DETAILS, payload: userDetails }); // saves user data to state
 
       setLoadingFlag(false);
     }

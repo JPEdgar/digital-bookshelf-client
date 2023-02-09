@@ -18,4 +18,13 @@ const signUp = async (email, password) => {
   }
 };
 
-export { logIn, signUp };
+const deleteAccount = async (email, token) => {
+  try {
+    const data = await api.deleteAccount(email, token);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { logIn, signUp, deleteAccount };

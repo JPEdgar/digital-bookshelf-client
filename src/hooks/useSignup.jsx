@@ -2,42 +2,31 @@ import { useState } from "react";
 
 import axios from "axios";
 
-import { useAuthContext, useUserContext, useUserDetails } from "./";
+import { useAuthContext } from "./";
 
 import AUTH_TYPES from "../constants/types/authTypes";
-import USER_TYPES from "../constants/types/userTypes";
 
 import { signUp } from "../actions/auth";
 
 const useSignup = () => {
-  const { setUserDetails } = useUserDetails();
   const [error, setError] = useState(null);
   const [loadingFlag, setLoadingFlag] = useState(null);
   const { dispatch: authDispatch } = useAuthContext();
-  const { dispatch: userDispatch } = useUserContext();
 
   const signup = async (email, password) => {
     setLoadingFlag(true);
     setError(null);
 
     const createUserDetails = (data) => {
+      console.log("creating new user with email ", data);
       const { email, id, token } = data;
       const newUserDetails = axios.post(
         "http://localhost:4000/api/user",
         { email, id },
         { headers: { Authorization: `bearer ${token}` } }
       );
-      return newUserDetails;
-    };
 
-    const createBookshelf = (data) => {
-      const { email, id, token } = data;
-      const newBookshelf = axios.post(
-        "http://localhost:4000/api/bookshelf",
-        { email, id },
-        { headers: { Authorization: `bearer ${token}` } }
-      );
-      return newBookshelf;
+      return newUserDetails;
     };
 
     const createNewUserResponse = await signUp(email, password);
@@ -50,6 +39,10 @@ const useSignup = () => {
     const createNewUserDetailsResponse = await createUserDetails(
       createNewUserResponse.data
     );
+    console.log(
+      "createNewUserDetailsResponse = ",
+      createNewUserDetailsResponse
+    );
     if (createNewUserDetailsResponse.statusText !== "Created") {
       console.log(
         "Problem creating new user details: ",
@@ -57,19 +50,6 @@ const useSignup = () => {
       );
       setLoadingFlag(false);
       setError(createNewUserDetailsResponse.error);
-      return;
-    }
-
-    const createNewBookshelfResponse = await createBookshelf(
-      createNewUserResponse.data
-    );
-    if (createNewBookshelfResponse.statusText !== "Created") {
-      console.log(
-        "Problem creating new bookshelf: ",
-        createNewBookshelfResponse
-      );
-      setLoadingFlag(false);
-      setError(createNewBookshelfResponse.error);
       return;
     }
 
@@ -81,7 +61,7 @@ const useSignup = () => {
       type: AUTH_TYPES.SIGNUP,
       payload: createNewUserResponse.data,
     });
-    setUserDetails(createNewUserDetailsResponse.data);
+
     setLoadingFlag(false);
   };
 

@@ -1,5 +1,6 @@
 import * as api from "../api";
 
+/*
 const getBooks = async (options) => {
   try {
     // const { data } = await api.getBooks(options);
@@ -50,3 +51,4 @@ const toggleFavorite = async (book) => {
 };
 
 export { getBooks, getBook, updateBook, setBook, deleteBook, toggleFavorite };
+*/

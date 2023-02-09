@@ -6,39 +6,11 @@ import { Navbar, Container, Nav, Image, Button } from "react-bootstrap";
 import SearchBar from "./SearchBar";
 import MenuDropdown from "./MenuDropdown";
 
-import BOOKSHELF_TYPES from "../../constants/types/bookshelfTypes";
-import { searchForBooksOnline } from "../../utilities";
-import {
-  useBookshelfContext,
-  useAuthContext,
-  useUserDetails,
-} from "../../hooks";
+import { useAuthContext } from "../../hooks";
 
 const Navigation = () => {
-  const { bookshelfState, dispatch, API } = useBookshelfContext();
-  const { searchData } = bookshelfState;
-  const { searchQuery } = searchData;
   const { authState } = useAuthContext();
-  const { userDetails } = useUserDetails();
 
-  const handleSearch = async (query) => {
-    if (!query) return;
-    const searchquery = `${API}/volumes?q=${query}`;
-    const searchResults = await searchForBooksOnline(searchquery);
-    dispatch({
-      type: BOOKSHELF_TYPES.SET_SEARCH_RESULTS,
-      payload: searchResults,
-    });
-  };
-
-  useEffect(() => {
-    const delayDebounce = setTimeout(() => {
-      handleSearch(searchQuery);
-    }, 1000);
-    return () => clearTimeout(delayDebounce);
-  }, [searchQuery]);
-
-  // useEffect(() => console.log("userState = ", userState), [userState]);
   return (
     <>
       <Navbar
@@ -65,33 +37,22 @@ const Navigation = () => {
               <Nav.Link as={Link} to="/">
                 Home
               </Nav.Link>
-              <Nav.Link as={Link} to="details">
-                Book Details
-              </Nav.Link>
-              {authState.email && (
-                <Nav.Link as={Link} to="friends-list">
-                  Friends List{" "}
-                  {userDetails.pendingFriendsList?.length > 0 && (
-                    <span>{`(${userDetails.pendingFriendsList?.length})`}</span>
-                  )}
-                </Nav.Link>
-              )}
-              <Nav.Link as={Link} to="user-search">
-                User Search
-              </Nav.Link>
             </Nav>
-            <SearchBar />
             {authState.email ? (
               <MenuDropdown />
             ) : (
-              <div>
-                <Nav.Link as={Link} to="login">
-                  Log In
-                </Nav.Link>
-                <Nav.Link as={Link} to="signup">
-                  Sign Up
-                </Nav.Link>
-              </div>
+              <>
+                <span>
+                  <Nav.Link as={Link} to="login">
+                    Log In
+                  </Nav.Link>
+                </span>
+                <span className="ms-2">
+                  <Nav.Link as={Link} to="signup">
+                    Sign Up
+                  </Nav.Link>
+                </span>
+              </>
             )}
           </Navbar.Collapse>
         </Container>
