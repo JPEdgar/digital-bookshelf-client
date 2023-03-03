@@ -2,7 +2,7 @@ import React, { createContext, useReducer, useEffect } from "react";
 
 import USER_TYPES from "../../constants/types/userTypes";
 import defaultUserDetails from "../../constants/initializations/initializeUserDetails";
-import userReducer from "../../reducers/userReducer";
+import { userReducer } from "../../reducers";
 import { getUserDetails } from "../../actions/user";
 
 const UserContext = createContext();
@@ -19,7 +19,7 @@ const UserProvider = ({ children }) => {
 
       const findAndSetDetails = async (email) => {
         const data = await getUserDetails(email);
-        console.log("-------- data = ", data);
+        // console.log("-------- data = ", data);
         dispatch({ type: USER_TYPES.SET_USER, payload: data });
       };
 

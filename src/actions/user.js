@@ -1,7 +1,6 @@
 import * as api from "../api";
 
 const getUserDetails = async (query) => {
-  console.log("query = ", query);
   try {
     const data = await api.getUserDetails(query);
     return data;
