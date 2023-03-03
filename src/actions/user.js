@@ -1,22 +1,13 @@
 import * as api from "../api";
 
-const createNewUser = async (email, id, handle) => {
+const getUserDetails = async (query) => {
+  console.log("query = ", query);
   try {
-    const data = await api.createNewUser(email, id, handle);
+    const data = await api.getUserDetails(query);
     return data;
   } catch (error) {
     console.log(error);
   }
 };
 
-const deleteUserDetails = async (email, token) => {
-  console.log({email, token})
-  try {
-    const data = await api.deleteUserDetails(email, token);
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export { createNewUser, deleteUserDetails };
+export { getUserDetails };
