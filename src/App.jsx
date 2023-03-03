@@ -8,15 +8,17 @@ import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";
 import AccountSettings from "./components/AccountSettings";
 
-import { useAuthContext, useDeleteUser, useUserContext } from "./hooks"; // temp
+import useAuthContext from "./hooks/context/useAuthContext"; // temp
+import useUserContext from "./hooks/context/useUserContext"; // temp
+import { useDeleteUser } from "./hooks"; // temp
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/css/index.css";
 
 const App = () => {
-  const { authState } = useAuthContext();
-  const { deleteUser } = useDeleteUser();
-  const { userDetails } = useUserContext();
+  const { authState } = useAuthContext(); //temp
+  const { deleteUser } = useDeleteUser(); // temp
+  const { userDetails } = useUserContext(); // temp
 
   return (
     <>

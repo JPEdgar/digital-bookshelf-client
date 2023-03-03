@@ -1,6 +1,8 @@
 import { useState } from "react";
 
-import { useAuthContext, useUserContext } from "./";
+import useAuthContext from "./context/useAuthContext";
+import useUserContext from "./context/useUserContext";
+
 import AUTH_TYPES from "../constants/types/authTypes";
 
 import { logIn } from "../actions/auth";

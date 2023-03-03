@@ -5,10 +5,10 @@ import { Navbar, Container, Nav, Image, Button } from "react-bootstrap";
 
 import MenuDropdown from "./MenuDropdown";
 
-import { useAuthContext } from "../../hooks";
+import { useAuthDetails } from "../../hooks";
 
 const Navigation = () => {
-  const { authState } = useAuthContext();
+  const { authDetails } = useAuthDetails();
 
   return (
     <>
@@ -37,7 +37,7 @@ const Navigation = () => {
                 Home
               </Nav.Link>
             </Nav>
-            {authState.email ? (
+            {authDetails.email ? (
               <MenuDropdown />
             ) : (
               <>

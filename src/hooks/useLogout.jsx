@@ -1,4 +1,5 @@
-import { useAuthContext, useUserContext } from "../hooks";
+import useAuthContext from "./context/useAuthContext";
+import useUserContext from "./context/useUserContext";
 
 import AUTH_TYPES from "../constants/types/authTypes";
 import USER_TYPES from "../constants/types/userTypes";

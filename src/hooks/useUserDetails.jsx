@@ -1,9 +1,9 @@
 import React from "react";
 
-import { useUserContext } from "./";
+import useUserContext from "./context/useUserContext";
 
 const useUserDetails = () => {
-  const { userDetails, dispatch: userDispatch } = useUserContext();
+  const { userDetails } = useUserContext();
   return { userDetails };
 };
 
