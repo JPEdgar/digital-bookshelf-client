@@ -18,7 +18,7 @@ const UserProvider = ({ children }) => {
       const user = JSON.parse(localStorage.getItem("digital-bookshelf-user"));
 
       const findAndSetDetails = async (email) => {
-        const data = await getUserDetails(email);
+        const { data } = await getUserDetails({ email });
         // console.log("-------- data = ", data);
         dispatch({ type: USER_TYPES.SET_USER, payload: data });
       };
