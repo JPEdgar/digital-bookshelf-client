@@ -30,6 +30,16 @@ const deleteAccount = async (email, token) => {
   }
 };
 
+const updateEmail = async (email, password, newEmail, token) => {
+  try {
+    const data = await api.updateEmail(email, password, newEmail, token);
+    return data;
+  } catch (error) {
+    // console.log(error);
+    return error.response.data;
+  }
+};
+
 const updatePassword = async (email, password, newPassword, token) => {
   try {
     const data = await api.updatePassword(email, password, newPassword, token);
@@ -40,14 +50,6 @@ const updatePassword = async (email, password, newPassword, token) => {
   }
 };
 
-const updateEmail = async (email, password, newEmail, token) => {
-  try {
-    const data = await api.updateEmail(email, password, newEmail);
-    return data;
-  } catch (error) {
-    // console.log(error);
-    return error.response.data;
-  }
-};
+
 
 export { logIn, signUp, deleteAccount, updatePassword, updateEmail };

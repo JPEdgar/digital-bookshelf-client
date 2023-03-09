@@ -1,5 +1,5 @@
-import useAuthContext from "./context/useAuthContext";
-import useUserContext from "./context/useUserContext";
+import useAuthContext from "./context/useAuthContext"; // refactor to useAuth hook aaaaaaaaaa
+import useUserContext from "./context/useUserContext"; // refactor to useUser hook aaaaaaaaaa
 
 import AUTH_TYPES from "../constants/types/authTypes";
 import USER_TYPES from "../constants/types/userTypes";

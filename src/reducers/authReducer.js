@@ -9,6 +9,9 @@ const authReducer = (state, action) => {
       return action.payload;
     case AUTH_TYPES.LOGOUT:
       return { user: null };
+    case AUTH_TYPES.UPDATE_EMAIL:
+      
+      return action.payload;
     default:
       console.log("dispatch - else");
       return state;

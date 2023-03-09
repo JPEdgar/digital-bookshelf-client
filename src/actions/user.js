@@ -9,4 +9,13 @@ const getUserDetails = async (query) => {
   }
 };
 
-export { getUserDetails };
+const updateUserDetails = async (updates, token) => {
+  try {
+    const data = await api.updateUserDetails(updates, token);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export { getUserDetails, updateUserDetails };

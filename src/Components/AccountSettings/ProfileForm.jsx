@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Form, Button, Image, Row, Col } from "react-bootstrap";
 import FileBase from "react-file-base64";
 
-import { useUserDetails } from "../../hooks";
+import { useUserDetails, useAuthDetails } from "../../hooks";
 // import { useUserDetails, useAuthContext } from "../../hooks";
 // import initializeUserDetails from "../../constants/initializations/initializeUserDetails";
 // import defaultUserDetails from "../../constants/initializations/initializeUserDetails";
@@ -11,18 +11,34 @@ import { useUserDetails } from "../../hooks";
 import LockUnlockIcon from "../elements/LockUnlockIcon";
 
 const ProfileForm = () => {
-  const { userDetails } = useUserDetails();
-  const [inputData, setInputData] = useState(userDetails);
+  const {
+    userDetails,
+    error, setError,
+    loadingFlag,
+    updateUserEmail, // email, password, newEmail, token
+    updateUserPassword, // email, password, newPassword, token
+    updateUserDetails, // updates, token
+  } = useUserDetails();
+  const { authDetails } = useAuthDetails();
+  const [inputData, setInputData] = useState({ ...userDetails, password: "" });
+  const [lockEmailFlag, setLockEmailFlag] = useState(true);
 
   const handleChange = (e) =>
-  setInputData((curr) => ({ ...curr, [e.target.name]: e.target.value }));
+    setInputData((curr) => ({ ...curr, [e.target.name]: e.target.value }));
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const { email, password } = inputData;
+    const { token } = authDetails;
+
+    if (userDetails.email !== email)
+      updateUserEmail(userDetails.email, password, email, token);
   };
 
   const clearForm = () => {
-    setInputData(userDetails);
+    setInputData({ ...userDetails, password: "" });
+    setLockEmailFlag(true)
+    setError(null)
   };
 
   // temp, will probably create a separate component for form
@@ -30,6 +46,8 @@ const ProfileForm = () => {
   const leftLg = 2;
   const rightSm = 12 - leftSm;
   const rightLg = 12 - leftLg;
+
+  // useEffect(() => console.log(inputData), [inputData]);
 
   return (
     <>
@@ -114,7 +132,11 @@ const ProfileForm = () => {
         <Form.Group as={Row} className="mt-2">
           <Col sm={leftSm} lg={leftLg}>
             <span className="d-flex align-items-center h-100">
-              {/* <LockUnlockIcon state={lockEmailFlag} setState={setLockEmailFlag} text="Modify email" /> */}
+              <LockUnlockIcon
+                state={lockEmailFlag}
+                setState={setLockEmailFlag}
+                text="Modify email"
+              />
               <Form.Label className="ps-1 m-0">Email:</Form.Label>
             </span>
           </Col>
@@ -125,10 +147,29 @@ const ProfileForm = () => {
               placeholder="Email"
               value={inputData.email}
               onChange={handleChange}
-              // disabled={lockEmailFlag}
+              disabled={lockEmailFlag}
             />
           </Col>
         </Form.Group>
+
+        {!lockEmailFlag && (
+          <Form.Group as={Row} className="mt-2">
+            <Col sm={leftSm} lg={leftLg}>
+              <span className="d-flex align-items-center h-100">
+                <Form.Label className="ps-1 m-0">Re-enter Password:</Form.Label>
+              </span>
+            </Col>
+            <Col sm={rightSm} lg={rightLg}>
+              <Form.Control
+                type="password"
+                name="password"
+                placeholder="Re-enter password to confirm changes"
+                value={inputData.password}
+                onChange={handleChange}
+              />
+            </Col>
+          </Form.Group>
+        )}
 
         <Button variant="primary" type="submit" className="mt-2 me-2">
           Save changes
@@ -141,6 +182,7 @@ const ProfileForm = () => {
         >
           Clear changes
         </Button>
+        {error && <div>{error}</div>}
       </Form>
     </>
   );
