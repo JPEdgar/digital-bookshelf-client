@@ -30,9 +30,9 @@ const deleteAccount = async (email, token) => {
   }
 };
 
-const updatePassword = async (email, password, newPassword) => {
+const updatePassword = async (email, password, newPassword, token) => {
   try {
-    const data = await api.updatePassword(email, password, newPassword);
+    const data = await api.updatePassword(email, password, newPassword, token);
     return data;
   } catch (error) {
     // console.log(error);
@@ -40,9 +40,9 @@ const updatePassword = async (email, password, newPassword) => {
   }
 };
 
-const updateEmail = async (email, password, newEmail) => {
+const updateEmail = async (email, password, newEmail, token) => {
   try {
-    const data = await api.updatePassword(email, password, newEmail);
+    const data = await api.updateEmail(email, password, newEmail);
     return data;
   } catch (error) {
     // console.log(error);
