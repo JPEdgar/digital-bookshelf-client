@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import AUTH_TYPES from "../constants/types/authTypes";
 import USER_TYPES from "../constants/types/userTypes";
-import { updateEmail } from "../actions/auth";
+import { updateEmail, updatePassword } from "../actions/auth";
 import {} from "../actions/user";
 
 import useUserContext from "./context/useUserContext";
@@ -54,12 +54,7 @@ const useUserDetails = () => {
       setLoadingFlag(false);
     }
 
-    const updatePasswordResponse = await updateEmail(
-      email,
-      password,
-      newPassword,
-      token
-    );
+    const updatePasswordResponse = await updatePassword( email, password, newPassword, token );
     console.log("updatePasswordResponse = ", updatePasswordResponse);
   };
 
@@ -76,6 +71,7 @@ const useUserDetails = () => {
   return {
     userDetails,
     error,
+    setError,
     loadingFlag,
     updateUserEmail,
     updateUserPassword,

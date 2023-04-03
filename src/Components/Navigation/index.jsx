@@ -4,12 +4,14 @@ import { Link } from "react-router-dom";
 import { Navbar, Container, Nav, Image, Button } from "react-bootstrap";
 
 import MenuDropdown from "./MenuDropdown";
+import FriendIcon from "../elements/FriendIcon";
 
-import { useAuthDetails } from "../../hooks";
+import { useAuthDetails, useUserDetails } from "../../hooks";
 
 const Navigation = () => {
   const { authDetails } = useAuthDetails();
-
+  const { userDetails } = useUserDetails();
+  // console.log(userDetails);
   return (
     <>
       <Navbar
@@ -36,6 +38,15 @@ const Navigation = () => {
               <Nav.Link as={Link} to="/">
                 Home
               </Nav.Link>
+              {authDetails.email && (
+                <Nav.Link
+                  as={Link}
+                  to="/friends"
+                  className="d-flex align-items-center"
+                >
+                  <FriendIcon />
+                </Nav.Link>
+              )}
             </Nav>
             {authDetails.email ? (
               <MenuDropdown />

@@ -7,6 +7,7 @@ import Navigation from "./components/Navigation";
 import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";
 import AccountSettings from "./components/AccountSettings";
+import Friends from "./components/Friends"
 
 import useAuthContext from "./hooks/context/useAuthContext"; // temp
 import useUserContext from "./hooks/context/useUserContext"; // temp
@@ -46,6 +47,12 @@ const App = () => {
             path="/user-settings"
             element={
               authState.email ? <AccountSettings /> : <Navigate to="/" />
+            }
+          />
+          <Route
+            path="/friends"
+            element={
+              authState.email ? <Friends /> : <Navigate to="/" />
             }
           />
         </Routes>

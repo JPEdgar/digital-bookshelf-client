@@ -16,6 +16,15 @@ const updateUserDetails = async (updates, token) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+const removeFriend = async (userID , friendID, token) => {
+  try {
+    const data = await api.removeFriend(userID , friendID, token);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-export { getUserDetails, updateUserDetails };
+export { getUserDetails, updateUserDetails , removeFriend};
