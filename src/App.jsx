@@ -11,7 +11,7 @@ import Friends from "./components/Friends"
 
 import useAuthContext from "./hooks/context/useAuthContext"; // temp
 import useUserContext from "./hooks/context/useUserContext"; // temp
-import { useDeleteUser } from "./hooks"; // temp
+import { useDeleteUser , useUserFriendsList} from "./hooks"; // temp
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/css/index.css";
@@ -20,6 +20,12 @@ const App = () => {
   const { authState } = useAuthContext(); //temp
   const { deleteUser } = useDeleteUser(); // temp
   const { userDetails } = useUserContext(); // temp
+  const {getFriendsList, getFriendStatus} = useUserFriendsList()
+
+  const handleClick = async () => {
+    const status = getFriendStatus("6429b1aaaf087725cab37ea7")
+    console.log(status)
+  }
 
   return (
     <>
@@ -31,6 +37,12 @@ const App = () => {
           Delete: {authState.email}
         </button>
       )}
+      {authState.email && (
+        <button onClick={() => handleClick()}>
+          log friends list test status
+        </button>
+      )}
+
 
       <Container>
         <Routes>

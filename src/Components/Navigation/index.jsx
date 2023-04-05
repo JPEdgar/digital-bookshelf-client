@@ -7,6 +7,7 @@ import MenuDropdown from "./MenuDropdown";
 import FriendIcon from "../elements/FriendIcon";
 
 import { useAuthDetails, useUserDetails } from "../../hooks";
+import FriendSearch from "../elements/FriendSearch";
 
 const Navigation = () => {
   const { authDetails } = useAuthDetails();
@@ -47,6 +48,7 @@ const Navigation = () => {
                   <FriendIcon />
                 </Nav.Link>
               )}
+              <FriendSearch />
             </Nav>
             {authDetails.email ? (
               <MenuDropdown />

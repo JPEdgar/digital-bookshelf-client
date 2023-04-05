@@ -20,26 +20,39 @@ const ProfileForm = () => {
     updateUserDetails, // updates, token
   } = useUserDetails();
   const { authDetails } = useAuthDetails();
-  const [inputData, setInputData] = useState({ ...userDetails, password: "" });
+  const [inputData, setInputData] = useState({ ...userDetails, password: "", newPassword: "" });
   const [lockEmailFlag, setLockEmailFlag] = useState(true);
+  const [lockPasswordFlag, setLockPasswordFlag] = useState(true);
 
   const handleChange = (e) =>
     setInputData((curr) => ({ ...curr, [e.target.name]: e.target.value }));
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("inputData = ", inputData)
     const { email, password } = inputData;
     const { token } = authDetails;
 
-    if (userDetails.email !== email)
-      updateUserEmail(userDetails.email, password, email, token);
+    if (userDetails.email !== email) updateUserEmail(userDetails.email, password, email, token);
+
+    if (inputData.newPassword) updateUserPassword(userDetails.email, inputData.password, inputData.newPassword, token)
+
+    setLockEmailFlag(true)
+    setLockPasswordFlag(true)
   };
 
+  const resetInput = () => {
+    setInputData({ ...userDetails, password: "", newPassword: "" })
+  }
+
   const clearForm = () => {
-    setInputData({ ...userDetails, password: "" });
+    resetInput()
     setLockEmailFlag(true)
+    setLockPasswordFlag(true)
     setError(null)
   };
+
+
 
   // temp, will probably create a separate component for form
   const leftSm = 3;
@@ -152,7 +165,30 @@ const ProfileForm = () => {
           </Col>
         </Form.Group>
 
-        {!lockEmailFlag && (
+        <Form.Group as={Row} className="mt-2">
+          <Col sm={leftSm} lg={leftLg}>
+            <span className="d-flex align-items-center h-100">
+              <LockUnlockIcon
+                state={lockPasswordFlag}
+                setState={setLockPasswordFlag}
+                text="Modify Password"
+              />
+              <Form.Label className="ps-1 m-0">New Password:</Form.Label>
+            </span>
+          </Col>
+          <Col sm={rightSm} lg={rightLg}>
+            <Form.Control
+              type="text"
+              name="newPassword"
+              placeholder="New password"
+              value={inputData.newPassword}
+              onChange={handleChange}
+              disabled={lockPasswordFlag}
+            />
+          </Col>
+        </Form.Group>
+
+        {(!lockEmailFlag || !lockPasswordFlag) && (
           <Form.Group as={Row} className="mt-2">
             <Col sm={leftSm} lg={leftLg}>
               <span className="d-flex align-items-center h-100">
@@ -161,7 +197,7 @@ const ProfileForm = () => {
             </Col>
             <Col sm={rightSm} lg={rightLg}>
               <Form.Control
-                type="password"
+                type="text"
                 name="password"
                 placeholder="Re-enter password to confirm changes"
                 value={inputData.password}

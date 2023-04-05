@@ -18,13 +18,24 @@ const updateUserDetails = async (updates, token) => {
   }
 };
 
-const removeFriend = async (userID , friendID, token) => {
+const removeFriend = async (userID, friendID, token) => {
   try {
-    const data = await api.removeFriend(userID , friendID, token);
+    const data = await api.removeFriend(userID, friendID, token);
     return data;
   } catch (error) {
     console.log(error);
   }
-}
+};
 
-export { getUserDetails, updateUserDetails , removeFriend};
+const findFriend = async (query) => {
+  try {
+    const data = await api.findFriend(query);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+
+export { getUserDetails, updateUserDetails, removeFriend, findFriend };
