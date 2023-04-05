@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { Row, Image } from "react-bootstrap";
+import { Row, Image, Stack } from "react-bootstrap";
 
 import {
   useGetFriendDetails,
@@ -28,23 +28,23 @@ const Pending = ({ friend }) => {
   return (
     <>
       {friend.friendStatus === "pending" && friendData && (
-        <div className="my-2 d-flex align-items-center justify-content-between">
-          <div>
-            <Image
-              src={friendData.avatar || "https://picsum.photos/200"}
-              height="50px"
-              roundedCircle
-            />
-            <span className="ms-1">{friendData.handle}</span>
-          </div>
-          {userDetails.userID && friend && authDetails.token && (
+        <Stack direction="horizontal" gap={2}>
+          <Image
+            src={friendData.avatar || "https://picsum.photos/200"}
+            height="50px"
+            roundedCircle
+          />
+          <span className="ms-1">{friendData.handle}</span>
+          {userDetails.userID && friend && authDetails.token ? (
             <RemoveFriendIcon
               userID={userDetails.userID}
               friendID={friend.friendUserID}
               token={authDetails.token}
             />
+          ) : (
+            <div />
           )}
-        </div>
+        </Stack>
       )}
     </>
   );

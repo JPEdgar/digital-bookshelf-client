@@ -112,9 +112,6 @@ const FriendSearch = () => {
   return (
     <>
       <Dropdown show={openSearchFlag} onBlur={() => setOpenSearchFlag(false)}>
-        {/* <Dropdown.Toggle variant="success" id="dropdown-basic">
-          Dropdown Button
-        </Dropdown.Toggle> */}
         <Form>
           <Form.Control
             type="text"

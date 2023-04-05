@@ -7,7 +7,7 @@ import { useRemoveFriend } from "../../hooks";
 import MouseoverInfo from "./MouseoverInfo";
 
 const RemoveFriendIcon = ({ userID, friendID, token }) => {
-  // console.log({ userID, friendID, token });
+  console.log({ userID, friendID, token });
   const { removeFriend } = useRemoveFriend();
   return (
     <MouseoverInfo text={"Remove Friend"}>
