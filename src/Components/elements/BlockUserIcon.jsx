@@ -7,8 +7,9 @@ import { faBan } from "@fortawesome/free-solid-svg-icons";
 import MouseoverInfo from "./MouseoverInfo";
 
 const BlockUserIcon = ({ userID, friendID, token }) => {
+  // console.log("Block User Icon");
   // console.log({ userID, friendID, token });
-//   const { removeFriend } = useRemoveFriend();
+  //   const { removeFriend } = useRemoveFriend();
   return (
     <MouseoverInfo text={"Block User"}>
       <FontAwesomeIcon
@@ -16,7 +17,7 @@ const BlockUserIcon = ({ userID, friendID, token }) => {
           cursor: "pointer",
         }}
         icon={faBan}
-        // onClick={() => removeFriend(userID, friendID, token)}
+        // onClick={() => addFriend(userID, friendID, token)}
       />
     </MouseoverInfo>
   );

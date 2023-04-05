@@ -14,7 +14,7 @@ const useUserFriendsList = () => {
     const status = userDetails.friendsList.find(
       (x) => x.friendUserID === friendID
     );
-    return status?.friendStatus;
+    return {friendStatus: status?.friendStatus, requestInboud: status?.requestInbound};
   };
 
   return { getFriendsList, getFriendStatus };

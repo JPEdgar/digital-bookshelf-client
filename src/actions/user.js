@@ -36,6 +36,29 @@ const findFriend = async (query) => {
   }
 };
 
+const sendFriendRequest = async (userID, friendID, token) => {
+  try {
+    const data = await api.sendFriendRequest(userID, friendID, token);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
+const acceptFriendRequest = async (userID, friendID, token) => {
+  try {
+    const data = await api.acceptFriendRequest(userID, friendID, token);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-export { getUserDetails, updateUserDetails, removeFriend, findFriend };
+export {
+  getUserDetails,
+  updateUserDetails,
+  removeFriend,
+  findFriend,
+  sendFriendRequest,
+  acceptFriendRequest,
+};

@@ -8,6 +8,7 @@ import useGetFriendDetails from "./useGetFriendDetails";
 import useRemoveFriend from "./useRemoveFriend";
 import useFindFriend from "./useFindFriend";
 import useUserFriendsList from "./useUserFriendsList";
+import useAddFriend from "./useAddFriend";
 
 export {
   useSignup,
@@ -20,4 +21,5 @@ export {
   useGetFriendDetails,
   useFindFriend,
   useUserFriendsList,
+  useAddFriend,
 };

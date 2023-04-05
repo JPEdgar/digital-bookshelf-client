@@ -1,27 +1,26 @@
 import React from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { faUserCheck } from "@fortawesome/free-solid-svg-icons";
 
 import { useAddFriend } from "../../hooks";
 import MouseoverInfo from "./MouseoverInfo";
 
-const AddFriendIcon = ({ userID, friendID, token }) => {
-  // console.log("Add Friend Icon");
+const AcceptFriendIcon = ({ userID, friendID, token }) => {
+  // console.log("Accept Friend Icon");
   // console.log({ userID, friendID, token });
   const { addFriend } = useAddFriend();
-
   return (
-    <MouseoverInfo text={"Add Friend"}>
+    <MouseoverInfo text={"Accept Friend Request"}>
       <FontAwesomeIcon
         style={{
           cursor: "pointer",
         }}
-        icon={faUserPlus}
+        icon={faUserCheck}
         onClick={() => addFriend(userID, friendID, token)}
       />
     </MouseoverInfo>
   );
 };
 
-export default AddFriendIcon;
+export default AcceptFriendIcon;
