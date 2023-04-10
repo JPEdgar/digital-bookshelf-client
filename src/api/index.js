@@ -66,7 +66,7 @@ const getFriendsList = async (userID = "") =>
 
 // bookshelf
 const getBookshelf = async (query = {}) =>
-  axios.get(`${bookshelfURL}/`, { params:  query });
+  axios.get(`${bookshelfURL}/`, { params: query });
 
 export {
   signUp,
@@ -81,5 +81,6 @@ export {
   removeFriend,
   updateUserDetails,
   findFriend,
-  getFriendsList, getBookshelf
+  getFriendsList,
+  getBookshelf,
 };

@@ -3,7 +3,7 @@ import React from "react";
 import { Row, Col } from "react-bootstrap";
 
 import Friend from "./Friend";
-import Pending from "./Pending"
+import Pending from "./Pending";
 import FriendFocus from "./FriendFocus";
 import { useUserDetails } from "../../hooks";
 
@@ -15,22 +15,20 @@ const Friends = () => {
     <>
       <Row>
         <Col xs={3}>
-        <div>
-            Friends:
-        </div>
+          <div>Friends:</div>
           {userDetails.friendsList &&
             userDetails.friendsList.map((friend) => (
               <Friend key={friend.friendUserID} friend={friend} />
             ))}
-            <div>
-                Pending:
-            </div>
+          <div>Pending:</div>
           {userDetails.friendsList &&
             userDetails.friendsList.map((friend) => (
               <Pending key={friend.friendUserID} friend={friend} />
             ))}
         </Col>
-        <Col><FriendFocus/></Col>
+        <Col>
+          <FriendFocus />
+        </Col>
       </Row>
     </>
   );

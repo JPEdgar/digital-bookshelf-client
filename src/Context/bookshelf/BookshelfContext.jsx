@@ -20,10 +20,8 @@ const BookshelfProvider = ({ children }) => {
     if (user) {
       const getUserBookshelf = async () => {
         const { data } = await getBookshelf({ userID: userDetails.userID });
-        console.log(data);
         if (data) {
           dispatch({ type: SHELF_TYPES.SET_BOOKSHELF, payload: data });
-
           setGetBookshelfFlag(false);
         }
       };

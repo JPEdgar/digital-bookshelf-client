@@ -3,8 +3,9 @@ import React from "react";
 import useBookshelfContext from "./context/useBookshelfContext";
 
 const useBookshelf = () => {
-  const {bookshelfState, dispatch: bookshelfDispatch} = useBookshelfContext()
-  return {bookshelfState , bookshelfDispatch};
+  const { bookshelfState: bookshelf, dispatch: bookshelfDispatch } =
+    useBookshelfContext();
+  return { bookshelf, bookshelfDispatch };
 };
 
 export default useBookshelf;
