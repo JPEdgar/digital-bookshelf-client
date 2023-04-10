@@ -43,10 +43,7 @@ const createNewUser = async (email = "", id = "", handle = "") =>
 const getUserDetails = async (query) =>
   axios.get(userURL, { params: { ...query } });
 const updateUserDetails = async (updates, token) =>
-  axios.patch(userURL, {
-    headers: { Authorization: `bearer ${token}` },
-    data: updates,
-  });
+  axios.patch(userURL, { headers: { Authorization: `bearer ${token}` }, data: updates, });
 
 // social
 const sendFriendRequest = async (userID = "", friendID = "") =>

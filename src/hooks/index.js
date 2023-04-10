@@ -4,7 +4,7 @@ import useLogin from "./useLogin";
 import useDeleteUser from "./useDeleteUser";
 import useAuthDetails from "./useAuthDetails";
 import useUserDetails from "./useUserDetails";
-import useGetFriendDetails from "./useGetFriendDetails";
+import useFriendDetails from "./useFriendDetails";
 import useRemoveFriend from "./useRemoveFriend";
 import useFindFriend from "./useFindFriend";
 import useUserFriendsList from "./useUserFriendsList";
@@ -18,7 +18,7 @@ export {
   useAuthDetails,
   useUserDetails,
   useRemoveFriend,
-  useGetFriendDetails,
+  useFriendDetails,
   useFindFriend,
   useUserFriendsList,
   useAddFriend,

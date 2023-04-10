@@ -12,7 +12,7 @@ import {
 import AddFriendIcon from "./AddFriendIcon";
 import RemoveFriendIcon from "./RemoveFriendIcon";
 import BlockUserIcon from "./BlockUserIcon";
-import AcceptFriendIcon from "./AcceptFriendIcon";
+import AcceptFriendIcon from "./AcceptFriendIcon"; 
 
 const FriendSearch = () => {
   const [inDropdownFlag, setInDropdownFlag] = useState(false)

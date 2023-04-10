@@ -3,7 +3,7 @@ import USER_TYPES from "../constants/types/userTypes";
 import defaultUserDetails from "../constants/initializations/initializeUserDetails";
 
 const userReducer = (state, action) => {
-  console.log("action.payload = ", action.payload);
+  // console.log("action.payload = ", action.payload);
   switch (action.type) {
     case USER_TYPES.SET_USER:
       const returnObj = {
@@ -29,6 +29,8 @@ const userReducer = (state, action) => {
       return { ...state, friendsList: action.payload };
     case USER_TYPES.ACCEPT_FRIEND_REQUEST:
       return { ...state, friendsList: action.payload };
+    case USER_TYPES.SET_FRIEND_FOCUS:
+      return {...state, friendFocus: action.payload};
     default:
       console.log("useUser dispatch - else");
       return state;

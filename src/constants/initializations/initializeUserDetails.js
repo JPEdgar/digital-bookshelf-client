@@ -7,6 +7,7 @@ const defaultUserDetails = () => {
     handle: "",
     avatar: "",
     friendsList: [],
+    friendFocus: {}
   };
 };
 

@@ -4,6 +4,7 @@ import { Row, Col } from "react-bootstrap";
 
 import Friend from "./Friend";
 import Pending from "./Pending"
+import FriendFocus from "./FriendFocus";
 import { useUserDetails } from "../../hooks";
 
 const Friends = () => {
@@ -29,7 +30,7 @@ const Friends = () => {
               <Pending key={friend.friendUserID} friend={friend} />
             ))}
         </Col>
-        <Col>right pane</Col>
+        <Col><FriendFocus/></Col>
       </Row>
     </>
   );

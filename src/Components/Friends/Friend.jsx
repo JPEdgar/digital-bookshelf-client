@@ -2,22 +2,20 @@ import React, { useState, useEffect } from "react";
 
 import { Row, Image, Stack } from "react-bootstrap";
 
-import {
-  useGetFriendDetails,
-  useUserDetails,
-  useAuthDetails,
-} from "../../hooks";
+import { useUserDetails, useAuthDetails, useFriendDetails } from "../../hooks";
 import RemoveFriendIcon from "../elements/RemoveFriendIcon";
 
 const Friend = ({ friend }) => {
   const [friendData, setFriendData] = useState(null);
-  const { getFriendDetails } = useGetFriendDetails();
   const { userDetails } = useUserDetails();
   const { authDetails } = useAuthDetails();
+  const { getFriendDetails, setFriendFocus } = useFriendDetails();
 
-  // console.log("pending details = ", { friend, userDetails, authDetails });
+  const handleClick = () => {
+    setFriendFocus(friendData.userID);
+  };
+
   useEffect(() => {
-    // get friend data
     const getData = async () => {
       const data = await getFriendDetails({ userID: friend?.friendUserID });
       setFriendData(data);
@@ -33,8 +31,16 @@ const Friend = ({ friend }) => {
             src={friendData.avatar || "https://picsum.photos/200"}
             height="50px"
             roundedCircle
+            style={{ cursor: "crosshair" }}
+            onClick={() => handleClick()}
           />
-          <span className="ms-1">{friendData.handle}</span>
+          <span
+            className="ms-1 w-100"
+            style={{ cursor: "crosshair" }}
+            onClick={() => handleClick()}
+          >
+            {friendData.handle}
+          </span>
           {userDetails.userID && friend && authDetails.token ? (
             <RemoveFriendIcon
               userID={userDetails.userID}
