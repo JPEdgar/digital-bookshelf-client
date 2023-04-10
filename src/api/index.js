@@ -5,6 +5,7 @@ const BASE_URL = "http://localhost:4000/api"; // dev
 const authURL = `${BASE_URL}/auth`;
 const userURL = `${BASE_URL}/user`;
 const socialURL = `${BASE_URL}/social`;
+const bookshelfURL = `${BASE_URL}/bookshelf`;
 
 // auth
 const signUp = async (email = "", password = "", handle = "") =>
@@ -43,7 +44,10 @@ const createNewUser = async (email = "", id = "", handle = "") =>
 const getUserDetails = async (query) =>
   axios.get(userURL, { params: { ...query } });
 const updateUserDetails = async (updates, token) =>
-  axios.patch(userURL, { headers: { Authorization: `bearer ${token}` }, data: updates, });
+  axios.patch(userURL, {
+    headers: { Authorization: `bearer ${token}` },
+    data: updates,
+  });
 
 // social
 const sendFriendRequest = async (userID = "", friendID = "") =>
@@ -60,6 +64,10 @@ const findFriend = async (query = "") =>
 const getFriendsList = async (userID = "") =>
   axios.get(`${socialURL}/friends-list`, { params: { userID } });
 
+// bookshelf
+const getBookshelf = async (query = {}) =>
+  axios.get(`${bookshelfURL}/`, { params:  query });
+
 export {
   signUp,
   login,
@@ -73,5 +81,5 @@ export {
   removeFriend,
   updateUserDetails,
   findFriend,
-  getFriendsList,
+  getFriendsList, getBookshelf
 };

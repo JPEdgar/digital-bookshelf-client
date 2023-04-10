@@ -9,6 +9,7 @@ import useRemoveFriend from "./useRemoveFriend";
 import useFindFriend from "./useFindFriend";
 import useUserFriendsList from "./useUserFriendsList";
 import useAddFriend from "./useAddFriend";
+import useBookshelf from "./useBookshelf";
 
 export {
   useSignup,
@@ -22,4 +23,5 @@ export {
   useFindFriend,
   useUserFriendsList,
   useAddFriend,
+  useBookshelf,
 };
