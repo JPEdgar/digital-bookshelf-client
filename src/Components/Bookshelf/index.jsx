@@ -11,7 +11,6 @@ const Bookshelf = () => {
 
   return (
     <>
-      <div>Bookshelf</div>
       {bookshelf?.contents?.map((item) => (
         <BookshelfItem key={`bookshelf-item-${item._id}`} content={item} />
       ))}

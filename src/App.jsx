@@ -21,8 +21,8 @@ const App = () => {
   const { authState } = useAuthContext(); //temp
   const { deleteUser } = useDeleteUser(); // temp
   const { userDetails } = useUserContext(); // temp
-  const { getFriendsList, getFriendStatus } = useUserFriendsList();
-  const { bookshelf } = useBookshelf();
+  const { getFriendsList, getFriendStatus } = useUserFriendsList(); // temp
+  const { bookshelf } = useBookshelf(); // temp
 
   const handleClick = async () => {
     const status = getFriendStatus("6429b1aaaf087725cab37ea7");
@@ -32,21 +32,10 @@ const App = () => {
   return (
     <>
       <Navigation />
-      <button onClick={() => console.log(authState)}>Log authState</button>
-      <button onClick={() => console.log(userDetails)}>Log user details</button>
-      {authState.email && (
-        <button onClick={() => deleteUser(authState)}>
-          Delete: {authState.email}
-        </button>
-      )}
-      {/* {authState.email && ( <button onClick={() => handleClick()}> log friends list test status </button> )} */}
-      {authState.email && (
-        <button onClick={() => console.log(bookshelf)}>log bookshelf</button>
-      )}
 
       <Container>
         <Routes>
-          <Route path="/" element={<Bookshelf />} />
+          <Route path="/" element={authState.email ? <Bookshelf /> : <>bookshelf</>} />
           <Route
             path="/signup"
             element={!authState.email ? <SignUp /> : <Navigate to="/" />}
@@ -72,3 +61,17 @@ const App = () => {
 };
 
 export default App;
+
+/*
+      <button onClick={() => console.log(authState)}>Log authState</button>
+      <button onClick={() => console.log(userDetails)}>Log user details</button>
+      {authState.email && (
+        <button onClick={() => deleteUser(authState)}>
+          Delete: {authState.email}
+        </button>
+      )}
+      {authState.email && ( <button onClick={() => handleClick()}> log friends list test status </button> )}
+      {authState.email && (
+        <button onClick={() => console.log(bookshelf)}>log bookshelf</button>
+      )}
+*/
