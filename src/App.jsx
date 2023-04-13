@@ -9,6 +9,7 @@ import LogIn from "./components/LogIn";
 import AccountSettings from "./components/AccountSettings";
 import Friends from "./components/Friends";
 import Bookshelf from "./components/Bookshelf";
+import BookDetails from "./components/BookDetails";
 
 import useAuthContext from "./hooks/context/useAuthContext"; // temp
 import useUserContext from "./hooks/context/useUserContext"; // temp
@@ -40,7 +41,7 @@ const App = () => {
           <Route path="/login" element={!authState.email ? <LogIn /> : <Navigate to="/" />} />
           <Route path="/user-settings" element={ authState.email ? <AccountSettings /> : <Navigate to="/" /> } />
           <Route path="/friends" element={authState.email ? <Friends /> : <Navigate to="/" />} />
-          <Route path="/book-details" element={null} />
+          <Route path="/book-details" element={<BookDetails/>} />
         </Routes>
       </Container>
     </>
