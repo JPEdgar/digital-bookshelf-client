@@ -19,7 +19,7 @@ const BookshelfProvider = ({ children }) => {
     const user = JSON.parse(localStorage.getItem("digital-bookshelf-user"));
     if (user) {
       const getUserBookshelf = async () => {
-        const { data } = await getBookshelf({ userID: userDetails.userID });
+        const { data } = await getBookshelf({ userID: userDetails.userID }) || null;
         if (data) {
           dispatch({ type: SHELF_TYPES.SET_BOOKSHELF, payload: data });
           setGetBookshelfFlag(false);
