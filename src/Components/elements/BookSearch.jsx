@@ -26,27 +26,22 @@ const BookSearch = () => {
   };
 
   const Book = ({ bookData }) => {
-
-
     return (
-      <Dropdown.Item
-        onClick={() => handleClick()}
-
-      >
-        <Stack direction="horizontal" gap={1}>
-          <Image src={bookData.book} height="150px" />
-          <Stack className="ms-1">
-    <div>
-      {bookData.title}
-      </div>
-      <div>
-        {bookData.subtitle}
-      </div>
-        
+      <Dropdown.Item onClick={() => handleClick()}>
+        <Stack direction="horizontal" gap={1} className="w-100">
+          <Image src={bookData.coversList.small} height="100px" />
+          <Stack className="ms-1" style={{ width: "15em" }}>
+            <div>{bookData.title}</div>
+            <div>{bookData.subtitle}</div>
+            <div>By: {bookData.authorString}</div>
           </Stack>
 
-          <Stack direction="horizontal" gap={1} className="ms-1">
- <div>flags</div>
+          <Stack gap={1} className="ms-1" style={{ fontSize: "0.75rem" }}>
+            <div>Flags</div>
+            <div>In Shelf</div>
+            <div>Wish List</div>
+            <div>Read</div>
+            <div>etc...</div>
           </Stack>
         </Stack>
       </Dropdown.Item>
