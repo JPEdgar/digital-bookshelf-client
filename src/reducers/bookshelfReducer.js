@@ -5,7 +5,8 @@ const bookshelfReducer = (state, action) => {
   switch (action.type) {
     case SHELF_TYPES.SET_BOOKSHELF:
       return action.payload;
-
+    case SHELF_TYPES.SET_BOOK_FOCUS:
+      return {...state, bookFocus: action.payload}
     default:
       console.log("dispatch - else");
       return state;

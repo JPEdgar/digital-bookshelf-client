@@ -60,7 +60,7 @@ const Bookshelf = () => {
 
   return (
     <>
-      <button onClick={() => console.log(state)}>Log State</button>
+      {/* <button onClick={() => console.log(state)}>Log State</button> */}
       {/* {bookshelf?.contents?.map((item) => ( <BookshelfItem key={`bookshelf-item-${item._id}`} content={item} /> ))} */}
     </>
   );

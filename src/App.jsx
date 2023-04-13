@@ -40,6 +40,7 @@ const App = () => {
           <Route path="/login" element={!authState.email ? <LogIn /> : <Navigate to="/" />} />
           <Route path="/user-settings" element={ authState.email ? <AccountSettings /> : <Navigate to="/" /> } />
           <Route path="/friends" element={authState.email ? <Friends /> : <Navigate to="/" />} />
+          <Route path="/book-details" element={null} />
         </Routes>
       </Container>
     </>

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 
 import { Form, Dropdown, Stack, Image } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
-import { useFindBook } from "../../hooks";
+import { useFindBook, useBookshelf } from "../../hooks";
 
 const BookSearch = () => {
   const [inDropdownFlag, setInDropdownFlag] = useState(false);
@@ -10,12 +11,18 @@ const BookSearch = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [openSearchFlag, setOpenSearchFlag] = useState(false);
   const { findBook } = useFindBook();
+  const { setBookFocus } = useBookshelf();
+  const navigate = useNavigate();
 
   const timeoutDelay = 1000;
 
   const handleChange = (e) => setSearchValue(e.target.value);
 
-  const handleClick = () => setOpenSearchFlag(false);
+  const handleClick = (bookData) => {
+    setBookFocus(bookData);
+    setOpenSearchFlag(false);
+    navigate("/book-details");
+  };
 
   const handleBlur = () => {
     if (!inDropdownFlag) setOpenSearchFlag(false);
@@ -27,7 +34,7 @@ const BookSearch = () => {
 
   const Book = ({ bookData }) => {
     return (
-      <Dropdown.Item onClick={() => handleClick()}>
+      <Dropdown.Item onClick={() => handleClick(bookData)}>
         <Stack direction="horizontal" gap={1} className="w-100">
           <Image src={bookData.coversList.small} height="100px" />
           <Stack className="ms-1" style={{ width: "15em" }}>
