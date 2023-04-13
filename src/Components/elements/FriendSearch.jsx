@@ -82,6 +82,7 @@ const FriendSearch = () => {
     }
     const timer = setTimeout(async () => {
       const { users } = await findFriend(searchValue);
+      console.log("users = ", users)
       setSearchResults(users);
     }, timeoutDelay);
     return () => clearTimeout(timer);
@@ -98,6 +99,7 @@ const FriendSearch = () => {
       onBlur={() => handleBlur()}
       onMouseEnter={() => setInDropdownFlag(true)}
       onMouseLeave={() => setInDropdownFlag(false)}
+      className="d-none d-md-flex"
       >
         <Form>
           <Form.Control type="text" placeholder="Search for friends" onChange={handleChange} value={searchValue} onClick={() => toggleShow()} />

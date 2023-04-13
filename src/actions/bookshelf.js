@@ -10,31 +10,14 @@ const getBookshelf = async (query) => {
   }
 };
 
-const sendFriendRequest = async (userID, friendID) => {
+const findBook = async (query = "'Bloodlines of Atmos'") => {
   try {
-    const data = await api.sendFriendRequest(userID, friendID);
+    const params = `volumes?q=${"'Bloodlines of Atmos'"}&maxResults=2`;
+    const data = await api.findBook(params);
     return data;
   } catch (error) {
     console.log(error);
   }
 };
 
-const acceptFriendRequest = async (userID, friendID) => {
-  try {
-    const data = await api.acceptFriendRequest(userID, friendID);
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-const removeFriend = async (userID, friendID) => {
-  try {
-    const data = await api.removeFriend(userID, friendID);
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export { getBookshelf };
+export { getBookshelf, findBook };

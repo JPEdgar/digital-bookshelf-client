@@ -10,6 +10,7 @@ import useFindFriend from "./useFindFriend";
 import useUserFriendsList from "./useUserFriendsList";
 import useAddFriend from "./useAddFriend";
 import useBookshelf from "./useBookshelf";
+import useFindBook from "./useFindBook";
 
 export {
   useSignup,
@@ -24,4 +25,5 @@ export {
   useUserFriendsList,
   useAddFriend,
   useBookshelf,
+  useFindBook,
 };

@@ -3,11 +3,12 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Navbar, Container, Nav, Image, Button } from "react-bootstrap";
 
-import MenuDropdown from "./MenuDropdown";
+import Account from "./Account";
 import FriendIcon from "../elements/FriendIcon";
 
 import { useAuthDetails, useUserDetails } from "../../hooks";
 import FriendSearch from "../elements/FriendSearch";
+import BookSearch from "../elements/BookSearch";
 
 const Navigation = () => {
   const { authDetails } = useAuthDetails();
@@ -36,22 +37,15 @@ const Navigation = () => {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link as={Link} to="/">
-                Home
-              </Nav.Link>
+              {/* <Nav.Link as={Link} to="/"> Home </Nav.Link> */}
               {authDetails.email && (
-                <Nav.Link
-                  as={Link}
-                  to="/friends"
-                  className="d-flex align-items-center"
-                >
-                  <FriendIcon />
-                </Nav.Link>
+                <Nav.Link as={Link} to="/friends" className="d-flex align-items-center" > <FriendIcon /> </Nav.Link>
               )}
               <FriendSearch />
+              <BookSearch />
             </Nav>
             {authDetails.email ? (
-              <MenuDropdown />
+              <Account />
             ) : (
               <>
                 <span>
