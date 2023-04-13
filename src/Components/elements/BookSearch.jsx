@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Form, Dropdown } from "react-bootstrap";
+import { Form, Dropdown, Stack, Image } from "react-bootstrap";
 
 import { useFindBook } from "../../hooks";
 
@@ -25,46 +25,33 @@ const BookSearch = () => {
     if (searchValue) setOpenSearchFlag((curr) => !curr);
   };
 
-    const Book = ({ bookData }) => {
-  //     const isUserFlag = friendData.userID === userDetails.userID ? true : false;
+  const Book = ({ bookData }) => {
 
-  //     const friendStatus = getFriendStatus(friendData.userID);
-  //     if (friendStatus.friendStatus === "blocked") return;
 
-      return ( null
-  //       <Dropdown.Item
-  //         onClick={() => handleClick()}
-  //         style={{
-  //           border: `${
-  //             friendStatus.friendStatus === "pending"
-  //               ? "1px solid green"
-  //               : friendStatus.friendStatus === "friends"
-  //               ? "1px solid blue"
-  //               : ""
-  //           }`,
-  //           backgroundColor: `${isUserFlag ? "#F0F0F0" : ""}`,
-  //         }}
-  //       >
-  //         <Stack direction="horizontal" gap={1}>
-  //           <Image src="https://picsum.photos/100" height="50px" roundedCircle />
-  //           <Stack className="ms-1">
-  //             {friendData.handle}
-  //             {isUserFlag && <div style={{ fontSize: "0.85rem" }}>You</div>}
-  //             {friendStatus.friendStatus === "pending" && friendStatus.requestInboud && ( <div style={{ fontSize: "0.85rem" }}>Pending - Approve request?</div> )}
-  //             {friendStatus.friendStatus === "pending" && !friendStatus.requestInboud && ( <div style={{ fontSize: "0.85rem" }}>Pending - Awaiting their reply.</div> )}
-  //             {friendStatus.friendStatus === "friends" && ( <div style={{ fontSize: "0.85rem" }}>Friends</div> )}
-  //           </Stack>
+    return (
+      <Dropdown.Item
+        onClick={() => handleClick()}
 
-  //           <Stack direction="horizontal" gap={1} className="ms-1">
-  //               {friendStatus.friendStatus === "pending" && !friendStatus.requestInboud && ( <RemoveFriendIcon userID={userDetails.userID} friendID={friendData.userID} token={authDetails.token} /> )}
-  //               {friendStatus.friendStatus === "pending" && friendStatus.requestInboud && ( <AcceptFriendIcon userID={userDetails.userID} friendID={friendData.userID} token={authDetails.token} /> )}
-  //               {!isUserFlag && !friendStatus.friendStatus && ( <AddFriendIcon userID={userDetails.userID} friendID={friendData.userID} token={authDetails.token} /> )}
-  //               {!isUserFlag && ( <BlockUserIcon userID={userDetails.userID} friendID={friendData.userID} token={authDetails.token} /> )}
-  //           </Stack>
-  //         </Stack>
-  //       </Dropdown.Item>
-      );
-    };
+      >
+        <Stack direction="horizontal" gap={1}>
+          <Image src={bookData.book} height="150px" />
+          <Stack className="ms-1">
+    <div>
+      {bookData.title}
+      </div>
+      <div>
+        {bookData.subtitle}
+      </div>
+        
+          </Stack>
+
+          <Stack direction="horizontal" gap={1} className="ms-1">
+ <div>flags</div>
+          </Stack>
+        </Stack>
+      </Dropdown.Item>
+    );
+  };
 
   useEffect(() => {
     if (!searchValue.length) {
@@ -73,8 +60,8 @@ const BookSearch = () => {
     }
     const timer = setTimeout(async () => {
       const books = await findBook(searchValue);
-    //   setSearchResults(users);
-    console.log("books = ", books)
+      setSearchResults(books);
+      console.log("books = ", books);
     }, timeoutDelay);
     return () => clearTimeout(timer);
   }, [searchValue]);
@@ -103,9 +90,12 @@ const BookSearch = () => {
           />
         </Form>
         <Dropdown.Menu>
-          {/* {searchResults.map((bookData, index) => (
-            <Book key={`book-search-results-${index}`} bookData={bookData} />
-          ))} */}
+          {searchResults.map((bookData) => (
+            <Book
+              key={`book-search-results-${bookData.googleID}`}
+              bookData={bookData}
+            />
+          ))}
         </Dropdown.Menu>
       </Dropdown>
     </>
@@ -113,7 +103,6 @@ const BookSearch = () => {
 };
 
 export default BookSearch;
-
 
 /* 
 https://github.com/JPEdgar/digital-bookshelf-client/tree/bcc9942e195ba456ed6facad1513a90e3bcfdcbd
@@ -183,13 +172,13 @@ https://developer.nytimes.com/docs/books-product/1/routes/lists.json/get
 */
 
 //   console.log("using searchForBooksOnline utility");
-  /* &maxResults= <int> 
+/* &maxResults= <int> 
      (40 max), how many results on the search query 
   */
-  /* &startIndex= <int> 
+/* &startIndex= <int> 
      int > starts at 0, the page number of the search results 
   */
-  /* q= <string>
+/* q= <string>
      query > search string
      "query" > query in quotes = exact phrase
      -query > query w/ - in front means to exclude terms
@@ -202,7 +191,7 @@ https://developer.nytimes.com/docs/books-product/1/routes/lists.json/get
       lccn: <string>
       oclc: <string>
   */
-  /* orderBy=
+/* orderBy=
       relevant (default)
       newest
   */
