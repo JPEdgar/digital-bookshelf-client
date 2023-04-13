@@ -24,12 +24,20 @@ const Details = () => {
             {bookFocus.title && <div>{bookFocus.title}</div>}
             {bookFocus.subtitle && <div>{bookFocus.subtitle}</div>}
             {bookFocus.authorString && <div>By: {bookFocus.authorString}</div>}
-            {bookFocus.publisher && ( <div>Publisher: {bookFocus.publisher}</div> )}
-            {bookFocus.publishDate && <div>Published: {bookFocus.publishDate}</div>}
+            {bookFocus.publisher && <div>Publisher: {bookFocus.publisher}</div>}
+            {bookFocus.publishDate && (
+              <div>Published: {bookFocus.publishDate}</div>
+            )}
             {bookFocus.pageCoun && <div>{bookFocus.pageCount} pages</div>}
-            {bookFocus.categoriesList && ( <div>Genre: {bookFocus.categoriesList}</div> )}
-            {bookFocus.isbn.isbn10 && ( <div>ISBN-10: {bookFocus.isbn.isbn10}</div> )}
-            {bookFocus.isbn.isbn13 && ( <div>ISBN-13: {bookFocus.isbn.isbn13}</div> )}
+            {bookFocus.categoriesString && (
+              <div>Genre: {bookFocus.categoriesString}</div>
+            )}
+            {bookFocus.isbn.isbn10 && (
+              <div>ISBN-10: {bookFocus.isbn.isbn10}</div>
+            )}
+            {bookFocus.isbn.isbn13 && (
+              <div>ISBN-13: {bookFocus.isbn.isbn13}</div>
+            )}
           </div>
         </Stack>
         <div>{bookFocus.snippet}</div>

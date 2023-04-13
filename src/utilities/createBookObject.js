@@ -2,6 +2,7 @@ import {
   createBookCoversObject,
   createISBNObject,
   createAuthorString,
+  createBookGenreString,
 } from "./index";
 
 const createBookObject = (rawData) => {
@@ -13,6 +14,7 @@ const createBookObject = (rawData) => {
     authorString: createAuthorString(rawData.volumeInfo.authors),
     snippet: rawData.volumeInfo.description,
     isbn: createISBNObject(rawData.volumeInfo.industryIdentifiers),
+    categoriesString: createBookGenreString(rawData.volumeInfo.categories),
     categoriesList: rawData.volumeInfo.categories,
     coversList: createBookCoversObject(rawData.volumeInfo.imageLinks),
     publishDate: rawData.volumeInfo.publishedDate,
