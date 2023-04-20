@@ -1,9 +1,11 @@
-import React from 'react'
+import React from "react";
+
+import { useSearchDetails } from "../../hooks";
 
 const ExtendedFriendSearch = () => {
-  return (
-    <div>ExtendedFriendSearch</div>
-  )
-}
+  const { userSearchList } = useSearchDetails();
 
-export default ExtendedFriendSearch
+  return <div>ExtendedFriendSearch</div>;
+};
+
+export default ExtendedFriendSearch;
