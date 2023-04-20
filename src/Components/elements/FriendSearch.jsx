@@ -12,10 +12,10 @@ import {
 import AddFriendIcon from "./AddFriendIcon";
 import RemoveFriendIcon from "./RemoveFriendIcon";
 import BlockUserIcon from "./BlockUserIcon";
-import AcceptFriendIcon from "./AcceptFriendIcon"; 
+import AcceptFriendIcon from "./AcceptFriendIcon";
 
 const FriendSearch = () => {
-  const [inDropdownFlag, setInDropdownFlag] = useState(false)
+  const [inDropdownFlag, setInDropdownFlag] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [openSearchFlag, setOpenSearchFlag] = useState(false);
@@ -30,16 +30,20 @@ const FriendSearch = () => {
 
   const handleClick = () => setOpenSearchFlag(false);
 
-  const handleBlur = () => { if (!inDropdownFlag) setOpenSearchFlag(false) }
+  const handleBlur = () => {
+    if (!inDropdownFlag) setOpenSearchFlag(false);
+  };
 
-  const toggleShow = () => { if (searchValue) setOpenSearchFlag((curr) => !curr); };
+  const toggleShow = () => {
+    if (searchValue) setOpenSearchFlag((curr) => !curr);
+  };
 
   const Friend = ({ friendData }) => {
     const isUserFlag = friendData.userID === userDetails.userID ? true : false;
-    
+
     const friendStatus = getFriendStatus(friendData.userID);
     if (friendStatus.friendStatus === "blocked") return;
-    
+
     return (
       <Dropdown.Item
         onClick={() => handleClick()}
@@ -59,22 +63,60 @@ const FriendSearch = () => {
           <Stack className="ms-1">
             {friendData.handle}
             {isUserFlag && <div style={{ fontSize: "0.85rem" }}>You</div>}
-            {friendStatus.friendStatus === "pending" && friendStatus.requestInboud && ( <div style={{ fontSize: "0.85rem" }}>Pending - Approve request?</div> )}
-            {friendStatus.friendStatus === "pending" && !friendStatus.requestInboud && ( <div style={{ fontSize: "0.85rem" }}>Pending - Awaiting their reply.</div> )}
-            {friendStatus.friendStatus === "friends" && ( <div style={{ fontSize: "0.85rem" }}>Friends</div> )}
+            {friendStatus.friendStatus === "pending" &&
+              friendStatus.requestInboud && (
+                <div style={{ fontSize: "0.85rem" }}>
+                  Pending - Approve request?
+                </div>
+              )}
+            {friendStatus.friendStatus === "pending" &&
+              !friendStatus.requestInboud && (
+                <div style={{ fontSize: "0.85rem" }}>
+                  Pending - Awaiting their reply.
+                </div>
+              )}
+            {friendStatus.friendStatus === "friends" && (
+              <div style={{ fontSize: "0.85rem" }}>Friends</div>
+            )}
           </Stack>
 
           <Stack direction="horizontal" gap={1} className="ms-1">
-              {friendStatus.friendStatus === "pending" && !friendStatus.requestInboud && ( <RemoveFriendIcon userID={userDetails.userID} friendID={friendData.userID} token={authDetails.token} /> )}
-              {friendStatus.friendStatus === "pending" && friendStatus.requestInboud && ( <AcceptFriendIcon userID={userDetails.userID} friendID={friendData.userID} token={authDetails.token} /> )}
-              {!isUserFlag && !friendStatus.friendStatus && ( <AddFriendIcon userID={userDetails.userID} friendID={friendData.userID} token={authDetails.token} /> )}
-              {!isUserFlag && ( <BlockUserIcon userID={userDetails.userID} friendID={friendData.userID} token={authDetails.token} /> )}
+            {friendStatus.friendStatus === "pending" &&
+              !friendStatus.requestInboud && (
+                <RemoveFriendIcon
+                  userID={userDetails.userID}
+                  friendID={friendData.userID}
+                  token={authDetails.token}
+                />
+              )}
+            {friendStatus.friendStatus === "pending" &&
+              friendStatus.requestInboud && (
+                <AcceptFriendIcon
+                  userID={userDetails.userID}
+                  friendID={friendData.userID}
+                  token={authDetails.token}
+                />
+              )}
+            {!isUserFlag && !friendStatus.friendStatus && (
+              <AddFriendIcon
+                userID={userDetails.userID}
+                friendID={friendData.userID}
+                token={authDetails.token}
+              />
+            )}
+            {!isUserFlag && (
+              <BlockUserIcon
+                userID={userDetails.userID}
+                friendID={friendData.userID}
+                token={authDetails.token}
+              />
+            )}
           </Stack>
         </Stack>
       </Dropdown.Item>
     );
   };
- 
+
   useEffect(() => {
     if (!searchValue.length) {
       setSearchResults([]);
@@ -82,7 +124,7 @@ const FriendSearch = () => {
     }
     const timer = setTimeout(async () => {
       const { users } = await findFriend(searchValue);
-      console.log("users = ", users)
+      console.log("users = ", users);
       setSearchResults(users);
     }, timeoutDelay);
     return () => clearTimeout(timer);
@@ -95,18 +137,28 @@ const FriendSearch = () => {
 
   return (
     <>
-      <Dropdown show={openSearchFlag} 
-      onBlur={() => handleBlur()}
-      onMouseEnter={() => setInDropdownFlag(true)}
-      onMouseLeave={() => setInDropdownFlag(false)}
-      className="d-none d-md-flex"
+      <Dropdown
+        show={openSearchFlag}
+        onBlur={() => handleBlur()}
+        onMouseEnter={() => setInDropdownFlag(true)}
+        onMouseLeave={() => setInDropdownFlag(false)}
+        className="d-none d-md-flex"
       >
-        <Form>
-          <Form.Control type="text" placeholder="Search for friends" onChange={handleChange} value={searchValue} onClick={() => toggleShow()} />
+        <Form onSubmit={(e) => e.preventDefault()}>
+          <Form.Control
+            type="text"
+            placeholder="Search for friends"
+            onChange={handleChange}
+            value={searchValue}
+            onClick={() => toggleShow()}
+          />
         </Form>
         <Dropdown.Menu>
           {searchResults.map((friendData, index) => (
-            <Friend key={`friend-search-results-${index}`} friendData={friendData} />
+            <Friend
+              key={`friend-search-results-${index}`}
+              friendData={friendData}
+            />
           ))}
         </Dropdown.Menu>
       </Dropdown>

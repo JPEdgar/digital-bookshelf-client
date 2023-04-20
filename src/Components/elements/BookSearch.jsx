@@ -82,7 +82,7 @@ const BookSearch = () => {
         onMouseLeave={() => setInDropdownFlag(false)}
         className="d-none d-md-flex"
       >
-        <Form>
+        <Form onSubmit={(e) => e.preventDefault()}>
           <Form.Control
             type="text"
             placeholder="Search for books"
