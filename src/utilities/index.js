@@ -4,6 +4,7 @@ import createISBNObject from "./createISBNObject";
 import createBookCoversObject from "./createBookCoversObject";
 import createAuthorString from "./createAuthorString";
 import createBookGenreString from "./createBookGenreString";
+import cropString from "./cropString";
 
 export {
   emailValidReg,
@@ -12,4 +13,5 @@ export {
   createBookCoversObject,
   createAuthorString,
   createBookGenreString,
+  cropString,
 };

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useFindBook, useBookshelf } from "../../hooks";
 import ShowMoreIcon from "./ShowMoreIcon";
+import { cropString } from "../../utilities";
 
 const BookSearch = () => {
   const [inDropdownFlag, setInDropdownFlag] = useState(false);
@@ -39,9 +40,9 @@ const BookSearch = () => {
         <Stack direction="horizontal" gap={1} className="w-100">
           <Image src={bookData.coversList.small} height="100px" />
           <Stack className="ms-1" style={{ width: "15em" }}>
-            <div>{bookData.title}</div>
-            <div>{bookData.subtitle}</div>
-            <div>By: {bookData.authorString}</div>
+            <div>{cropString(bookData.title, 25)}</div>
+            <div>{cropString(bookData.subtitle, 25)}</div>
+            <div>By: {cropString(bookData.authorString, 25)}</div>
           </Stack>
 
           <Stack gap={1} className="ms-1" style={{ fontSize: "0.75rem" }}>
@@ -96,7 +97,7 @@ const BookSearch = () => {
           {searchResults.map((bookData) => (
             <Book key={`book-search-results-${bookData.googleID}`} bookData={bookData} />
           ))}
-          <ShowMoreIcon loc="/book-search" setToggleDropdownFlag={() => setOpenSearchFlag()}/>
+          <ShowMoreIcon loc="/book-search" setToggleDropdownFlag={() => setOpenSearchFlag()} />
         </Dropdown.Menu>
       </Dropdown>
     </>
