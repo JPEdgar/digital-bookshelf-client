@@ -10,8 +10,10 @@ import AccountSettings from "./components/AccountSettings";
 import Friends from "./components/Friends";
 import Bookshelf from "./components/Bookshelf";
 import BookDetails from "./components/BookDetails";
+import ExtendedBookSearch from "./components/ExtendedBookSearch"
+import ExtendedFriendSearch from "./components/ExtendedFriendSearch"
 
-import useAuthContext from "./hooks/context/useAuthContext"; // temp
+import useAuthContext from "./hooks/context/useAuthContext"; 
 import useUserContext from "./hooks/context/useUserContext"; // temp
 import { useDeleteUser, useUserFriendsList, useBookshelf } from "./hooks"; // temp
 
@@ -19,7 +21,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/css/index.css";
 
 const App = () => {
-  const { authState } = useAuthContext(); //temp
+  const { authState } = useAuthContext(); 
   const { deleteUser } = useDeleteUser(); // temp
   const { userDetails } = useUserContext(); // temp
   const { getFriendsList, getFriendStatus } = useUserFriendsList(); // temp
@@ -41,7 +43,9 @@ const App = () => {
           <Route path="/login" element={!authState.email ? <LogIn /> : <Navigate to="/" />} />
           <Route path="/user-settings" element={ authState.email ? <AccountSettings /> : <Navigate to="/" /> } />
           <Route path="/friends" element={authState.email ? <Friends /> : <Navigate to="/" />} />
+          <Route path="/friend-search" element={<ExtendedFriendSearch/>} />
           <Route path="/book-details" element={<BookDetails/>} />
+          <Route path="/book-search" element={<ExtendedBookSearch/>} />
         </Routes>
       </Container>
     </>

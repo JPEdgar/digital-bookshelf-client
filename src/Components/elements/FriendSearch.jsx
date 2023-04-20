@@ -13,6 +13,7 @@ import AddFriendIcon from "./AddFriendIcon";
 import RemoveFriendIcon from "./RemoveFriendIcon";
 import BlockUserIcon from "./BlockUserIcon";
 import AcceptFriendIcon from "./AcceptFriendIcon";
+import ShowMoreIcon from "./ShowMoreIcon";
 
 const FriendSearch = () => {
   const [inDropdownFlag, setInDropdownFlag] = useState(false);
@@ -159,7 +160,8 @@ const FriendSearch = () => {
               key={`friend-search-results-${index}`}
               friendData={friendData}
             />
-          ))}
+            ))}
+            <ShowMoreIcon loc="/friend-search" setToggleDropdownFlag={() => setOpenSearchFlag()}/>
         </Dropdown.Menu>
       </Dropdown>
     </>

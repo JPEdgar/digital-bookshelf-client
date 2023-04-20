@@ -4,6 +4,7 @@ import { Form, Dropdown, Stack, Image } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 import { useFindBook, useBookshelf } from "../../hooks";
+import ShowMoreIcon from "./ShowMoreIcon";
 
 const BookSearch = () => {
   const [inDropdownFlag, setInDropdownFlag] = useState(false);
@@ -93,11 +94,9 @@ const BookSearch = () => {
         </Form>
         <Dropdown.Menu>
           {searchResults.map((bookData) => (
-            <Book
-              key={`book-search-results-${bookData.googleID}`}
-              bookData={bookData}
-            />
+            <Book key={`book-search-results-${bookData.googleID}`} bookData={bookData} />
           ))}
+          <ShowMoreIcon loc="/book-search" setToggleDropdownFlag={() => setOpenSearchFlag()}/>
         </Dropdown.Menu>
       </Dropdown>
     </>
