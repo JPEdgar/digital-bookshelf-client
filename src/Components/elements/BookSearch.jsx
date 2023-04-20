@@ -3,18 +3,19 @@ import React, { useEffect, useState } from "react";
 import { Form, Dropdown, Stack, Image } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-import { useFindBook, useBookshelf } from "../../hooks";
+import { useFindBook, useBookshelf, useSearchDetails } from "../../hooks";
 import ShowMoreIcon from "./ShowMoreIcon";
 import { cropString } from "../../utilities";
 
 const BookSearch = () => {
   const [inDropdownFlag, setInDropdownFlag] = useState(false);
   const [searchValue, setSearchValue] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
   const [openSearchFlag, setOpenSearchFlag] = useState(false);
   const { findBook } = useFindBook();
   const { setBookFocus } = useBookshelf();
   const navigate = useNavigate();
+  const { bookSearchList, updateBookSearch, clearBookSearch } =
+    useSearchDetails();
 
   const timeoutDelay = 1000;
 
@@ -59,21 +60,21 @@ const BookSearch = () => {
 
   useEffect(() => {
     if (!searchValue.length) {
-      setSearchResults([]);
+      clearBookSearch();
       return;
     }
     const timer = setTimeout(async () => {
       const books = await findBook(searchValue);
-      setSearchResults(books);
+      updateBookSearch(books);
       console.log("books = ", books);
     }, timeoutDelay);
     return () => clearTimeout(timer);
   }, [searchValue]);
 
   useEffect(() => {
-    if (searchResults.length <= 0) setOpenSearchFlag(false);
+    if (bookSearchList.length <= 0) setOpenSearchFlag(false);
     else setOpenSearchFlag(true);
-  }, [searchResults]);
+  }, [bookSearchList]);
 
   return (
     <>
@@ -94,10 +95,16 @@ const BookSearch = () => {
           />
         </Form>
         <Dropdown.Menu>
-          {searchResults.map((bookData) => (
-            <Book key={`book-search-results-${bookData.googleID}`} bookData={bookData} />
+          {bookSearchList.map((bookData) => (
+            <Book
+              key={`book-search-results-${bookData.googleID}`}
+              bookData={bookData}
+            />
           ))}
-          <ShowMoreIcon loc="/book-search" setToggleDropdownFlag={() => setOpenSearchFlag()} />
+          <ShowMoreIcon
+            loc="/book-search"
+            setToggleDropdownFlag={() => setOpenSearchFlag()}
+          />
         </Dropdown.Menu>
       </Dropdown>
     </>

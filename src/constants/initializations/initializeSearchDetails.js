@@ -1,9 +1,6 @@
-const defaultSearchResults = () => {
-    return {
-      userSearch: [],
-      bookSearch: []
-    };
-  };
-  
-  export default defaultSearchResults;
-  
+const defaultSearchResults = {
+  userSearchList: [],
+  bookSearchList: [],
+};
+
+export default defaultSearchResults;

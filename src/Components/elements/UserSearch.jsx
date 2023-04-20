@@ -6,7 +6,7 @@ import {
   useFindFriend,
   useUserDetails,
   useUserFriendsList,
-  useAuthDetails,
+  useAuthDetails, useSearchDetails
 } from "../../hooks";
 
 import AddFriendIcon from "./AddFriendIcon";
@@ -15,15 +15,16 @@ import BlockUserIcon from "./BlockUserIcon";
 import AcceptFriendIcon from "./AcceptFriendIcon";
 import ShowMoreIcon from "./ShowMoreIcon";
 
-const FriendSearch = () => {
+const UserSearch = () => {
   const [inDropdownFlag, setInDropdownFlag] = useState(false);
   const [searchValue, setSearchValue] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+  // const [searchResults, setSearchResults] = useState([]);
   const [openSearchFlag, setOpenSearchFlag] = useState(false);
   const { findFriend } = useFindFriend();
   const { getFriendStatus } = useUserFriendsList();
   const { userDetails } = useUserDetails();
   const { authDetails } = useAuthDetails();
+  const {userSearchList, updateUserSearch, clearUserSearch} = useSearchDetails()
 
   const timeoutDelay = 1000;
 
@@ -39,10 +40,10 @@ const FriendSearch = () => {
     if (searchValue) setOpenSearchFlag((curr) => !curr);
   };
 
-  const Friend = ({ friendData }) => {
-    const isUserFlag = friendData.userID === userDetails.userID ? true : false;
+  const User = ({ userData }) => {
+    const isUserFlag = userData.userID === userDetails.userID ? true : false;
 
-    const friendStatus = getFriendStatus(friendData.userID);
+    const friendStatus = getFriendStatus(userData.userID);
     if (friendStatus.friendStatus === "blocked") return;
 
     return (
@@ -62,7 +63,7 @@ const FriendSearch = () => {
         <Stack direction="horizontal" gap={1}>
           <Image src="https://picsum.photos/100" height="50px" roundedCircle />
           <Stack className="ms-1">
-            {friendData.handle}
+            {userData.handle}
             {isUserFlag && <div style={{ fontSize: "0.85rem" }}>You</div>}
             {friendStatus.friendStatus === "pending" &&
               friendStatus.requestInboud && (
@@ -86,7 +87,7 @@ const FriendSearch = () => {
               !friendStatus.requestInboud && (
                 <RemoveFriendIcon
                   userID={userDetails.userID}
-                  friendID={friendData.userID}
+                  friendID={userData.userID}
                   token={authDetails.token}
                 />
               )}
@@ -94,21 +95,21 @@ const FriendSearch = () => {
               friendStatus.requestInboud && (
                 <AcceptFriendIcon
                   userID={userDetails.userID}
-                  friendID={friendData.userID}
+                  friendID={userData.userID}
                   token={authDetails.token}
                 />
               )}
             {!isUserFlag && !friendStatus.friendStatus && (
               <AddFriendIcon
                 userID={userDetails.userID}
-                friendID={friendData.userID}
+                friendID={userData.userID}
                 token={authDetails.token}
               />
             )}
             {!isUserFlag && (
               <BlockUserIcon
                 userID={userDetails.userID}
-                friendID={friendData.userID}
+                friendID={userData.userID}
                 token={authDetails.token}
               />
             )}
@@ -120,21 +121,21 @@ const FriendSearch = () => {
 
   useEffect(() => {
     if (!searchValue.length) {
-      setSearchResults([]);
+      clearUserSearch()
       return;
     }
     const timer = setTimeout(async () => {
       const { users } = await findFriend(searchValue);
       console.log("users = ", users);
-      setSearchResults(users);
+      updateUserSearch(users);
     }, timeoutDelay);
     return () => clearTimeout(timer);
   }, [searchValue]);
 
   useEffect(() => {
-    if (searchResults.length <= 0) setOpenSearchFlag(false);
+    if (userSearchList.length <= 0) setOpenSearchFlag(false);
     else setOpenSearchFlag(true);
-  }, [searchResults]);
+  }, [userSearchList]);
 
   return (
     <>
@@ -155,10 +156,10 @@ const FriendSearch = () => {
           />
         </Form>
         <Dropdown.Menu>
-          {searchResults.map((friendData, index) => (
-            <Friend
+          {userSearchList.map((userData, index) => (
+            <User
               key={`friend-search-results-${index}`}
-              friendData={friendData}
+              userData={userData}
             />
             ))}
             <ShowMoreIcon loc="/friend-search" setToggleDropdownFlag={() => setOpenSearchFlag()}/>
@@ -168,4 +169,4 @@ const FriendSearch = () => {
   );
 };
 
-export default FriendSearch;
+export default UserSearch;

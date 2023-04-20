@@ -3,15 +3,18 @@ import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./auth/AuthContext";
 import { UserProvider } from "./user/UserContext";
 import { BookshelfProvider } from "./bookshelf/BookshelfContext";
+import { SearchProvider } from "./search/SearchContext";
 
 const GlobalWrapper = ({ children }) => {
   return (
     <>
       <BrowserRouter>
         <AuthProvider>
-          <UserProvider>
-            <BookshelfProvider>{children}</BookshelfProvider>
-          </UserProvider>
+          <SearchProvider>
+            <UserProvider>
+              <BookshelfProvider>{children}</BookshelfProvider>
+            </UserProvider>
+          </SearchProvider>
         </AuthProvider>
       </BrowserRouter>
     </>

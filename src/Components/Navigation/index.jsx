@@ -7,7 +7,7 @@ import Account from "./Account";
 import FriendIcon from "../elements/FriendIcon";
 
 import { useAuthDetails, useUserDetails } from "../../hooks";
-import FriendSearch from "../elements/FriendSearch";
+import UserSearch from "../elements/UserSearch";
 import BookSearch from "../elements/BookSearch";
 
 const Navigation = () => {
@@ -41,7 +41,7 @@ const Navigation = () => {
               {authDetails.email && (
                 <Nav.Link as={Link} to="/friends" className="d-flex align-items-center" > <FriendIcon /> </Nav.Link>
               )}
-              <FriendSearch />
+              <UserSearch />
               <BookSearch />
             </Nav>
             {authDetails.email ? (
