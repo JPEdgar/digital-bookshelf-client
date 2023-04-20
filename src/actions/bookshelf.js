@@ -12,7 +12,7 @@ const getBookshelf = async (query) => {
 
 const findBook = async (query = "'Bloodlines of Atmos'") => {
   try {
-    const params = `volumes?q=${"'Bloodlines of Atmos'"}&maxResults=2`;
+    const params = `volumes?q=${query}&maxResults=2`;
     const data = await api.findBook(params);
     return data;
   } catch (error) {

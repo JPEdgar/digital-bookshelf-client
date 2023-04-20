@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Card, Stack, Image } from "react-bootstrap";
+import { Card, Stack, Image, Row, Col } from "react-bootstrap";
 
 import { useBookshelf } from "../../hooks";
 
@@ -20,25 +20,19 @@ const Details = () => {
       <>
         <Stack direction="horizontal" gap={3}>
           <Image src={coverImage} alt={`${bookFocus.title} cover`} thumbnail />
-          <div>
-            {bookFocus.title && <div>{bookFocus.title}</div>}
-            {bookFocus.subtitle && <div>{bookFocus.subtitle}</div>}
+          <Row >
+            {bookFocus.title && <h4>{bookFocus.title}</h4>}
+            {bookFocus.subtitle && <h5>{bookFocus.subtitle}</h5>}
             {bookFocus.authorString && <div>By: {bookFocus.authorString}</div>}
             {bookFocus.publisher && <div>Publisher: {bookFocus.publisher}</div>}
-            {bookFocus.publishDate && (
-              <div>Published: {bookFocus.publishDate}</div>
-            )}
+            {bookFocus.publishDate && ( <div>Published: {bookFocus.publishDate}</div> )}
             {bookFocus.pageCoun && <div>{bookFocus.pageCount} pages</div>}
-            {bookFocus.categoriesString && (
-              <div>Genre: {bookFocus.categoriesString}</div>
-            )}
-            {bookFocus.isbn.isbn10 && (
-              <div>ISBN-10: {bookFocus.isbn.isbn10}</div>
-            )}
-            {bookFocus.isbn.isbn13 && (
-              <div>ISBN-13: {bookFocus.isbn.isbn13}</div>
-            )}
-          </div>
+            {bookFocus.categoriesString && ( <div>Genre: {bookFocus.categoriesString}</div> )}
+            <Row >
+              {bookFocus.isbn.isbn10 && ( <Col xs={12} md={6}> ISBN-10: {bookFocus.isbn.isbn10} </Col> )}
+              {bookFocus.isbn.isbn13 && ( <Col xs={12} md={6}> ISBN-13: {bookFocus.isbn.isbn13} </Col> )}
+            </Row>
+          </Row>
         </Stack>
         <div>{bookFocus.snippet}</div>
       </>

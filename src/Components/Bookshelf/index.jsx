@@ -70,13 +70,13 @@ export default Bookshelf;
 /////////////////////////////////////////
 ///////////// SEARCH PARAMS /////////////
 /////////////////////////////////////////
-  /* &maxResults= <int> 
+/* &maxResults= <int> 
      (40 max), how many results on the search query 
   */
-  /* &startIndex= <int> 
+/* &startIndex= <int> 
      int > starts at 0, the page number of the search results 
   */
-  /* q= <string>
+/* q= <string>
      query > search string
      "query" > query in quotes = exact phrase
      -query > query w/ - in front means to exclude terms
@@ -89,11 +89,10 @@ export default Bookshelf;
       lccn: <string>
       oclc: <string>
   */
-  /* orderBy=
+/* orderBy=
       relevant (default)
       newest
   */
-
 
 /* 
 /////////////////////////////////
@@ -160,5 +159,3 @@ useEffect(() => {
 }, [mouseEnter]);
 
 */
-
-
