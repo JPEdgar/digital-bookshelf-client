@@ -5,9 +5,9 @@ import { Card, Stack, Image, Row, Col } from "react-bootstrap";
 import { useBookshelf } from "../../hooks";
 
 const Details = () => {
-  const { bookshelf } = useBookshelf();
+  const { bookshelf, toggleOnBookshelf } = useBookshelf();
   const { bookFocus } = bookshelf || null;
-  console.log(bookFocus);
+  console.log("bookFocus = ", bookFocus);
 
   const coverImage = bookFocus?.coversList.large
     ? bookFocus.coversList.large
@@ -15,9 +15,14 @@ const Details = () => {
     ? bookFocus.coversList.medium
     : null;
 
+  const toggleOnShelf = () => {
+    toggleOnBookshelf(bookFocus)
+  }
+
   return (
     bookFocus && (
       <>
+      <button onClick={() => toggleOnShelf()}>Toggle onShelf</button>
         <Stack direction="horizontal" gap={3}>
           <Image src={coverImage} alt={`${bookFocus.title} cover`} thumbnail />
           <Row>
