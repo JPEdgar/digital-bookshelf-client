@@ -14,18 +14,25 @@ import ExtendedBookSearch from "./components/ExtendedBookSearch";
 import ExtendedFriendSearch from "./components/ExtendedFriendSearch";
 
 import useAuthContext from "./hooks/context/useAuthContext";
+import { useBookshelf } from "./hooks";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/css/index.css";
 
 const App = () => {
   const { authState } = useAuthContext();
+  const {bookshelf} = useBookshelf()
+
+  const logBookshelf = () => {
+    console.log(bookshelf.contents)
+  }
 
   return (
     <>
       <Navigation />
 
       <Container>
+        <button onClick={() => logBookshelf()}>Log bookshelf</button>
         <Routes>
           <Route
             path="/"
