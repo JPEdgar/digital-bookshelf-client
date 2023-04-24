@@ -1,5 +1,5 @@
 const createBookGenreString = (rawData) => {
-  const returnString = rawData.join(", ");
+  const returnString = rawData?.join(", ");
   return returnString;
 };
 
