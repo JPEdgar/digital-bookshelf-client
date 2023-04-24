@@ -7,6 +7,8 @@ import { useFindBook, useBookshelf, useSearchDetails } from "../../hooks";
 import ShowMoreIcon from "./ShowMoreIcon";
 import { cropString } from "../../utilities";
 import FavoritesIcon from "./FavoritesIcon";
+import WishListIcon from "./WishListIcon";
+import ToReadListIcon from "./ToReadListIcon";
 
 const BookSearch = () => {
   const [inDropdownFlag, setInDropdownFlag] = useState(false);
@@ -57,10 +59,9 @@ const BookSearch = () => {
 
           <Stack gap={1} className="ms-1" style={{ fontSize: "0.75rem" }}>
             <FavoritesIcon bookData={bookData} />
-
-            <div>Wish List</div>
-            <div>Read</div>
-            <div>etc...</div>
+            <WishListIcon bookData={bookData} />
+            <ToReadListIcon bookData={bookData} />
+      
           </Stack>
         </Stack>
       </Dropdown.Item>
