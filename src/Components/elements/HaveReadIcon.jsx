@@ -5,14 +5,13 @@ import { faGlasses } from "@fortawesome/free-solid-svg-icons";
 
 import MouseoverInfo from "./MouseoverInfo";
 
+import { useBookshelf } from "../../hooks";
 
-import { } from "../../hooks";
-
-const HaveReadIcon = ({ bookshelfID, bookData }) => {
-
+const HaveReadIcon = ({ bookData }) => {
+  const { isHaveRead, toggleHaveRead } = useBookshelf();
 
   const handleClick = async () => {
-  //
+    toggleHaveRead(bookData);
   };
 
   return (
@@ -20,7 +19,7 @@ const HaveReadIcon = ({ bookshelfID, bookData }) => {
       <FontAwesomeIcon
         style={{
           cursor: "pointer",
-          color: `${bookData.isHaveReadFlag ? "red" : "black"}`,
+          color: `${isHaveRead(bookData.isbn) ? "red" : "black"}`,
         }}
         icon={faGlasses}
         // icon={bookData.isHaveReadFlag ? faGift : faGiftOutline}

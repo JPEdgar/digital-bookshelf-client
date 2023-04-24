@@ -8,14 +8,16 @@ import ShowMoreIcon from "./ShowMoreIcon";
 import { cropString } from "../../utilities";
 import FavoritesIcon from "./FavoritesIcon";
 import WishListIcon from "./WishListIcon";
-import ToReadListIcon from "./ToReadListIcon";
+import WantToReadIcon from "./WantToReadIcon";
+import HaveReadIcon from "./HaveReadIcon";
+import TrashIcon from "./TrashIcon";
 
 const BookSearch = () => {
   const [inDropdownFlag, setInDropdownFlag] = useState(false);
   const [searchValue, setSearchValue] = useState("Bloodlines of Atmos");
   const [openSearchFlag, setOpenSearchFlag] = useState(false);
   const { findBook } = useFindBook();
-  const { setBookFocus, isFavorite } = useBookshelf();
+  const { setBookFocus, isOnBookshelf } = useBookshelf();
   const navigate = useNavigate();
   const { bookSearchList, updateBookSearch, clearBookSearch } =
     useSearchDetails();
@@ -60,8 +62,9 @@ const BookSearch = () => {
           <Stack gap={1} className="ms-1" style={{ fontSize: "0.75rem" }}>
             <FavoritesIcon bookData={bookData} />
             <WishListIcon bookData={bookData} />
-            <ToReadListIcon bookData={bookData} />
-      
+            <WantToReadIcon bookData={bookData} />
+            <HaveReadIcon bookData={bookData} />
+            {isOnBookshelf(bookData.isbn) && <TrashIcon />}
           </Stack>
         </Stack>
       </Dropdown.Item>

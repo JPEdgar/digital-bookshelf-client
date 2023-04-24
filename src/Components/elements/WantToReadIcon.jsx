@@ -7,19 +7,19 @@ import MouseoverInfo from "./MouseoverInfo";
 
 import { useBookshelf } from "../../hooks";
 
-const ToReadListIcon = ({ bookData }) => {
-  const { isRead, toggleRead } = useBookshelf();
+const WantToReadIcon = ({ bookData }) => {
+  const { isWantToRead, toggleWantToRead } = useBookshelf();
 
   const handleClick = async () => {
-    toggleRead(bookData);
+    toggleWantToRead(bookData);
   };
 
   return (
-    <MouseoverInfo text="To-Read List">
+    <MouseoverInfo text="Want-to-Read">
       <FontAwesomeIcon
         style={{
           cursor: "pointer",
-          color: `${isRead(bookData.isbn) ? "red" : "black"}`,
+          color: `${isWantToRead(bookData.isbn) ? "red" : "black"}`,
         }}
         icon={faListCheck}
         // icon={bookData.isReadingListFlag ? faGift : faGiftOutline}
@@ -29,4 +29,4 @@ const ToReadListIcon = ({ bookData }) => {
   );
 };
 
-export default ToReadListIcon;
+export default WantToReadIcon;

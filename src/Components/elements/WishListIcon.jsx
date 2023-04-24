@@ -8,11 +8,11 @@ import MouseoverInfo from "./MouseoverInfo";
 import { useBookshelf } from "../../hooks";
 
 const WishListIcon = ({ bookData }) => {
-    const { isOnWishList, toggleWishList } = useBookshelf();
+  const { isOnWishList, toggleWishList } = useBookshelf();
 
-    const handleClick = async () => {
-        toggleWishList(bookData);
-      };
+  const handleClick = async () => {
+    toggleWishList(bookData);
+  };
 
   return (
     <MouseoverInfo text="Wish List">

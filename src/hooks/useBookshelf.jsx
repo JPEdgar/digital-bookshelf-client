@@ -59,16 +59,20 @@ const useBookshelf = () => {
   };
 
   const toggleWishList = async (bookData, override = false, value) => {
+    if (!isOnBookshelf(bookData.isbn)) toggleOnBookshelf(bookData, true, true);
+
     const bookshelfObject = findBookOnShelf(bookData.isbn);
 
     if (bookshelfObject) {
       const newData = { ...bookshelfObject, ...bookData };
-      newData.flagsList.inWishListFlag = !newData.flagsList.inWishListFlag;
+      if (override) newData.flagsList.inWishListFlag = value;
+      else newData.flagsList.inWishListFlag = !newData.flagsList.inWishListFlag;
       await editBookshelfItem(bookshelf.userID, newData);
       bookshelfDispatch({ type: SHELF_TYPES.EDIT_FLAGS, payload: newData });
     } else {
       const newData = { ...bookData, flagsList: {} };
-      newData.flagsList.inWishListFlag = true;
+      if (override) newData.flagsList.inWishListFlag = value;
+      else newData.flagsList.inWishListFlag = true;
       await addNewItemToBookshelf(bookshelf.userID, newData);
       bookshelfDispatch({ type: SHELF_TYPES.ADD_BOOK, payload: newData });
     }
@@ -79,38 +83,71 @@ const useBookshelf = () => {
     return bookObject?.flagsList.inWishListFlag ? true : false;
   };
 
-  const toggleRead = async (bookData, override = false, value) => {
+  const toggleWantToRead = async (bookData, override = false, value) => {
+    if (!isOnBookshelf(bookData.isbn)) toggleOnBookshelf(bookData, true, true);
+
     const bookshelfObject = findBookOnShelf(bookData.isbn);
 
     if (bookshelfObject) {
       const newData = { ...bookshelfObject, ...bookData };
-      newData.flagsList.readFlag = !newData.flagsList.readFlag;
+      if (override) newData.flagsList.wantToReadFlag = value;
+      else newData.flagsList.wantToReadFlag = !newData.flagsList.wantToReadFlag;
       await editBookshelfItem(bookshelf.userID, newData);
       bookshelfDispatch({ type: SHELF_TYPES.EDIT_FLAGS, payload: newData });
     } else {
       const newData = { ...bookData, flagsList: {} };
-      newData.flagsList.readFlag = true;
+      if (override) newData.flagsList.wantToReadFlag = value;
+      else newData.flagsList.wantToReadFlag = true;
       await addNewItemToBookshelf(bookshelf.userID, newData);
       bookshelfDispatch({ type: SHELF_TYPES.ADD_BOOK, payload: newData });
     }
   };
 
-  const isRead = (isbnObj) => {
+  const isWantToRead = (isbnObj) => {
     const bookObject = findBookOnShelf(isbnObj);
-    return bookObject?.flagsList.readFlag ? true : false;
+    return bookObject?.flagsList.wantToReadFlag ? true : false;
   };
 
-  const toggleFavorite = async (bookData, override = false, value) => {
+  const toggleHaveRead = async (bookData, override = false, value) => {
+    if (!isOnBookshelf(bookData.isbn)) toggleOnBookshelf(bookData, true, true);
+
     const bookshelfObject = findBookOnShelf(bookData.isbn);
 
     if (bookshelfObject) {
       const newData = { ...bookshelfObject, ...bookData };
-      newData.flagsList.favoriteFlag = !newData.flagsList.favoriteFlag;
+      if (override) newData.flagsList.haveReadFlag = value;
+      else newData.flagsList.haveReadFlag = !newData.flagsList.haveReadFlag;
       await editBookshelfItem(bookshelf.userID, newData);
       bookshelfDispatch({ type: SHELF_TYPES.EDIT_FLAGS, payload: newData });
     } else {
       const newData = { ...bookData, flagsList: {} };
-      newData.flagsList.favoriteFlag = true;
+      if (override) newData.flagsList.haveReadFlag = value;
+      else newData.flagsList.haveReadFlag = true;
+      await addNewItemToBookshelf(bookshelf.userID, newData);
+      bookshelfDispatch({ type: SHELF_TYPES.ADD_BOOK, payload: newData });
+    }
+  };
+
+  const isHaveRead = (isbnObj) => {
+    const bookObject = findBookOnShelf(isbnObj);
+    return bookObject?.flagsList.haveReadFlag ? true : false;
+  };
+
+  const toggleFavorite = async (bookData, override = false, value) => {
+    if (!isOnBookshelf(bookData.isbn)) toggleOnBookshelf(bookData, true, true);
+
+    const bookshelfObject = findBookOnShelf(bookData.isbn);
+
+    if (bookshelfObject) {
+      const newData = { ...bookshelfObject, ...bookData };
+      if (override) newData.flagsList.favoriteFlag = value;
+      else newData.flagsList.favoriteFlag = !newData.flagsList.favoriteFlag;
+      await editBookshelfItem(bookshelf.userID, newData);
+      bookshelfDispatch({ type: SHELF_TYPES.EDIT_FLAGS, payload: newData });
+    } else {
+      const newData = { ...bookData, flagsList: {} };
+      if (override) newData.flagsList.favoriteFlag = value;
+      else newData.flagsList.favoriteFlag = true;
       await addNewItemToBookshelf(bookshelf.userID, newData);
       bookshelfDispatch({ type: SHELF_TYPES.ADD_BOOK, payload: newData });
     }
@@ -130,8 +167,10 @@ const useBookshelf = () => {
     isOnBookshelf,
     toggleWishList,
     isOnWishList,
-    toggleRead,
-    isRead,
+    toggleWantToRead,
+    isWantToRead,
+    toggleHaveRead,
+    isHaveRead,
     toggleFavorite,
     isFavorite,
   };
