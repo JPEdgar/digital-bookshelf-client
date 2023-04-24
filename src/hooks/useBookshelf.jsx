@@ -12,32 +12,30 @@ const useBookshelf = () => {
     bookshelfDispatch({ type: SHELF_TYPES.SET_BOOK_FOCUS, payload: bookData });
   };
 
-  const findBookOnShelf = (bookData) => {
+  const findBookOnShelf = (isbnObj) => {
     const { contents } = bookshelf;
 
     let bookshelfObject;
     if (contents.length > 0) {
       for (let i = 0; i < contents.length; i++) {
-        if (
-          bookData.isbn.isbn10 &&
-          contents[i].isbn.isbn10 === bookData.isbn.isbn10
-        ) {
+        if (isbnObj?.isbn10 && contents[i].isbn.isbn10 === isbnObj.isbn10) {
           bookshelfObject = contents[i];
           i = contents.length;
         } else if (
-          bookData.isbn.isbn13 &&
-          contents[i].isbn.isbn13 === bookData.isbn.isbn13
+          isbnObj?.isbn13 &&
+          contents[i].isbn.isbn13 === isbnObj.isbn13
         ) {
           bookshelfObject = contents[i];
           i = contents.length;
         }
       }
     }
+
     return bookshelfObject;
   };
 
   const toggleOnBookshelf = async (bookData) => {
-    const bookshelfObject = findBookOnShelf(bookData);
+    const bookshelfObject = findBookOnShelf(bookData.isbn);
 
     if (bookshelfObject) {
       const newData = { ...bookshelfObject, ...bookData };
@@ -52,13 +50,13 @@ const useBookshelf = () => {
     }
   };
 
-  const isOnBookshelf = (bookData) => {
-    const bookObject = findBookOnShelf(bookData);
-    return bookObject.inBookshelfFlag ? true : false;
+  const isOnBookshelf = (isbnObj) => {
+    const bookObject = findBookOnShelf(isbnObj);
+    return bookObject?.flagsList.inBookshelfFlag ? true : false;
   };
 
   const toggleWishList = async (bookData) => {
-    const bookshelfObject = findBookOnShelf(bookData);
+    const bookshelfObject = findBookOnShelf(bookData.isbn);
 
     if (bookshelfObject) {
       const newData = { ...bookshelfObject, ...bookData };
@@ -73,13 +71,13 @@ const useBookshelf = () => {
     }
   };
 
-  const isOnWishList = (bookData) => {
-    const bookObject = findBookOnShelf(bookData);
-    return bookObject.inWishListFlag ? true : false;
+  const isOnWishList = (isbnObj) => {
+    const bookObject = findBookOnShelf(isbnObj);
+    return bookObject?.flagsList.inWishListFlag ? true : false;
   };
 
   const toggleRead = async (bookData) => {
-    const bookshelfObject = findBookOnShelf(bookData);
+    const bookshelfObject = findBookOnShelf(bookData.isbn);
 
     if (bookshelfObject) {
       const newData = { ...bookshelfObject, ...bookData };
@@ -94,13 +92,13 @@ const useBookshelf = () => {
     }
   };
 
-  const isRead = (bookData) => {
-    const bookObject = findBookOnShelf(bookData);
-    return bookObject.readFlag ? true : false;
+  const isRead = (isbnObj) => {
+    const bookObject = findBookOnShelf(isbnObj);
+    return bookObject?.flagsList.readFlag ? true : false;
   };
 
   const toggleFavorite = async (bookData) => {
-    const bookshelfObject = findBookOnShelf(bookData);
+    const bookshelfObject = findBookOnShelf(bookData.isbn);
 
     if (bookshelfObject) {
       const newData = { ...bookshelfObject, ...bookData };
@@ -115,9 +113,9 @@ const useBookshelf = () => {
     }
   };
 
-  const isFavorite = (bookData) => {
-    const bookObject = findBookOnShelf(bookData);
-    return bookObject.favoriteFlag ? true : false;
+  const isFavorite = (isbnObj) => {
+    const bookObject = findBookOnShelf(isbnObj);
+    return bookObject?.flagsList.favoriteFlag ? true : false;
   };
 
   return {
