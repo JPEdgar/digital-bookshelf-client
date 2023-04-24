@@ -7,7 +7,7 @@ import { useBookshelf } from "../../hooks";
 const Details = () => {
   const { bookshelf, toggleOnBookshelf } = useBookshelf();
   const { bookFocus } = bookshelf || null;
-  console.log("bookFocus = ", bookFocus);
+  // console.log("bookFocus = ", bookFocus);
 
   const coverImage = bookFocus?.coversList.large
     ? bookFocus.coversList.large
@@ -16,13 +16,13 @@ const Details = () => {
     : null;
 
   const toggleOnShelf = () => {
-    toggleOnBookshelf(bookFocus)
-  }
+    toggleOnBookshelf(bookFocus);
+  };
 
   return (
     bookFocus && (
       <>
-      <button onClick={() => toggleOnShelf()}>Toggle onShelf</button>
+        <button onClick={() => toggleOnShelf()}>Toggle onShelf</button>
         <Stack direction="horizontal" gap={3}>
           <Image src={coverImage} alt={`${bookFocus.title} cover`} thumbnail />
           <Row>
@@ -40,14 +40,12 @@ const Details = () => {
             <Row>
               {bookFocus.isbn.isbn10 && (
                 <Col xs={12} md={6}>
-                  {" "}
-                  ISBN-10: {bookFocus.isbn.isbn10}{" "}
+                  ISBN-10: {bookFocus.isbn.isbn10}
                 </Col>
               )}
               {bookFocus.isbn.isbn13 && (
                 <Col xs={12} md={6}>
-                  {" "}
-                  ISBN-13: {bookFocus.isbn.isbn13}{" "}
+                  ISBN-13: {bookFocus.isbn.isbn13}
                 </Col>
               )}
             </Row>

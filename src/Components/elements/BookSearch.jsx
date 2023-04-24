@@ -66,7 +66,7 @@ const BookSearch = () => {
     const timer = setTimeout(async () => {
       const books = await findBook(searchValue);
       updateBookSearch(books);
-      console.log("bookSearch = ", books);
+      // console.log("bookSearch = ", books);
     }, timeoutDelay);
     return () => clearTimeout(timer);
   }, [searchValue]);

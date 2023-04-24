@@ -14,10 +14,29 @@ const signUp = async (email = "", password = "", handle = "") =>
   axios.post(`${authURL}/signup`, { email, password, handle });
 const login = async (email = "", password = "") =>
   axios.post(`${authURL}/login`, { email, password });
-const updatePassword = async ( email = "", password = "", newPassword = "", token = "" ) =>
-  axios.patch( `${authURL}/update-password`, { email, password, newPassword }, { headers: { Authorization: `bearer ${token}` } } );
-const updateEmail = async ( email = "", password = "", newEmail = "", token = "" ) => {
-  return axios.patch( `${authURL}/update-email`, { email, password, newEmail }, { headers: { Authorization: `bearer ${token}` } } ); };
+const updatePassword = async (
+  email = "",
+  password = "",
+  newPassword = "",
+  token = ""
+) =>
+  axios.patch(
+    `${authURL}/update-password`,
+    { email, password, newPassword },
+    { headers: { Authorization: `bearer ${token}` } }
+  );
+const updateEmail = async (
+  email = "",
+  password = "",
+  newEmail = "",
+  token = ""
+) => {
+  return axios.patch(
+    `${authURL}/update-email`,
+    { email, password, newEmail },
+    { headers: { Authorization: `bearer ${token}` } }
+  );
+};
 const deleteAccount = async (email) =>
   axios.delete(`${authURL}/delete`, { email });
 
@@ -27,7 +46,10 @@ const createNewUser = async (email = "", id = "", handle = "") =>
 const getUserDetails = async (query) =>
   axios.get(userURL, { params: { ...query } });
 const updateUserDetails = async (updates, token) =>
-  axios.patch(userURL, { headers: { Authorization: `bearer ${token}` }, data: updates, });
+  axios.patch(userURL, {
+    headers: { Authorization: `bearer ${token}` },
+    data: updates,
+  });
 
 // social
 const sendFriendRequest = async (userID = "", friendID = "") =>
@@ -46,9 +68,16 @@ const getFriendsList = async (userID = "") =>
 
 // bookshelf
 const getBookshelf = async (query = {}, token = "") =>
-  axios.get(`${bookshelfURL}/`, { params: query, headers: { Authorization: `bearer ${token}` }, });
-const findBook = async (query = "") =>
-  axios.get(`${API}/${query}`);
+  axios.get(`${bookshelfURL}/`, {
+    params: query,
+    headers: { Authorization: `bearer ${token}` },
+  });
+const findBook = async (query = "") => axios.get(`${API}/${query}`);
+const addNewItemToBookshelf = async (userID = "", bookObj = {}, token = "") => {
+  axios.patch(`${bookshelfURL}/add-to-bookshelf`, { userID, bookObj });
+};
+const editBookshelfItem = async (userID = "", bookObj = {}) =>
+  axios.patch(`${bookshelfURL}/edit-bookshelf-item`, { userID, bookObj });
 
 export {
   signUp,
@@ -66,4 +95,6 @@ export {
   getFriendsList,
   getBookshelf,
   findBook,
+  addNewItemToBookshelf,
+  editBookshelfItem,
 };

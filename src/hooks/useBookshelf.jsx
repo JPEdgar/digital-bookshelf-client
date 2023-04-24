@@ -2,6 +2,7 @@ import React from "react";
 
 import useBookshelfContext from "./context/useBookshelfContext";
 import SHELF_TYPES from "../constants/types/bookshelfTypes";
+import { addNewItemToBookshelf, editBookshelfItem } from "../actions/bookshelf";
 
 const useBookshelf = () => {
   const { bookshelfState: bookshelf, dispatch: bookshelfDispatch } =
@@ -13,36 +14,36 @@ const useBookshelf = () => {
 
   const toggleOnBookshelf = async (bookData) => {
     const { contents } = bookshelf;
-    console.log("toggleOnBookshelf clicked");
-    console.log("bookshelf contents = ", contents);
-    console.log("bookData = ", bookData);
 
-    let bookshelfObject
+    let bookshelfObject;
     if (contents.length > 0) {
       for (let i = 0; i < contents.length; i++) {
-        // console.log("contents[i] = ", contents[i]);
         if (
           bookData.isbn.isbn10 &&
           contents[i].isbn.isbn10 === bookData.isbn.isbn10
         ) {
-          console.log("returning via isbn10", contents[i]); // return contents[i]
-          bookshelfObject = contents[i]
+          bookshelfObject = contents[i];
           i = contents.length;
         } else if (
           bookData.isbn.isbn13 &&
           contents[i].isbn.isbn13 === bookData.isbn.isbn13
         ) {
-          console.log("returning via isbn13", contents[i]); // return contents[i]
-          bookshelfObject = contents[i]
+          bookshelfObject = contents[i];
           i = contents.length;
-        } else console.log("don't think this book is in the library");
+        }
       }
-    } else console.log("bookshelf empty");
+    }
 
     if (bookshelfObject) {
-      // modifiy bookshelfObject
+      const newData = { ...bookshelfObject, ...bookData };
+      newData.flagsList.inBookshelfFlag = !newData.flagsList.inBookshelfFlag;
+      await editBookshelfItem(bookshelf.userID, newData);
+      bookshelfDispatch({ type: SHELF_TYPES.EDIT_FLAGS, payload: newData });
     } else {
-      // add bookshelfObject to bookshelf
+      const newData = { ...bookData, flagsList: {} };
+      newData.flagsList.inBookshelfFlag = true;
+      await addNewItemToBookshelf(bookshelf.userID, newData);
+      bookshelfDispatch({ type: SHELF_TYPES.ADD_BOOK, payload: newData });
     }
   };
 

@@ -6,7 +6,28 @@ const bookshelfReducer = (state, action) => {
     case SHELF_TYPES.SET_BOOKSHELF:
       return action.payload;
     case SHELF_TYPES.SET_BOOK_FOCUS:
-      return {...state, bookFocus: action.payload}
+      return { ...state, bookFocus: action.payload };
+    case SHELF_TYPES.ADD_BOOK:
+      return { ...state, contents: [...state.contents, action.payload] };
+    case SHELF_TYPES.EDIT_FLAGS:
+      const newShelf = state.contents.map((x) => {
+        let ret;
+        if (
+          action.payload.isbn.isbn10 &&
+          x.isbn.isbn10 === action.payload.isbn.isbn10
+        )
+          ret = action.payload;
+        else if (
+          action.payload.isbn.isbn13 &&
+          x.isbn.isbn13 === action.payload.isbn.isbn13
+        )
+          ret = action.payload;
+        else ret = x;
+
+        return ret;
+      });
+
+      return { ...state, contents: newShelf };
     default:
       console.log("dispatch - else");
       return state;
