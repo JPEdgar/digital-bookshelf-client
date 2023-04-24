@@ -34,17 +34,20 @@ const useBookshelf = () => {
     return bookshelfObject;
   };
 
-  const toggleOnBookshelf = async (bookData) => {
+  const toggleOnBookshelf = async (bookData, override = false, value) => {
     const bookshelfObject = findBookOnShelf(bookData.isbn);
 
     if (bookshelfObject) {
       const newData = { ...bookshelfObject, ...bookData };
-      newData.flagsList.inBookshelfFlag = !newData.flagsList.inBookshelfFlag;
+      if (override) newData.flagsList.inBookshelfFlag = value;
+      else
+        newData.flagsList.inBookshelfFlag = !newData.flagsList.inBookshelfFlag;
       await editBookshelfItem(bookshelf.userID, newData);
       bookshelfDispatch({ type: SHELF_TYPES.EDIT_FLAGS, payload: newData });
     } else {
       const newData = { ...bookData, flagsList: {} };
-      newData.flagsList.inBookshelfFlag = true;
+      if (override) newData.flagsList.inBookshelfFlag = value;
+      else newData.flagsList.inBookshelfFlag = true;
       await addNewItemToBookshelf(bookshelf.userID, newData);
       bookshelfDispatch({ type: SHELF_TYPES.ADD_BOOK, payload: newData });
     }
@@ -55,7 +58,7 @@ const useBookshelf = () => {
     return bookObject?.flagsList.inBookshelfFlag ? true : false;
   };
 
-  const toggleWishList = async (bookData) => {
+  const toggleWishList = async (bookData, override = false, value) => {
     const bookshelfObject = findBookOnShelf(bookData.isbn);
 
     if (bookshelfObject) {
@@ -76,7 +79,7 @@ const useBookshelf = () => {
     return bookObject?.flagsList.inWishListFlag ? true : false;
   };
 
-  const toggleRead = async (bookData) => {
+  const toggleRead = async (bookData, override = false, value) => {
     const bookshelfObject = findBookOnShelf(bookData.isbn);
 
     if (bookshelfObject) {
@@ -97,7 +100,7 @@ const useBookshelf = () => {
     return bookObject?.flagsList.readFlag ? true : false;
   };
 
-  const toggleFavorite = async (bookData) => {
+  const toggleFavorite = async (bookData, override = false, value) => {
     const bookshelfObject = findBookOnShelf(bookData.isbn);
 
     if (bookshelfObject) {

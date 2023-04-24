@@ -5,7 +5,7 @@ import { Card, Stack, Image, Row, Col } from "react-bootstrap";
 import { useBookshelf } from "../../hooks";
 
 const Details = () => {
-  const { bookshelf, toggleOnBookshelf } = useBookshelf();
+  const { bookshelf, toggleFavorite, toggleOnBookshelf } = useBookshelf();
   const { bookFocus } = bookshelf || null;
   // console.log("bookFocus = ", bookFocus);
 
@@ -16,7 +16,8 @@ const Details = () => {
     : null;
 
   const toggleOnShelf = () => {
-    toggleOnBookshelf(bookFocus);
+    toggleOnBookshelf(bookFocus, true, true)
+    toggleFavorite(bookFocus);
   };
 
   return (

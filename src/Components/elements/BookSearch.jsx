@@ -6,13 +6,14 @@ import { useNavigate } from "react-router-dom";
 import { useFindBook, useBookshelf, useSearchDetails } from "../../hooks";
 import ShowMoreIcon from "./ShowMoreIcon";
 import { cropString } from "../../utilities";
+import FavoritesIcon from "./FavoritesIcon";
 
 const BookSearch = () => {
   const [inDropdownFlag, setInDropdownFlag] = useState(false);
   const [searchValue, setSearchValue] = useState("Bloodlines of Atmos");
   const [openSearchFlag, setOpenSearchFlag] = useState(false);
   const { findBook } = useFindBook();
-  const { setBookFocus } = useBookshelf();
+  const { setBookFocus, isFavorite } = useBookshelf();
   const navigate = useNavigate();
   const { bookSearchList, updateBookSearch, clearBookSearch } =
     useSearchDetails();
@@ -37,18 +38,26 @@ const BookSearch = () => {
 
   const Book = ({ bookData }) => {
     return (
-      <Dropdown.Item onClick={() => handleClick(bookData)}>
+      <Dropdown.Item>
         <Stack direction="horizontal" gap={1} className="w-100">
-          <Image src={bookData.coversList.small} height="100px" />
-          <Stack className="ms-1" style={{ width: "15em" }}>
+          <Image
+            src={bookData.coversList.small}
+            height="100px"
+            onClick={() => handleClick(bookData)}
+          />
+          <Stack
+            className="ms-1"
+            style={{ width: "15em" }}
+            onClick={() => handleClick(bookData)}
+          >
             <div>{cropString(bookData.title, 25)}</div>
             <div>{cropString(bookData.subtitle, 25)}</div>
             <div>By: {cropString(bookData.authorString, 25)}</div>
           </Stack>
 
           <Stack gap={1} className="ms-1" style={{ fontSize: "0.75rem" }}>
-            <div>Flags</div>
-            <div>In Shelf</div>
+            <FavoritesIcon bookData={bookData} />
+
             <div>Wish List</div>
             <div>Read</div>
             <div>etc...</div>
