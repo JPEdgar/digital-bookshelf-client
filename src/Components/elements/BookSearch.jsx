@@ -9,7 +9,7 @@ import { cropString } from "../../utilities";
 
 const BookSearch = () => {
   const [inDropdownFlag, setInDropdownFlag] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState("Bloodlines of Atmos");
   const [openSearchFlag, setOpenSearchFlag] = useState(false);
   const { findBook } = useFindBook();
   const { setBookFocus } = useBookshelf();
@@ -66,7 +66,7 @@ const BookSearch = () => {
     const timer = setTimeout(async () => {
       const books = await findBook(searchValue);
       updateBookSearch(books);
-      console.log("books = ", books);
+      console.log("bookSearch = ", books);
     }, timeoutDelay);
     return () => clearTimeout(timer);
   }, [searchValue]);
@@ -95,8 +95,8 @@ const BookSearch = () => {
           />
         </Form>
         <Dropdown.Menu>
-          {bookSearchList.map((bookData) => (
-            <Book
+          {bookSearchList.map((bookData, index) => (
+            index < 5 && <Book
               key={`book-search-results-${bookData.googleID}`}
               bookData={bookData}
             />
