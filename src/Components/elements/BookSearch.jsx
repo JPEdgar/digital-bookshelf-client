@@ -95,12 +95,15 @@ const BookSearch = () => {
           />
         </Form>
         <Dropdown.Menu>
-          {bookSearchList.map((bookData, index) => (
-            index < 5 && <Book
-              key={`book-search-results-${bookData.googleID}`}
-              bookData={bookData}
-            />
-          ))}
+          {bookSearchList.map(
+            (bookData, index) =>
+              index < 5 && (
+                <Book
+                  key={`book-search-results-${bookData.googleID}`}
+                  bookData={bookData}
+                />
+              )
+          )}
           <ShowMoreIcon
             loc="/book-search"
             setToggleDropdownFlag={() => setOpenSearchFlag()}
