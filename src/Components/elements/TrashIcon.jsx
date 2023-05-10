@@ -7,17 +7,19 @@ import MouseoverInfo from "./MouseoverInfo";
 
 import {useBookshelf} from "../../hooks";
 
-const TrashIcon = ({ bookshelfID }) => {
+const TrashIcon = ({ bookData }) => {
+    const {removeFromBookshelf, isLoadingFlag} = useBookshelf()
+
   const handleClick = () => {
-    //
+    removeFromBookshelf(bookData)
   };
 
   return (
     <MouseoverInfo text="Delete">
       <FontAwesomeIcon
-        style={{ cursor: "pointer" }}
+        style={{ cursor: `${isLoadingFlag} ? "wait" : "pointer"`, }}
         icon={faTrash}
-        onClick={() => handleClick(bookshelfID)}
+        onClick={() => handleClick()}
       />
     </MouseoverInfo>
   );

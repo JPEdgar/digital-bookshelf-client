@@ -28,6 +28,11 @@ const bookshelfReducer = (state, action) => {
       });
 
       return { ...state, contents: newShelf };
+    case SHELF_TYPES.REMOVE_BOOKSHELF_ITEM:
+        console.log("in bookshelfReducer - data = ", {state, action})
+        // const test = state.contents.filter(x => x._id !== action.payload._id)
+        // console.log(test)
+      return state;
     default:
       console.log("dispatch - else");
       return state;

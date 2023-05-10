@@ -8,7 +8,7 @@ import MouseoverInfo from "./MouseoverInfo";
 import { useBookshelf } from "../../hooks";
 
 const HaveReadIcon = ({ bookData }) => {
-  const { isHaveRead, toggleHaveRead } = useBookshelf();
+  const { isHaveRead, toggleHaveRead, isLoadingFlag } = useBookshelf();
 
   const handleClick = async () => {
     toggleHaveRead(bookData);
@@ -18,7 +18,7 @@ const HaveReadIcon = ({ bookData }) => {
     <MouseoverInfo text="Have Read">
       <FontAwesomeIcon
         style={{
-          cursor: "pointer",
+          cursor: `${isLoadingFlag} ? "wait" : "pointer"`,
           color: `${isHaveRead(bookData.isbn) ? "red" : "black"}`,
         }}
         icon={faGlasses}

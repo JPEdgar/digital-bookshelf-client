@@ -23,16 +23,13 @@ const App = () => {
   const { authState } = useAuthContext();
   const {bookshelf} = useBookshelf()
 
-  const logBookshelf = () => {
-    console.log(bookshelf.contents)
-  }
-
   return (
     <>
       <Navigation />
 
       <Container>
-        <button onClick={() => logBookshelf()}>Log bookshelf</button>
+        <button onClick={() => console.log(bookshelf)}>Log bookshelf</button>
+        <button onClick={() => console.log(bookshelf.contents)}>Log bookshelf Contents</button>
         <Routes>
           <Route
             path="/"

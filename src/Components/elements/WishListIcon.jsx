@@ -8,7 +8,7 @@ import MouseoverInfo from "./MouseoverInfo";
 import { useBookshelf } from "../../hooks";
 
 const WishListIcon = ({ bookData }) => {
-  const { isOnWishList, toggleWishList } = useBookshelf();
+  const { isOnWishList, toggleWishList , isLoadingFlag} = useBookshelf();
 
   const handleClick = async () => {
     toggleWishList(bookData);
@@ -18,7 +18,7 @@ const WishListIcon = ({ bookData }) => {
     <MouseoverInfo text="Wish List">
       <FontAwesomeIcon
         style={{
-          cursor: "pointer",
+          cursor: `${isLoadingFlag} ? "wait" : "pointer"`,
           color: `${isOnWishList(bookData.isbn) ? "red" : "black"}`,
         }}
         icon={faGift}

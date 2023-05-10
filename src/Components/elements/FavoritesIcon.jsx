@@ -9,7 +9,7 @@ import MouseoverInfo from "./MouseoverInfo";
 import { useBookshelf } from "../../hooks";
 
 const FavoritesIcon = ({ bookData }) => {
-  const { isFavorite, toggleFavorite } = useBookshelf();
+  const { isFavorite, toggleFavorite, isLoadingFlag } = useBookshelf();
 
   const handleClick = async () => {
     toggleFavorite(bookData);
@@ -19,7 +19,7 @@ const FavoritesIcon = ({ bookData }) => {
     <MouseoverInfo text="Favorites">
       <FontAwesomeIcon
         style={{
-          cursor: "pointer",
+          cursor: `${isLoadingFlag} ? "wait" : "pointer"`,
           color: `${isFavorite(bookData.isbn) ? "red" : "black"}`,
         }}
         icon={isFavorite(bookData.isbn) ? faStar : faStarOutline}

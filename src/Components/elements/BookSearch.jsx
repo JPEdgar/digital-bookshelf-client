@@ -3,9 +3,14 @@ import React, { useEffect, useState } from "react";
 import { Form, Dropdown, Stack, Image } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-import { useFindBook, useBookshelf, useSearchDetails } from "../../hooks";
-import ShowMoreIcon from "./ShowMoreIcon";
+import {
+  useFindBook,
+  useBookshelf,
+  useSearchDetails,
+  useAuthDetails,
+} from "../../hooks";
 import { cropString } from "../../utilities";
+import ShowMoreIcon from "./ShowMoreIcon";
 import FavoritesIcon from "./FavoritesIcon";
 import WishListIcon from "./WishListIcon";
 import WantToReadIcon from "./WantToReadIcon";
@@ -13,11 +18,12 @@ import HaveReadIcon from "./HaveReadIcon";
 import TrashIcon from "./TrashIcon";
 
 const BookSearch = () => {
+  const { authDetails } = useAuthDetails();
   const [inDropdownFlag, setInDropdownFlag] = useState(false);
   const [searchValue, setSearchValue] = useState("Bloodlines of Atmos");
   const [openSearchFlag, setOpenSearchFlag] = useState(false);
   const { findBook } = useFindBook();
-  const { setBookFocus, isOnBookshelf } = useBookshelf();
+  const { setBookFocus, isOnBookshelf, isLoadingFlag } = useBookshelf();
   const navigate = useNavigate();
   const { bookSearchList, updateBookSearch, clearBookSearch } =
     useSearchDetails();
@@ -42,7 +48,7 @@ const BookSearch = () => {
 
   const Book = ({ bookData }) => {
     return (
-      <Dropdown.Item>
+      <Dropdown.Item style={{cursor: `${isLoadingFlag} ? "wait" : "pointer"`,}}>
         <Stack direction="horizontal" gap={1} className="w-100">
           <Image
             src={bookData.coversList.small}
@@ -60,11 +66,17 @@ const BookSearch = () => {
           </Stack>
 
           <Stack gap={1} className="ms-1" style={{ fontSize: "0.75rem" }}>
-            <FavoritesIcon bookData={bookData} />
-            <WishListIcon bookData={bookData} />
-            <WantToReadIcon bookData={bookData} />
-            <HaveReadIcon bookData={bookData} />
-            {isOnBookshelf(bookData.isbn) && <TrashIcon />}
+            {authDetails.email && (
+              <>
+                <FavoritesIcon bookData={bookData} />
+                <WishListIcon bookData={bookData} />
+                <WantToReadIcon bookData={bookData} />
+                <HaveReadIcon bookData={bookData} />
+                {isOnBookshelf(bookData.isbn) && (
+                  <TrashIcon bookData={bookData} />
+                )}
+              </>
+            )}
           </Stack>
         </Stack>
       </Dropdown.Item>
