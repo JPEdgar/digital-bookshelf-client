@@ -31,28 +31,11 @@ const App = () => {
         <button onClick={() => console.log(bookshelf)}>Log bookshelf</button>
         <button onClick={() => console.log(bookshelf.contents)}>Log bookshelf Contents</button>
         <Routes>
-          <Route
-            path="/"
-            element={authState.email ? <Bookshelf /> : <>bookshelf</>}
-          />
-          <Route
-            path="/signup"
-            element={!authState.email ? <SignUp /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/login"
-            element={!authState.email ? <LogIn /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/user-settings"
-            element={
-              authState.email ? <AccountSettings /> : <Navigate to="/" />
-            }
-          />
-          <Route
-            path="/friends"
-            element={authState.email ? <Friends /> : <Navigate to="/" />}
-          />
+          <Route path="/" element={authState.email ? <Bookshelf /> : <>bookshelf</>} />
+          <Route path="/signup" element={!authState.email ? <SignUp /> : <Navigate to="/" />} />
+          <Route path="/login" element={!authState.email ? <LogIn /> : <Navigate to="/" />} />
+          <Route path="/user-settings" element={ authState.email ? <AccountSettings /> : <Navigate to="/" /> } />
+          <Route path="/friends" element={authState.email ? <Friends /> : <Navigate to="/" />} />
           <Route path="/friend-search" element={<ExtendedFriendSearch />} />
           <Route path="/book-details" element={<BookDetails />} />
           <Route path="/book-search" element={<ExtendedBookSearch />} />

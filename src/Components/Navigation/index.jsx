@@ -10,7 +10,7 @@ import { useAuthDetails, useUserDetails } from "../../hooks";
 import UserSearch from "../elements/UserSearch";
 import BookSearch from "../elements/BookSearch";
 
-const Navigation = () => {
+const index = () => {
   const { authDetails } = useAuthDetails();
   const { userDetails } = useUserDetails();
   // console.log(userDetails);
@@ -67,4 +67,4 @@ const Navigation = () => {
   );
 };
 
-export default Navigation;
+export default index;
