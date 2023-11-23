@@ -1,11 +1,13 @@
 import React, { forwardRef } from "react";
-import { Dropdown, Nav } from "react-bootstrap";
+import { Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-import { useLogout } from "../../hooks";
+import { useLogout, useUserDetails } from "../../hooks";
 
 function MenuDropdown() {
   const { logout } = useLogout();
+  const { userDetails } = useUserDetails();
+
   return (
     <Dropdown align="end" className="ms-1">
       <Dropdown.Toggle as={CustomToggle}>
@@ -17,6 +19,9 @@ function MenuDropdown() {
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
+        <div className="d-flex justify-content-center align-items-start bg-success text-light">
+          {userDetails.handle}
+        </div>
         <Dropdown.Item as={Link} to="/user-settings">
           User Settings
         </Dropdown.Item>
