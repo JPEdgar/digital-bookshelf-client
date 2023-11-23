@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
 
 import { Card, Stack, Image, Row, Col } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+
+import { useBookshelf } from "../../hooks";
 
 const BookDetails = ({ bookData, showSnippet = true }) => {
+  const {setBookFocus} = useBookshelf()
+  const navigate = useNavigate();
   const [mouseoverFlag, setMouseoverFlag] = useState(false);
 
   const coverImage = bookData?.coversList.large
@@ -12,19 +17,25 @@ const BookDetails = ({ bookData, showSnippet = true }) => {
     : null;
 
   const cardStyle = {
-    backgroundColor: `${mouseoverFlag ? "lightblue" : ""}`,
+    backgroundColor: `${mouseoverFlag ? "#e6faff" : ""}`,
     cursor: "pointer",
   };
+
+  const handleClick = (bookData) => {
+    setBookFocus(bookData);
+    navigate("/book-details");
+  }
 
   return (
     bookData && (
       <>
         <Card
           className="my-2 p-1"
-          onClick={null}
+          onClick={() => handleClick(bookData)}
           style={cardStyle}
           onMouseEnter={() => setMouseoverFlag(true)}
           onMouseLeave={() => setMouseoverFlag(false)}
+      
         >
           <Stack direction="horizontal" gap={3}>
             <Image src={coverImage} alt={`${bookData.title} cover`} thumbnail />

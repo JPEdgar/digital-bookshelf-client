@@ -180,13 +180,18 @@ const useBookshelf = () => {
     const bookshelfObject = findBookOnShelf(bookData.isbn);
 
     if (bookshelfObject) {
-      const bookshelfObjectID = bookshelfObject._id.valueOf();
-      // await deleteBookshelfItem( bookshelf.userID, bookshelfObjectID );
+
+        const bookshelfObjectID = bookshelfObject._id?.valueOf();
+      // const bookshelfObjectID = bookshelfObject._id.valueOf(); // valueOf() seems a little buggy
+
+      await deleteBookshelfItem(bookshelf.userID, bookshelfObjectID); 
       bookshelfDispatch({
         type: SHELF_TYPES.REMOVE_BOOKSHELF_ITEM,
         payload: { ...bookshelfObject, _id: bookshelfObjectID },
       });
+
     } else console.log("nothing removed");
+
     setIsLoadingFlag(false);
   };
 
