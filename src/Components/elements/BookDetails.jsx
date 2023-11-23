@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useBookshelf } from "../../hooks";
 
 const BookDetails = ({ bookData, showSnippet = true }) => {
-  const {setBookFocus} = useBookshelf()
+  const { setBookFocus } = useBookshelf();
   const navigate = useNavigate();
   const [mouseoverFlag, setMouseoverFlag] = useState(false);
 
@@ -24,7 +24,7 @@ const BookDetails = ({ bookData, showSnippet = true }) => {
   const handleClick = (bookData) => {
     setBookFocus(bookData);
     navigate("/book-details");
-  }
+  };
 
   return (
     bookData && (
@@ -35,7 +35,6 @@ const BookDetails = ({ bookData, showSnippet = true }) => {
           style={cardStyle}
           onMouseEnter={() => setMouseoverFlag(true)}
           onMouseLeave={() => setMouseoverFlag(false)}
-      
         >
           <Stack direction="horizontal" gap={3}>
             <Image src={coverImage} alt={`${bookData.title} cover`} thumbnail />

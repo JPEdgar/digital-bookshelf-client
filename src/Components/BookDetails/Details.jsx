@@ -16,7 +16,7 @@ const Details = () => {
     : null;
 
   const toggleOnShelf = () => {
-    toggleOnBookshelf(bookFocus, true, true)
+    toggleOnBookshelf(bookFocus, true, true);
     toggleFavorite(bookFocus);
   };
 
