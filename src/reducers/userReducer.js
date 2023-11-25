@@ -33,16 +33,18 @@ const userReducer = (state, action) => {
       const acceptFriendRequest_state = cloneDeep(state);
       const acceptFriendRequest_friendsList =
         acceptFriendRequest_state.friendsList;
-
       const acceptFriendRequest_updatedList =
         acceptFriendRequest_friendsList.map((friend) => {
           return friend.friendUserID === action.payload
             ? { ...friend, friendStatus: "friends" }
             : friend;
         });
-
       return { ...state, friendsList: acceptFriendRequest_updatedList };
-
+    case USER_TYPES.REMOVE_FRIEND:
+      const removeFriend = state.friendsList.filter(
+        (x) => x.friendUserID !== action.payload
+      );
+      return { ...state, friendsList: removeFriend };
     case USER_TYPES.SET_FRIEND_FOCUS:
       return { ...state, friendFocus: action.payload };
     default:
