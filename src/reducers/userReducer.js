@@ -2,6 +2,8 @@ import USER_TYPES from "../constants/types/userTypes";
 
 import defaultUserDetails from "../constants/initializations/initializeUserDetails";
 
+import { cloneDeep } from "../utilities/lodash";
+
 const userReducer = (state, action) => {
   // console.log("action.payload = ", action.payload);
   switch (action.type) {
@@ -28,9 +30,21 @@ const userReducer = (state, action) => {
     case USER_TYPES.ADD_FRIEND:
       return { ...state, friendsList: action.payload };
     case USER_TYPES.ACCEPT_FRIEND_REQUEST:
-      return { ...state, friendsList: action.payload };
+      const acceptFriendRequest_state = cloneDeep(state);
+      const acceptFriendRequest_friendsList =
+        acceptFriendRequest_state.friendsList;
+
+      const acceptFriendRequest_updatedList =
+        acceptFriendRequest_friendsList.map((friend) => {
+          return friend.friendUserID === action.payload
+            ? { ...friend, friendStatus: "friends" }
+            : friend;
+        });
+
+      return { ...state, friendsList: acceptFriendRequest_updatedList };
+
     case USER_TYPES.SET_FRIEND_FOCUS:
-      return {...state, friendFocus: action.payload};
+      return { ...state, friendFocus: action.payload };
     default:
       console.log("useUser dispatch - else");
       return state;

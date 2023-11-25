@@ -19,7 +19,7 @@ const updatePassword = async ( email = "", password = "", newPassword = "", toke
 const updateEmail = async ( email = "", password = "", newEmail = "", token = "" ) =>
   axios.patch( `${authURL}/update-email`, { email, password, newEmail }, { headers: { Authorization: `bearer ${token}` } } );
 const deleteAccount = async (email = "") =>
-  axios.delete(`${authURL}/delete`, { data: {email} });
+  axios.delete(`${authURL}/delete`, { data: { email } });
 
 // user
 const createNewUser = async (email = "", id = "", handle = "") =>
@@ -32,10 +32,15 @@ const updateUserDetails = async (updates, token) =>
 // social
 const sendFriendRequest = async (userID = "", friendID = "") =>
   axios.patch(`${socialURL}/send-friend-request`, { userID, friendID });
-const acceptFriendRequest = async (userID = "", friendID = "") =>
+
+
+const acceptFriendRequest = async (userID = "", friendID = "", token = "") => 
   axios.patch(`${socialURL}/accept-friend-request`, { userID, friendID });
+
+
+
 const removeFriend = async (userID = "", friendID = "", token = "") =>
-  axios.patch(`${socialURL}/remove-friend`, { userID, friendID });
+  axios.patch(`${socialURL}/remove-friend`, { userID, friendID, token });
 // axios.patch(`${socialURL}/remove-friend`, { headers: { Authorization: `bearer ${token}` }, data: {userID, friendID}, });
 const findFriend = async (query = "") =>
   axios.get(`${socialURL}/search`, { params: { body: query } });
@@ -46,15 +51,24 @@ const getFriendsList = async (userID = "") =>
 
 // bookshelf
 const getBookshelf = async (query = {}, token = "") =>
-  axios.get(`${bookshelfURL}/`, { params: query, headers: { Authorization: `bearer ${token}` }, });
+  axios.get(`${bookshelfURL}/`, {
+    params: query,
+    headers: { Authorization: `bearer ${token}` },
+  });
 const findBook = async (query = "") => axios.get(`${API}/${query}`);
 const addNewItemToBookshelf = async (userID = "", bookObj = {}, token = "") =>
   axios.patch(`${bookshelfURL}/add-to-bookshelf`, { userID, bookObj });
 
 const editBookshelfItem = async (userID = "", bookObj = {}) =>
   axios.patch(`${bookshelfURL}/edit-bookshelf-item`, { userID, bookObj });
-const deleteBookshelfItem = async ( userID = "", bookshelfObjectID = "", token = "" ) =>
-  axios.delete(`${bookshelfURL}/delete-bookshelf-item`, {data: { userID, bookshelfObjectID} });
+const deleteBookshelfItem = async (
+  userID = "",
+  bookshelfObjectID = "",
+  token = ""
+) =>
+  axios.delete(`${bookshelfURL}/delete-bookshelf-item`, {
+    data: { userID, bookshelfObjectID },
+  });
 
 export {
   signUp,

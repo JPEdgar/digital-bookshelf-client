@@ -14,7 +14,7 @@ import ExtendedBookSearch from "./components/ExtendedBookSearch";
 import ExtendedFriendSearch from "./components/ExtendedFriendSearch";
 
 import useAuthContext from "./hooks/context/useAuthContext";
-import { useBookshelf } from "./hooks";
+import { useBookshelf, useUserDetails } from "./hooks";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/css/index.css";
@@ -22,14 +22,17 @@ import "./styles/css/index.css";
 const App = () => {
   const { authState } = useAuthContext();
   const {bookshelf} = useBookshelf()
+  const {userDetails} = useUserDetails()
 
   return (
     <>
       <Navigation />
 
       <Container>
+        <button onClick={() => console.log(userDetails)}>Log User</button>
         <button onClick={() => console.log(bookshelf)}>Log bookshelf</button>
         <button onClick={() => console.log(bookshelf.contents)}>Log bookshelf Contents</button>
+
         <Routes>
           <Route path="/" element={authState.email ? <Bookshelf /> : <>bookshelf</>} />
           <Route path="/signup" element={!authState.email ? <SignUp /> : <Navigate to="/" />} />

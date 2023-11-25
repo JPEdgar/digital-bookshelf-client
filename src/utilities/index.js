@@ -5,6 +5,7 @@ import createBookCoversObject from "./createBookCoversObject";
 import createAuthorString from "./createAuthorString";
 import createBookGenreString from "./createBookGenreString";
 import cropString from "./cropString";
+import { cloneDeep } from "lodash";
 
 export {
   emailValidReg,
@@ -14,4 +15,5 @@ export {
   createAuthorString,
   createBookGenreString,
   cropString,
+  cloneDeep,
 };

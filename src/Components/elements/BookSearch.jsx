@@ -20,7 +20,8 @@ import TrashIcon from "./TrashIcon";
 const BookSearch = () => {
   const { authDetails } = useAuthDetails();
   const [inDropdownFlag, setInDropdownFlag] = useState(false);
-  const [searchValue, setSearchValue] = useState("Bloodlines of Atmos");
+  const [searchValue, setSearchValue] = useState("");
+  // const [searchValue, setSearchValue] = useState("Bloodlines of Atmos");
   const [openSearchFlag, setOpenSearchFlag] = useState(false);
   const { findBook } = useFindBook();
   const { setBookFocus, isOnBookshelf, isLoadingFlag } = useBookshelf();
