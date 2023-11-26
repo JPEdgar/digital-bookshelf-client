@@ -17,6 +17,7 @@ import WishListIcon from "./WishListIcon";
 import WantToReadIcon from "./WantToReadIcon";
 import HaveReadIcon from "./HaveReadIcon";
 import TrashIcon from "./TrashIcon";
+import FilterIcon from "./FilterIcon";
 
 const BookSearch = () => {
   const { authDetails } = useAuthDetails();
@@ -72,7 +73,7 @@ const BookSearch = () => {
         onMouseLeave={() => setInDropdownFlag(false)}
         className="d-none d-md-flex"
       >
-        <Form onSubmit={(e) => e.preventDefault()}>
+        <Form onSubmit={(e) => e.preventDefault()} className="d-flex align-items-center me-2">
           <Form.Control
             type="text"
             placeholder="Search for books"
@@ -80,6 +81,7 @@ const BookSearch = () => {
             value={searchValue}
             onClick={() => toggleShow()}
           />
+          <FilterIcon filterOption="book-search"/>
         </Form>
         <Dropdown.Menu>
           {bookSearchList.map(

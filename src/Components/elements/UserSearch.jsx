@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 
 import { Form, Dropdown, Row, Col, Image, Stack } from "react-bootstrap";
 
+import FilterIcon from "./FilterIcon";
+
 import {
   useFindFriend,
   useUserDetails,
@@ -146,7 +148,7 @@ const UserSearch = () => {
         onMouseLeave={() => setInDropdownFlag(false)}
         className="d-none d-md-flex"
       >
-        <Form onSubmit={(e) => e.preventDefault()}>
+        <Form onSubmit={(e) => e.preventDefault()} className="d-flex align-items-center">
           <Form.Control
             type="text"
             placeholder="Search for friends"
@@ -154,6 +156,7 @@ const UserSearch = () => {
             value={searchValue}
             onClick={() => toggleShow()}
           />
+          <FilterIcon filterOption="friend-search"/>
         </Form>
         <Dropdown.Menu>
           {userSearchList.map((userData, index) => (
