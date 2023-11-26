@@ -28,7 +28,7 @@ const Details = () => {
   return (
     bookFocus && (
       <>
-        <button onClick={() => toggleOnShelf()}>Toggle onShelf</button>
+        {/* <button onClick={() => toggleOnShelf()}>Toggle onShelf</button> */}
         <Stack
           direction="horizontal"
           gap={3}

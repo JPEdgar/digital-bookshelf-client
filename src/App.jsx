@@ -29,9 +29,9 @@ const App = () => {
       <Navigation />
 
       <Container>
-        <button onClick={() => console.log(userDetails)}>Log User</button>
+        {/* <button onClick={() => console.log(userDetails)}>Log User</button>
         <button onClick={() => console.log(bookshelf)}>Log bookshelf</button>
-        <button onClick={() => console.log(bookshelf.contents)}>Log bookshelf Contents</button>
+        <button onClick={() => console.log(bookshelf.contents)}>Log bookshelf Contents</button> */}
 
         <Routes>
           <Route path="/" element={authState.email ? <Bookshelf /> : <>bookshelf</>} />
