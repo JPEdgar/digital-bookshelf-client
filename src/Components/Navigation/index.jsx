@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Navbar, Container, Nav, Image, Button } from "react-bootstrap";
 
 import Account from "./Account";
@@ -12,8 +12,8 @@ import BookSearch from "../elements/BookSearch";
 
 const Navigation = () => {
   const { authDetails } = useAuthDetails();
-  const { userDetails } = useUserDetails();
-  // console.log(userDetails);
+  const location = useLocation();
+
   return (
     <>
       <Navbar
@@ -39,10 +39,17 @@ const Navigation = () => {
             <Nav className="me-auto">
               {/* <Nav.Link as={Link} to="/"> Home </Nav.Link> */}
               {authDetails.email && (
-                <Nav.Link as={Link} to="/friends" className="d-flex align-items-center" > <FriendIcon /> </Nav.Link>
+                <Nav.Link
+                  as={Link}
+                  to="/friends"
+                  className="d-flex align-items-center"
+                >
+                  {" "}
+                  <FriendIcon />{" "}
+                </Nav.Link>
               )}
-              <UserSearch />
-              <BookSearch />
+              {location.pathname !== "/friend-search" && <UserSearch />}
+              {location.pathname !== "/book-search" && <BookSearch />}
             </Nav>
             {authDetails.email ? (
               <Account />
