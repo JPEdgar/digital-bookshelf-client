@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Form, Dropdown, Stack, Image } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
+import BookSearchItem from "./BookSearchItem";
 import {
   useFindBook,
   useBookshelf,
@@ -23,21 +24,16 @@ const BookSearch = () => {
   const [searchValue, setSearchValue] = useState("");
   // const [searchValue, setSearchValue] = useState("Bloodlines of Atmos");
   const [openSearchFlag, setOpenSearchFlag] = useState(false);
+  const [searchMax, setSearchMax] = useState(5)
   const { findBook } = useFindBook();
   const { setBookFocus, isOnBookshelf, isLoadingFlag } = useBookshelf();
-  const navigate = useNavigate();
   const { bookSearchList, updateBookSearch, clearBookSearch } =
     useSearchDetails();
+
 
   const timeoutDelay = 1000;
 
   const handleChange = (e) => setSearchValue(e.target.value);
-
-  const handleClick = (bookData) => {
-    setBookFocus(bookData);
-    setOpenSearchFlag(false);
-    navigate("/book-details");
-  };
 
   const handleBlur = () => {
     if (!inDropdownFlag) setOpenSearchFlag(false);
@@ -45,43 +41,6 @@ const BookSearch = () => {
 
   const toggleShow = () => {
     if (searchValue) setOpenSearchFlag((curr) => !curr);
-  };
-
-  const Book = ({ bookData }) => {
-    return (
-      <Dropdown.Item style={{cursor: `${isLoadingFlag} ? "wait" : "pointer"`,}}>
-        <Stack direction="horizontal" gap={1} className="w-100">
-          <Image
-            src={bookData.coversList.small}
-            height="100px"
-            onClick={() => handleClick(bookData)}
-          />
-          <Stack
-            className="ms-1"
-            style={{ width: "15em" }}
-            onClick={() => handleClick(bookData)}
-          >
-            <div>{cropString(bookData.title, 25)}</div>
-            <div>{cropString(bookData.subtitle, 25)}</div>
-            <div>By: {cropString(bookData.authorString, 25)}</div>
-          </Stack>
-
-          <Stack gap={1} className="ms-1" style={{ fontSize: "0.75rem" }}>
-            {authDetails.email && (
-              <>
-                <FavoritesIcon bookData={bookData} />
-                <WishListIcon bookData={bookData} />
-                <WantToReadIcon bookData={bookData} />
-                <HaveReadIcon bookData={bookData} />
-                {isOnBookshelf(bookData.isbn) && (
-                  <TrashIcon bookData={bookData} />
-                )}
-              </>
-            )}
-          </Stack>
-        </Stack>
-      </Dropdown.Item>
-    );
   };
 
   useEffect(() => {
@@ -93,8 +52,10 @@ const BookSearch = () => {
       const books = await findBook(searchValue);
       updateBookSearch(books);
       // console.log("bookSearch = ", books);
+      setSearchMax(5)
     }, timeoutDelay);
     return () => clearTimeout(timer);
+  
   }, [searchValue]);
 
   useEffect(() => {
@@ -123,10 +84,11 @@ const BookSearch = () => {
         <Dropdown.Menu>
           {bookSearchList.map(
             (bookData, index) =>
-              index < 5 && (
-                <Book
+              index < searchMax && (
+                <BookSearchItem
                   key={`book-search-results-${bookData.googleID}`}
                   bookData={bookData}
+                  setOpenSearchFlag={setOpenSearchFlag} setSearchMax={setSearchMax}
                 />
               )
           )}

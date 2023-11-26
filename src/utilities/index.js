@@ -5,6 +5,7 @@ import createBookCoversObject from "./createBookCoversObject";
 import createAuthorString from "./createAuthorString";
 import createBookGenreString from "./createBookGenreString";
 import cropString from "./cropString";
+import verifyBook from "./verifyBook";
 import { cloneDeep } from "lodash";
 
 export {
@@ -16,4 +17,5 @@ export {
   createBookGenreString,
   cropString,
   cloneDeep,
+  verifyBook,
 };

@@ -23,7 +23,7 @@ const useBookshelf = () => {
     const { contents } = bookshelf;
 
     let bookshelfObject;
-    if (contents.length > 0) {
+    if (contents?.length > 0) {
       for (let i = 0; i < contents.length; i++) {
         if (isbnObj?.isbn10 && contents[i].isbn?.isbn10 === isbnObj.isbn10) {
           bookshelfObject = contents[i];
