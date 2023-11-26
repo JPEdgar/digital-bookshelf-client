@@ -47,10 +47,20 @@ const deleteBookshelfItem = async (userID, bookshelfObjectID) => {
   }
 };
 
+const getFriendsBookshelf = async (query) => {
+  try {
+    const data = await api.getFriendsBookshelf(query);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export {
   getBookshelf,
   findBook,
   addNewItemToBookshelf,
   editBookshelfItem,
   deleteBookshelfItem,
+  getFriendsBookshelf,
 };

@@ -1,72 +1,75 @@
-import React, { useEffect, useState } from "react";
-
-import axios from "axios";
+import React from "react";
+import { Row } from "react-bootstrap";
 
 import BookshelfItem from "./BookshelfItem";
 
-// import { useBookshelf } from "../../hooks";
+import { useBookshelf } from "../../hooks";
 
 const Bookshelf = () => {
-  // const { bookshelf } = useBookshelf();
-  // React.useEffect(() => console.log(bookshelf.contents), [bookshelf]);
-
-  const [state, setState] = useState(null);
-
-  const getBookDetails = async (API, isbn) => {
-    // console.log("api = ", API)
-    // console.log("isbn = ", isbn)
-    // console.log("using getBookDetails utility")
-    const abortController = new AbortController();
-
-    if (!API || !isbn) {
-      // window.alert("Error in getting book details.");
-      console.log("Error in getting book details.");
-      return;
-    }
-
-    let bookDetails;
-    try {
-      const bookDetailsData = await axios.get(`${API}/volumes?q=isbn:${isbn}`, {
-        signal: abortController.signal,
-      });
-      // console.log(bookDetailsData)
-      if (bookDetailsData) bookDetails = bookDetailsData.data.items[0];
-    } catch (error) {
-      console.log(error);
-    }
-
-    return bookDetails;
-  };
-
-  // useEffect(() => {
-  //   //           https://www.googleapis.com/books/v1/volumes?q=bloodlines+of+atmos
-  //   const API = "https://www.googleapis.com/books/v1";
-  //   //                         /volumes?q=bloodlines+of+atmos
-  //   const query = '"Bloodlines of Atmos"';
-  //   const searchquery = `${API}/volumes?q=${query}`;
-  //   // console.log("searchquery = ", searchquery);
-  //   const test = async () => {
-  //     const ret = await axios.get(searchquery);
-  //     setState(ret.data);
-  //     return ret;
-  //   };
-
-  //   test()
-  // }, []);
-
-  // useEffect(() => {
-  //   console.log("state = ", state);
-  // }, [state]);
+  const { bookshelf } = useBookshelf();
 
   return (
-    <>
-      {/* <button onClick={() => console.log(state)}>Log State</button> */}
-      {/* {bookshelf?.contents?.map((item) => ( <BookshelfItem key={`bookshelf-item-${item._id}`} content={item} /> ))} */}
-    </>
+    <Row>
+      {bookshelf?.contents?.map((item) => (
+        <BookshelfItem key={`bookshelf-item-${item._id}`} content={item} />
+      ))}
+    </Row>
   );
 };
 
 export default Bookshelf;
+
+// <button onClick={() => console.log(state)}>Log State</button>
+// React.useEffect(() => console.log(bookshelf.contents), [bookshelf]);
+
+// const [state, setState] = useState(null);
+
+// const getBookDetails = async (API, isbn) => {
+//   // console.log("api = ", API)
+//   // console.log("isbn = ", isbn)
+//   // console.log("using getBookDetails utility")
+//   const abortController = new AbortController();
+
+//   if (!API || !isbn) {
+//     // window.alert("Error in getting book details.");
+//     console.log("Error in getting book details.");
+//     return;
+//   }
+
+//   let bookDetails;
+//   try {
+//     const bookDetailsData = await axios.get(`${API}/volumes?q=isbn:${isbn}`, {
+//       signal: abortController.signal,
+//     });
+//     // console.log(bookDetailsData)
+//     if (bookDetailsData) bookDetails = bookDetailsData.data.items[0];
+//   } catch (error) {
+//     console.log(error);
+//   }
+
+//   return bookDetails;
+// };
+
+// useEffect(() => {
+//   //           https://www.googleapis.com/books/v1/volumes?q=bloodlines+of+atmos
+//   const API = "https://www.googleapis.com/books/v1";
+//   //                         /volumes?q=bloodlines+of+atmos
+//   const query = '"Bloodlines of Atmos"';
+//   const searchquery = `${API}/volumes?q=${query}`;
+//   // console.log("searchquery = ", searchquery);
+//   const test = async () => {
+//     const ret = await axios.get(searchquery);
+//     setState(ret.data);
+//     return ret;
+//   };
+
+//   test()
+// }, []);
+
+// useEffect(() => {
+//   console.log("state = ", state);
+// }, [state]);
+
 /////////////////////////////////////////
 ///////////// SEARCH PARAMS /////////////
 /////////////////////////////////////////

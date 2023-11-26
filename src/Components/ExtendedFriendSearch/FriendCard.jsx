@@ -7,9 +7,7 @@ const FriendCard = ({ friendInfo }) => {
   const { userDetails } = useUserDetails();
 
   const isUserFlag = userDetails.userID === friendInfo.userID ? true : false;
-  const friendData = userDetails.friendsList.find(
-    (x) => x.friendUserID === friendInfo.userID
-  );
+  const friendData = userDetails.friendsList.find( (x) => x.friendUserID === friendInfo.userID );
 
   let friendStatus = null;
   if (friendData) friendStatus = friendData.friendStatus;
