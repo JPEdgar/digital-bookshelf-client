@@ -50,7 +50,7 @@ const BookSearch = () => {
       return;
     }
     const timer = setTimeout(async () => {
-      const books = await findBook(searchValue);
+      const books = await findBook({general: searchValue});
       updateBookSearch(books);
       // console.log("bookSearch = ", books);
       setSearchMax(5)

@@ -1,6 +1,15 @@
 import React, { useEffect, useState } from "react";
 
-import { Form, Dropdown, Stack, Image, InputGroup } from "react-bootstrap";
+import {
+  Form,
+  Dropdown,
+  Stack,
+  Image,
+  InputGroup,
+  ButtonGroup,
+  Button,
+  Row,
+} from "react-bootstrap";
 // import { useNavigate } from "react-router-dom";
 
 // import BookSearchItem from "./BookSearchItem";
@@ -19,6 +28,8 @@ import {
 // import TrashIcon from "./TrashIcon";
 // import FilterIcon from "./FilterIcon";
 
+import BookCard from "./BookCard";
+
 const BookSearch = () => {
   const { authDetails } = useAuthDetails();
   const [inDropdownFlag, setInDropdownFlag] = useState(false);
@@ -33,23 +44,61 @@ const BookSearch = () => {
 
   const timeoutDelay = 1000;
 
-//   const handleChange = (e) => setSearchValue(e.target.value);
+  //   const handleChange = (e) => setSearchValue(e.target.value);
 
-  const [byTitle, setByTitle] = useState("");
-  const [byAuthor, setByAuthor] = useState("");
-  const [byISBN, setByISBN] = useState("");
+  const [query, setQuery] = useState({
+    byAuthor: "",
+    byTitle: "",
+    byISBN: "",
+    byPublisher: "",
+  });
+
+  const [res, setRes] = useState([]);
 
   const handleChange = (e) => {
-    // 
-    console.log(e.target)
-    if (e.target.name === "title") setByTitle(e.target.value)
-    else if (e.target.name === "author") setByAuthor(e.target.value)
-    else if (e.target.name === "isbn") setByISBN(e.target.value)
+    setQuery((curr) => ({ ...curr, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e) => {
-    e.prevetnDefault()
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const searchQuery = {};
+    let searchFlag = false;
+    if (query.byTitle.length > 3) {
+      searchQuery.byTitle = query.byTitle;
+      searchFlag = true;
+    }
+    if (query.byAuthor.length > 3) {
+      searchQuery.byAuthor = query.byAuthor;
+      searchFlag = true;
+    }
+    if (query.byPublisher.length > 3) {
+      searchQuery.byPublisher = query.byPublisher;
+      searchFlag = true;
+    }
+    if (query.byISBN.length > 3) {
+      searchQuery.byISBN = query.byISBN;
+      searchFlag = true;
+    }
+
+    if (searchFlag) {
+      const books = await findBook(searchQuery);
+      console.log(books);
+      if (books.length > 0) setRes(books);
+    }
+  };
+
+  const clearForm = () => {
+    setQuery({
+      byAuthor: "",
+      byTitle: "",
+      byISBN: "",
+      byPublisher: "",
+    });
+  };
+
+  // useEffect(() => {
+  //   console.log(query);
+  // }, [query]);
 
   //   const handleBlur = () => {
   //     if (!inDropdownFlag) setOpenSearchFlag(false);
@@ -81,43 +130,78 @@ const BookSearch = () => {
 
   return (
     <>
-    <Form onSubmit={handleSubmit}>
-
-      <InputGroup className="mt-3">
-        <InputGroup.Text style={{ width: "7.5rem" }}>
-          Book Title:
-        </InputGroup.Text>
-        <Form.Control
-          placeholder="Search by book title"
-          name="title"
-          onChange={handleChange}
-          value={byTitle}
+      <Form onSubmit={handleSubmit}>
+        <InputGroup className="mt-3">
+          <InputGroup.Text style={{ width: "7.5rem" }}>
+            Book Title:
+          </InputGroup.Text>
+          <Form.Control
+            placeholder="Search by book title"
+            name="byTitle"
+            onChange={handleChange}
+            value={query.byTitle}
           />
-      </InputGroup>
+        </InputGroup>
 
-      <InputGroup>
-        <InputGroup.Text style={{ width: "7.5rem" }}>
-          Author Name:
-        </InputGroup.Text>
-        <Form.Control
-          placeholder="Search by author"
-          name="author"
-          onChange={handleChange}
-          value={byAuthor}
+        <InputGroup>
+          <InputGroup.Text style={{ width: "7.5rem" }}>
+            Author Name:
+          </InputGroup.Text>
+          <Form.Control
+            placeholder="Search by author"
+            name="byAuthor"
+            onChange={handleChange}
+            value={query.byAuthor}
           />
-      </InputGroup>
+        </InputGroup>
 
-      <InputGroup className="mb-3">
-        <InputGroup.Text style={{ width: "7.5rem" }}>ISBN:</InputGroup.Text>
-        <Form.Control
-          placeholder="Search by ISBN"
-          name="isbn"
-          onChange={handleChange}
-          value={byISBN}
+        <InputGroup>
+          <InputGroup.Text style={{ width: "7.5rem" }}>
+            By Publisher:
+          </InputGroup.Text>
+          <Form.Control
+            placeholder="Search by publisher"
+            name="byPublisher"
+            onChange={handleChange}
+            value={query.byPublisher}
           />
-      </InputGroup>
+        </InputGroup>
+
+        <InputGroup className="mb-3">
+          <InputGroup.Text style={{ width: "7.5rem" }}>ISBN:</InputGroup.Text>
+          <Form.Control
+            placeholder="Search by ISBN"
+            name="byISBN"
+            onChange={handleChange}
+            value={query.byISBN}
+          />
+        </InputGroup>
+
+        <ButtonGroup>
+          <Button onClick={() => clearForm()} variant="warning">
+            Clear
+          </Button>
+          <Button type="submit" variant="success">
+            Search
+          </Button>
+        </ButtonGroup>
       </Form>
-
+      <hr />
+      <Row>
+        {res.map(
+          (bookData) =>
+            bookData.title &&
+            bookData.authorString &&
+            (bookData.coversList.large ||
+              bookData.coversList.medium ||
+              bookData.coversList.small) && (
+              <BookCard
+                key={`book-search-${bookData.googleID}`}
+                bookData={bookData}
+              />
+            )
+        )}
+      </Row>
       {/* <Dropdown
         show={openSearchFlag}
         onBlur={() => handleBlur()}

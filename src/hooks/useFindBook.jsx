@@ -5,9 +5,7 @@ const useFindBook = () => {
   const findBook = async (query) => {
     const { data } = await findBookAction(query);
     const { items: itemsList } = data;
-
-    // console.log(itemsList)
-    const returnList = itemsList.map(x => createBookObject(x))
+    const returnList = itemsList.map((x) => createBookObject(x));
 
     return returnList;
   };

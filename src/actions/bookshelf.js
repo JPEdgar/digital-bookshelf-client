@@ -12,13 +12,26 @@ const getBookshelf = async (query) => {
 
 const findBook = async (query = "'Bloodlines of Atmos'", index = 0) => {
   try {
-    const params = `volumes?q=${query}&startIndex=${index}`;
+    let params = "volumes?q=";
+
+    if (query.general) params += query.general;
+    if (query.byTitle) params += `intitle:${query.byTitle}+`;
+    if (query.byAuthor) params += `inauthor:${query.byAuthor}+`;
+    if (query.byPublisher) params += `inpublisher:${query.byPublisher}+`;
+    if (query.byISBN) params += `isbn:${query.byISBN}`;
+
+    if (params.charAt(params.length - 1) === "+") params = params.slice(0, -1);
+
+    // `volumes?q=${query}&startIndex=${index}`;
     // &q=inauthor:"J.+P.+Edgar"
     // &q=intitle: "Bloodlines+of+Atmos"
     // &q=inpublisher: "melange"
-    // &q=isbn: 
+    // &q=isbn:
     // Here is an example of searching for Daniel Keyes' "Flowers for Algernon":
     // GET https://www.googleapis.com/books/v1/volumes?q=flowers+inauthor:keyes&key=yourAPIKey
+
+    params += `&startIndex=${index}`;
+
     const data = await api.findBook(params);
     return data;
   } catch (error) {

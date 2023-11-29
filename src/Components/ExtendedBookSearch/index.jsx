@@ -9,16 +9,14 @@ const ExtendedBookSearch = () => {
 
   return (
     <>
-    <BookSearch/>
+      <BookSearch />
       {bookSearchList.map((bookData) => {
         return (
-          <>
-            <BookDetails
-              key={`book-search-list-${bookData.googleID}`}
-              bookData={bookData}
-              showSnippet={false}
-            />
-          </>
+          <BookDetails
+            key={`book-search-list-${bookData.googleID}`}
+            bookData={bookData}
+            showSnippet={false}
+          />
         );
       })}
     </>

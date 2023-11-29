@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 import { Card, Button, Stack, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -12,7 +12,7 @@ import { useBookshelf } from "../../hooks";
 
 const BookshelfItem = ({ content }) => {
   const { setBookFocus } = useBookshelf();
-  const [mouseover, setMouseover] = useState(false)
+  const [mouseover, setMouseover] = useState(false);
 
   const coverImage = content.coversList.large
     ? content.coversList.large
@@ -24,7 +24,7 @@ const BookshelfItem = ({ content }) => {
     setBookFocus(content);
   };
 
-  const style = { cursor: "pointer", backgroundColor: mouseover? "cyan" : "" }
+  const style = { cursor: "pointer", backgroundColor: mouseover ? "cyan" : "" };
 
   return (
     <Col xs={12} md={6} lg={4} className="d-flex">
@@ -62,24 +62,28 @@ const BookshelfItem = ({ content }) => {
               <Card.Text className="mb-2">By: {content.authorString}</Card.Text>
             )}
           </Card.Body>
-
-     
         </Stack>
       </Card>
       <div
-            className="mx-1 d-flex flex-column align-items-center gap-2 my-3"
-            style={{ maxHeight: "15rem", minHeight: "10rem", position: "relative", top: "0", left: "-1.6rem" }}
-          >
-            <FavoritesIcon bookData={content} />
+        className="mx-1 d-flex flex-column align-items-center gap-2 my-3"
+        style={{
+          maxHeight: "15rem",
+          minHeight: "10rem",
+          position: "relative",
+          top: "0",
+          left: "-1.6rem",
+        }}
+      >
+        <FavoritesIcon bookData={content} />
 
-            <WishListIcon bookData={content} />
+        <WishListIcon bookData={content} />
 
-            <WantToReadIcon bookData={content} />
+        <WantToReadIcon bookData={content} />
 
-            <HaveReadIcon bookData={content} />
+        <HaveReadIcon bookData={content} />
 
-            <TrashIcon bookData={content} />
-          </div>
+        <TrashIcon bookData={content} />
+      </div>
     </Col>
   );
 };
