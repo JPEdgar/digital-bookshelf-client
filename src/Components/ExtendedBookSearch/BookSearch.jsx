@@ -96,6 +96,10 @@ const BookSearch = () => {
     });
   };
 
+  const clearResults = () => {
+    setRes([]);
+  };
+
   // useEffect(() => {
   //   console.log(query);
   // }, [query]);
@@ -177,14 +181,19 @@ const BookSearch = () => {
           />
         </InputGroup>
 
-        <ButtonGroup>
-          <Button onClick={() => clearForm()} variant="warning">
-            Clear
+        <div className="d-flex justify-content-between w-100">
+          <Button onClick={() => clearResults()} variant="danger">
+            Clear Results
           </Button>
-          <Button type="submit" variant="success">
-            Search
-          </Button>
-        </ButtonGroup>
+          <ButtonGroup>
+            <Button onClick={() => clearForm()} variant="warning">
+              Clear
+            </Button>
+            <Button type="submit" variant="success" className="px-4">
+              Search
+            </Button>
+          </ButtonGroup>
+        </div>
       </Form>
       <hr />
       <Row>
