@@ -1,10 +1,11 @@
 import React from "react";
 import { Card, Col } from "react-bootstrap";
 
-import { useUserDetails } from "../../hooks";
+import { useUserDetails, useAuthDetails } from "../../hooks";
 
 const FriendCard = ({ friendInfo }) => {
   const { userDetails } = useUserDetails();
+  const {authDetails} = useAuthDetails()
 
   const isUserFlag = userDetails.userID === friendInfo.userID ? true : false;
   const friendData = userDetails.friendsList.find( (x) => x.friendUserID === friendInfo.userID );
@@ -19,9 +20,9 @@ const FriendCard = ({ friendInfo }) => {
           <Card.Img variant="top" src={friendInfo.avatar} />
           <Card.Body>
             <Card.Title>{friendInfo.handle}</Card.Title>
-            {friendStatus === "friends" && <Card.Text>friends</Card.Text>}
-            {friendStatus === "pending" && <Card.Text>pending</Card.Text>}
-            {!friendStatus && <Card.Text>unfriended</Card.Text>}
+            {friendStatus === "friends" && authDetails.email && <Card.Text>friends</Card.Text>}
+            {friendStatus === "pending" && authDetails.email &&<Card.Text>pending</Card.Text>}
+            {!friendStatus && authDetails.email &&<Card.Text>unfriended</Card.Text>}
           </Card.Body>
         </Card>
       </Col>
