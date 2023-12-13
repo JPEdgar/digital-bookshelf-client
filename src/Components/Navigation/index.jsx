@@ -44,8 +44,7 @@ const Navigation = () => {
                   to="/friends"
                   className="d-flex align-items-center"
                 >
-                  {" "}
-                  <FriendIcon />{" "}
+                  <FriendIcon />
                 </Nav.Link>
               )}
               {location.pathname !== "/friend-search" && <UserSearch />}
