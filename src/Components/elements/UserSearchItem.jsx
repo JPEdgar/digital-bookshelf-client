@@ -1,8 +1,14 @@
 import React from "react";
 
 import { Dropdown, Image, Stack } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
-import { useUserDetails, useUserFriendsList, useAuthDetails, } from "../../hooks";
+import {
+  useUserDetails,
+  useUserFriendsList,
+  useAuthDetails,
+  useFriendDetails,
+} from "../../hooks";
 
 import AddFriendIcon from "./AddFriendIcon";
 import RemoveFriendIcon from "./RemoveFriendIcon";
@@ -13,14 +19,20 @@ const UserSearchItem = ({ userData, setOpenSearchFlag }) => {
   const { getFriendStatus } = useUserFriendsList();
   const { userDetails } = useUserDetails();
   const { authDetails } = useAuthDetails();
+  const { setFriendFocus } = useFriendDetails();
+  const navigate = useNavigate();
 
   const isUserFlag = userData.userID === userDetails.userID ? true : false;
 
   const friendStatus = getFriendStatus(userData.userID);
   if (friendStatus.friendStatus === "blocked") return;
 
-  const handleClick = () => setOpenSearchFlag(false);
-  
+  const handleClick = () => {
+    navigate("/friend-search");
+    setFriendFocus(userData.userID);
+    setOpenSearchFlag(false);
+  };
+
   return (
     <Dropdown.Item
       onClick={() => handleClick()}
@@ -57,38 +69,40 @@ const UserSearchItem = ({ userData, setOpenSearchFlag }) => {
           )}
         </Stack>
 
-        <Stack direction="horizontal" gap={1} className="ms-1">
-          {friendStatus.friendStatus === "pending" &&
-            !friendStatus.requestInboud && (
-              <RemoveFriendIcon
+        {authDetails.email && (
+          <Stack direction="horizontal" gap={1} className="ms-1">
+            {friendStatus.friendStatus === "pending" &&
+              !friendStatus.requestInboud && (
+                <RemoveFriendIcon
+                  userID={userDetails.userID}
+                  friendID={userData.userID}
+                  token={authDetails.token}
+                />
+              )}
+            {friendStatus.friendStatus === "pending" &&
+              friendStatus.requestInboud && (
+                <AcceptFriendIcon
+                  userID={userDetails.userID}
+                  friendID={userData.userID}
+                  token={authDetails.token}
+                />
+              )}
+            {!isUserFlag && !friendStatus.friendStatus && (
+              <AddFriendIcon
                 userID={userDetails.userID}
                 friendID={userData.userID}
                 token={authDetails.token}
               />
             )}
-          {friendStatus.friendStatus === "pending" &&
-            friendStatus.requestInboud && (
-              <AcceptFriendIcon
+            {!isUserFlag && (
+              <BlockUserIcon
                 userID={userDetails.userID}
                 friendID={userData.userID}
                 token={authDetails.token}
               />
             )}
-          {!isUserFlag && !friendStatus.friendStatus && (
-            <AddFriendIcon
-              userID={userDetails.userID}
-              friendID={userData.userID}
-              token={authDetails.token}
-            />
-          )}
-          {!isUserFlag && (
-            <BlockUserIcon
-              userID={userDetails.userID}
-              friendID={userData.userID}
-              token={authDetails.token}
-            />
-          )}
-        </Stack>
+          </Stack>
+        )}
       </Stack>
     </Dropdown.Item>
   );
