@@ -4,6 +4,7 @@ const SHELF_TYPES = {
   ADD_BOOK: "add-book",
   EDIT_FLAGS: "edit-flags",
   REMOVE_BOOKSHELF_ITEM: "remove-bookshelf-item",
+  LOGOUT: "logout"
 };
 
 export default SHELF_TYPES;
