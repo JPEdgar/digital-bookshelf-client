@@ -7,9 +7,10 @@ import WishListIcon from "../elements/WishListIcon";
 import WantToReadIcon from "../elements/WantToReadIcon";
 import HaveReadIcon from "../elements/HaveReadIcon";
 import TrashIcon from "../elements/TrashIcon";
-import { useBookshelf } from "../../hooks";
+import { useBookshelf, useAuthDetails } from "../../hooks";
 
 const Details = () => {
+  const { authDetails } = useAuthDetails();
   const { bookshelf, toggleFavorite, toggleOnBookshelf, isOnBookshelf } =
     useBookshelf();
   const { bookFocus } = bookshelf || null;
@@ -61,15 +62,18 @@ const Details = () => {
               )}
             </Row>
           </div>
-          <div className="d-flex flex-column gap-2">
-            <FavoritesIcon bookData={bookFocus} />
-            <WishListIcon bookData={bookFocus} />
-            <WantToReadIcon bookData={bookFocus} />
-            <HaveReadIcon bookData={bookFocus} />
-            {isOnBookshelf(bookFocus.isbn) && (
-              <TrashIcon bookData={bookFocus} />
-            )}
-          </div>
+
+          {authDetails.email && (
+            <div className="d-flex flex-column gap-2">
+              <FavoritesIcon bookData={bookFocus} />
+              <WishListIcon bookData={bookFocus} />
+              <WantToReadIcon bookData={bookFocus} />
+              <HaveReadIcon bookData={bookFocus} />
+              {isOnBookshelf(bookFocus.isbn) && (
+                <TrashIcon bookData={bookFocus} />
+              )}
+            </div>
+          )}
         </Stack>
         <div>{bookFocus.snippet}</div>
       </>
