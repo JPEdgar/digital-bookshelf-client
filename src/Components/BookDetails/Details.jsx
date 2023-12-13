@@ -4,7 +4,7 @@ import { Card, Stack, Image, Row, Col } from "react-bootstrap";
 
 import FavoritesIcon from "../elements/FavoritesIcon";
 import WishListIcon from "../elements/WishListIcon";
-import WantToReadIcon from "../elements/WantToReadIcon";
+// import WantToReadIcon from "../elements/WantToReadIcon";
 import HaveReadIcon from "../elements/HaveReadIcon";
 import TrashIcon from "../elements/TrashIcon";
 import { useBookshelf, useAuthDetails } from "../../hooks";
@@ -67,7 +67,7 @@ const Details = () => {
             <div className="d-flex flex-column gap-2">
               <FavoritesIcon bookData={bookFocus} />
               <WishListIcon bookData={bookFocus} />
-              <WantToReadIcon bookData={bookFocus} />
+              {/* <WantToReadIcon bookData={bookFocus} /> */}
               <HaveReadIcon bookData={bookFocus} />
               {isOnBookshelf(bookFocus.isbn) && (
                 <TrashIcon bookData={bookFocus} />

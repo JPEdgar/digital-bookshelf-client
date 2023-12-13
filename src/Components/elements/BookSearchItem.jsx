@@ -7,7 +7,7 @@ import { cropString } from "../../utilities";
 import ShowMoreIcon from "./ShowMoreIcon";
 import FavoritesIcon from "./FavoritesIcon";
 import WishListIcon from "./WishListIcon";
-import WantToReadIcon from "./WantToReadIcon";
+// import WantToReadIcon from "./WantToReadIcon";
 import HaveReadIcon from "./HaveReadIcon";
 import TrashIcon from "./TrashIcon";
 
@@ -65,7 +65,7 @@ const BookSearchItem = ({ bookData, setOpenSearchFlag, setSearchMax }) => {
               <>
                 <FavoritesIcon bookData={bookData} />
                 <WishListIcon bookData={bookData} />
-                <WantToReadIcon bookData={bookData} />
+                {/* <WantToReadIcon bookData={bookData} /> */}
                 <HaveReadIcon bookData={bookData} />
                 {isOnBookshelf(bookData.isbn) && (
                   <TrashIcon bookData={bookData} />

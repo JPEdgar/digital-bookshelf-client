@@ -14,7 +14,7 @@ import { cropString } from "../../utilities";
 import ShowMoreIcon from "./ShowMoreIcon";
 import FavoritesIcon from "./FavoritesIcon";
 import WishListIcon from "./WishListIcon";
-import WantToReadIcon from "./WantToReadIcon";
+// import WantToReadIcon from "./WantToReadIcon";
 import HaveReadIcon from "./HaveReadIcon";
 import TrashIcon from "./TrashIcon";
 import FilterIcon from "./FilterIcon";

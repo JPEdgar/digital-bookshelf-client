@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import FavoritesIcon from "../elements/FavoritesIcon";
 import WishListIcon from "../elements/WishListIcon";
-import WantToReadIcon from "../elements/WantToReadIcon";
+// import WantToReadIcon from "../elements/WantToReadIcon";
 import HaveReadIcon from "../elements/HaveReadIcon";
 import TrashIcon from "../elements/TrashIcon";
 import { useBookshelf } from "../../hooks";
@@ -78,7 +78,7 @@ const BookshelfItem = ({ content }) => {
 
         <WishListIcon bookData={content} />
 
-        <WantToReadIcon bookData={content} />
+        {/* <WantToReadIcon bookData={content} /> */}
 
         <HaveReadIcon bookData={content} />
 
