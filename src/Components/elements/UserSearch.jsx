@@ -3,13 +3,14 @@ import React, { useEffect, useState } from "react";
 import { Form, Dropdown, Row, Col, Image, Stack } from "react-bootstrap";
 
 import FilterIcon from "./FilterIcon";
-import UserSearchItem from "./UserSearchItem"
+import UserSearchItem from "./UserSearchItem";
 
 import {
   useFindFriend,
   useUserDetails,
   useUserFriendsList,
-  useAuthDetails, useSearchDetails
+  useAuthDetails,
+  useSearchDetails,
 } from "../../hooks";
 
 import AddFriendIcon from "./AddFriendIcon";
@@ -27,7 +28,8 @@ const UserSearch = () => {
   const { getFriendStatus } = useUserFriendsList();
   const { userDetails } = useUserDetails();
   const { authDetails } = useAuthDetails();
-  const {userSearchList, updateUserSearch, clearUserSearch} = useSearchDetails()
+  const { userSearchList, updateUserSearch, clearUserSearch } =
+    useSearchDetails();
 
   const timeoutDelay = 1000;
 
@@ -43,16 +45,14 @@ const UserSearch = () => {
     if (searchValue) setOpenSearchFlag((curr) => !curr);
   };
 
-
-
   useEffect(() => {
     if (!searchValue.length) {
-      clearUserSearch()
+      clearUserSearch();
       return;
     }
     const timer = setTimeout(async () => {
       const { users } = await findFriend(searchValue);
-      console.log("users = ", users);
+      // console.log("users = ", users);
       updateUserSearch(users);
     }, timeoutDelay);
     return () => clearTimeout(timer);
@@ -72,7 +72,10 @@ const UserSearch = () => {
         onMouseLeave={() => setInDropdownFlag(false)}
         className="d-none d-md-flex"
       >
-        <Form onSubmit={(e) => e.preventDefault()} className="d-flex align-items-center">
+        <Form
+          onSubmit={(e) => e.preventDefault()}
+          className="d-flex align-items-center"
+        >
           <Form.Control
             type="text"
             placeholder="Search for friends"
@@ -80,16 +83,22 @@ const UserSearch = () => {
             value={searchValue}
             onClick={() => toggleShow()}
           />
-          <FilterIcon filterOption="friend-search" setOpenSearchFlag={setOpenSearchFlag}/>
+          <FilterIcon
+            filterOption="friend-search"
+            setOpenSearchFlag={setOpenSearchFlag}
+          />
         </Form>
         <Dropdown.Menu>
           {userSearchList.map((userData, index) => (
             <UserSearchItem
               key={`friend-search-results-${index}`}
-              userData={userData}
+              userData={userData} setOpenSearchFlag={setOpenSearchFlag}
             />
-            ))}
-            <ShowMoreIcon loc="/friend-search" setToggleDropdownFlag={() => setOpenSearchFlag()}/>
+          ))}
+          <ShowMoreIcon
+            loc="/friend-search"
+            setToggleDropdownFlag={() => setOpenSearchFlag()}
+          />
         </Dropdown.Menu>
       </Dropdown>
     </>
