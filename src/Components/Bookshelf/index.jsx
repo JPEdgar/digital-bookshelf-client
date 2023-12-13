@@ -20,12 +20,18 @@ const Bookshelf = () => {
   useEffect(() => {
     setFilteredShelf(
       bookshelf.contents?.filter((book) => {
-        console.log(book.flagsList);
-        // return book;
         if (filterBy.favorites && book.flagsList.isFavoriteFlag) return book;
         if (filterBy.wishlist && book.flagsList.inWishListFlag) return book;
         if (filterBy.wantToRead && book.flagsList.wantToReadFlag) return book;
         if (filterBy.haveRead && book.flagsList.haveReadFlag) return book;
+        if (
+          !filterBy.favorites &&
+          !filterBy.wishlist &&
+          !filterBy.wantToRead &&
+          !filterBy.haveRead
+        )
+          return book;
+        return null;
       })
     );
 
