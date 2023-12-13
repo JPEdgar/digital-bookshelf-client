@@ -29,9 +29,7 @@ const BookshelfProvider = ({ children }) => {
     }
   }, [userDetails]);
 
-  useEffect(() => {
-    console.log("bookshelfState = ", bookshelfState.contents)
-  }, [bookshelfState])
+  // useEffect(() => { console.log("bookshelfState = ", bookshelfState.contents) }, [bookshelfState])
 
   return (
     <BookshelfContext.Provider value={{ bookshelfState, dispatch }}>

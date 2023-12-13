@@ -27,7 +27,7 @@ const UserProvider = ({ children }) => {
     }
   }, []);
 
-  // useEffect(() => console.log("--- context userDetails = ", userDetails), [userDetails])
+  // useEffect(() => console.log("userDetails = ", userDetails), [userDetails])
 
   return (
     <UserContext.Provider value={{ userDetails, dispatch }}>
