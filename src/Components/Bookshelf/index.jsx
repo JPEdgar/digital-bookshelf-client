@@ -1,19 +1,48 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Row } from "react-bootstrap";
 
 import BookshelfItem from "./BookshelfItem";
+import BookshelfMenu from "./BookshelfMenu";
 
 import { useBookshelf } from "../../hooks";
 
 const Bookshelf = () => {
   const { bookshelf } = useBookshelf();
 
+  const [filteredShelf, setFilteredShelf] = useState(bookshelf.contents);
+  const [filterBy, setFilterBy] = useState({
+    favorites: true,
+    wishlist: true,
+    wantToRead: true,
+    haveRead: true,
+  });
+
+  useEffect(() => {
+    setFilteredShelf(
+      bookshelf.contents?.filter((book) => {
+        console.log(book.flagsList);
+        // return book;
+        if (filterBy.favorites && book.flagsList.isFavoriteFlag) return book;
+        if (filterBy.wishlist && book.flagsList.inWishListFlag) return book;
+        if (filterBy.wantToRead && book.flagsList.wantToReadFlag) return book;
+        if (filterBy.haveRead && book.flagsList.haveReadFlag) return book;
+      })
+    );
+
+    console.log(filteredShelf);
+  }, [filterBy, bookshelf]);
+
   return (
-    <Row>
-      {bookshelf?.contents?.map((item) => (
-        <BookshelfItem key={`bookshelf-item-${item._id}`} content={item} />
-      ))}
-    </Row>
+    <>
+      <Row>
+        <BookshelfMenu filterBy={filterBy} setFilterBy={setFilterBy} />
+      </Row>
+      <Row>
+        {filteredShelf?.map((item) => (
+          <BookshelfItem key={`bookshelf-item-${item._id}`} content={item} />
+        ))}
+      </Row>
+    </>
   );
 };
 
