@@ -33,6 +33,8 @@ const bookshelfReducer = (state, action) => {
         (x) => x._id !== action.payload._id
       );
       return { ...state, contents: newContents };
+    case SHELF_TYPES.LOGOUT:
+      return {};
     default:
       console.log("dispatch - else");
       return state;
